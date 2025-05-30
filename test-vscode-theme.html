@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VSCode风格源代码主题测试</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        h1 {
+            color: #569cd6;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .info {
+            color: #ce9178;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        /* VSCode编辑器样式 */
+        .vscode-editor {
+            background: #1e1e1e;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            margin: 20px auto;
+            max-width: 900px;
+        }
+        
+        /* VSCode标题栏 */
+        .vscode-titlebar {
+            background: #2d2d30;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            padding: 0 16px;
+            border-bottom: 1px solid #3e3e42;
+        }
+        
+        .vscode-traffic-lights {
+            display: flex;
+            gap: 8px;
+            margin-right: 16px;
+        }
+        
+        .vscode-light {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+        
+        .vscode-light.red {
+            background: #ff5f57;
+        }
+        
+        .vscode-light.yellow {
+            background: #ffbd2e;
+        }
+        
+        .vscode-light.green {
+            background: #28ca42;
+        }
+        
+        .vscode-title {
+            color: #cccccc;
+            font-size: 13px;
+            font-weight: 400;
+        }
+        
+        /* VSCode编辑器内容区域 */
+        .vscode-editor-content {
+            display: flex;
+            background: #1e1e1e;
+            min-height: 500px;
+        }
+        
+        /* VSCode行号区域 */
+        .vscode-line-numbers {
+            background: #1e1e1e;
+            color: #858585;
+            padding: 16px 8px 16px 16px;
+            font-size: 14px;
+            line-height: 1.6;
+            text-align: right;
+            user-select: none;
+            border-right: 1px solid #3e3e42;
+            min-width: 50px;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Courier New', monospace;
+        }
+        
+        .vscode-line-number {
+            height: 22.4px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        
+        /* VSCode代码内容区域 */
+        .vscode-code-content {
+            flex: 1;
+            overflow-x: auto;
+        }
+        
+        .vscode-code {
+            margin: 0;
+            padding: 16px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #d4d4d4;
+            background: transparent;
+            white-space: pre;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', 'Courier New', monospace;
+        }
+        
+        .vscode-code code {
+            font-family: inherit;
+            background: transparent;
+            color: inherit;
+            padding: 0;
+            border-radius: 0;
+        }
+        
+        /* JSON语法高亮 */
+        .json-key {
+            color: #9cdcfe;
+            font-weight: normal;
+        }
+        
+        .json-string {
+            color: #ce9178;
+        }
+        
+        .json-number {
+            color: #b5cea8;
+        }
+        
+        .json-boolean {
+            color: #569cd6;
+        }
+        
+        .json-null {
+            color: #569cd6;
+        }
+        
+        .json-punctuation {
+            color: #d4d4d4;
+        }
+        
+        .comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 40px;
+        }
+        
+        .comparison-item {
+            background: #2d2d30;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .comparison-title {
+            color: #569cd6;
+            font-size: 16px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .comparison-text {
+            color: #d4d4d4;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        @media (max-width: 768px) {
+            .comparison {
+                grid-template-columns: 1fr;
+            }
+            
+            .vscode-editor {
+                margin: 10px 0;
+            }
+            
+            .vscode-titlebar {
+                height: 30px;
+                padding: 0 12px;
+            }
+            
+            .vscode-traffic-lights {
+                gap: 6px;
+                margin-right: 12px;
+            }
+            
+            .vscode-light {
+                width: 10px;
+                height: 10px;
+            }
+            
+            .vscode-title {
+                font-size: 12px;
+            }
+            
+            .vscode-line-numbers {
+                padding: 12px 6px 12px 12px;
+                font-size: 12px;
+                min-width: 40px;
+            }
+            
+            .vscode-code {
+                padding: 12px;
+                font-size: 12px;
+                line-height: 1.5;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>🎨 VSCode风格源代码主题</h1>
+    <div class="info">这是新的VSCode风格编辑器，完全模拟VSCode的界面和体验</div>
+    
+    <div class="vscode-editor">
+        <!-- VSCode标题栏 -->
+        <div class="vscode-titlebar">
+            <div class="vscode-traffic-lights">
+                <div class="vscode-light red"></div>
+                <div class="vscode-light yellow"></div>
+                <div class="vscode-light green"></div>
+            </div>
+            <div class="vscode-title">resume.json</div>
+        </div>
+        
+        <!-- VSCode编辑器内容 -->
+        <div class="vscode-editor-content">
+            <div class="vscode-line-numbers" id="line-numbers">
+                <!-- 行号将通过JavaScript生成 -->
+            </div>
+            <div class="vscode-code-content">
+                <pre class="vscode-code"><code id="json-content"></code></pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="comparison">
+        <div class="comparison-item">
+            <div class="comparison-title">✨ 新特性</div>
+            <div class="comparison-text">
+                • 完整的VSCode界面模拟<br>
+                • macOS风格的交通灯按钮<br>
+                • 真实的行号显示<br>
+                • 专业的代码编辑器体验<br>
+                • 完美的语法高亮<br>
+                • 响应式设计支持
+            </div>
+        </div>
+        <div class="comparison-item">
+            <div class="comparison-title">🎯 使用场景</div>
+            <div class="comparison-text">
+                • 开发者查看JSON结构<br>
+                • 代码审查和分享<br>
+                • 技术文档展示<br>
+                • 教学和演示<br>
+                • 专业的代码展示<br>
+                • 打印友好的格式
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 模拟简历数据
+        const resumeData = {
+            "personal": {
+                "name": "张三",
+                "title": "前端开发工程师",
+                "avatar": "https://example.com/avatar.jpg",
+                "contact": {
+                    "email": "zhangsan@example.com",
+                    "phone": "+86 138-0013-8000",
+                    "location": "北京市朝阳区",
+                    "website": "https://zhangsan.dev",
+                    "github": "https://github.com/zhangsan"
+                },
+                "summary": "拥有5年前端开发经验的工程师，专注于Vue.js生态系统和现代Web技术。"
+            },
+            "experience": [
+                {
+                    "id": "exp1",
+                    "company": "字节跳动",
+                    "position": "高级前端开发工程师",
+                    "startDate": "2021-03",
+                    "current": true,
+                    "description": "负责公司核心产品的前端开发工作，参与架构设计和技术选型。",
+                    "achievements": [
+                        "主导重构了用户管理系统，性能提升40%",
+                        "建立了前端代码规范和CI/CD流程"
+                    ],
+                    "technologies": ["Vue 3", "TypeScript", "Vite", "Element Plus"]
+                }
+            ],
+            "skills": [
+                {
+                    "id": "skill1",
+                    "name": "Vue.js",
+                    "level": 90,
+                    "category": "前端框架"
+                },
+                {
+                    "id": "skill2",
+                    "name": "TypeScript",
+                    "level": 85,
+                    "category": "编程语言"
+                }
+            ],
+            "theme": {
+                "name": "source",
+                "isDark": false
+            }
+        };
+
+        function highlightJson(jsonString) {
+            return jsonString
+                // 高亮键名
+                .replace(/(".*?")(\s*:\s*)/g, '<span class="json-key">$1</span><span class="json-punctuation">$2</span>')
+                // 高亮字符串值
+                .replace(/:\s*(".*?")/g, ': <span class="json-string">$1</span>')
+                // 高亮数字
+                .replace(/:\s*(\d+\.?\d*)/g, ': <span class="json-number">$1</span>')
+                // 高亮布尔值
+                .replace(/:\s*(true|false)/g, ': <span class="json-boolean">$1</span>')
+                // 高亮null
+                .replace(/:\s*(null)/g, ': <span class="json-null">$1</span>')
+                // 高亮标点符号
+                .replace(/([{}[\],])/g, '<span class="json-punctuation">$1</span>');
+        }
+
+        // 渲染JSON和行号
+        const jsonString = JSON.stringify(resumeData, null, 2);
+        const lines = jsonString.split('\n');
+        
+        // 生成行号
+        const lineNumbersContainer = document.getElementById('line-numbers');
+        lines.forEach((line, index) => {
+            const lineNumber = document.createElement('div');
+            lineNumber.className = 'vscode-line-number';
+            lineNumber.textContent = index + 1;
+            lineNumbersContainer.appendChild(lineNumber);
+        });
+        
+        // 渲染高亮的JSON
+        const highlightedJson = highlightJson(jsonString);
+        document.getElementById('json-content').innerHTML = highlightedJson;
+    </script>
+</body>
+</html> 

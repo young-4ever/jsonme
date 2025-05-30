@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎨 创意主题动画效果展示</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #f8fafc, #e2e8f0);
+            color: #333;
+            padding: 20px;
+            margin: 0;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+        
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, #3b82f6, #06b6d4, #8b5cf6);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientShift 3s ease-in-out infinite, titlePulse 2s ease-in-out infinite;
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+        
+        .demo-section {
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            animation: cardFloat 6s ease-in-out infinite;
+        }
+        
+        .demo-section:nth-child(even) {
+            animation-delay: -3s;
+        }
+        
+        .demo-section h2 {
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            position: relative;
+        }
+        
+        .demo-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, #3b82f6, #06b6d4, #8b5cf6);
+            border-radius: 2px;
+            animation: gradientShift 3s ease-in-out infinite;
+        }
+        
+        /* 动画演示区域 */
+        .animation-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .demo-card {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(239, 246, 255, 0.8));
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .demo-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.05), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .demo-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.15);
+        }
+        
+        .demo-card:hover::before {
+            opacity: 1;
+        }
+        
+        .demo-card h3 {
+            color: #1f2937;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+        
+        /* 技能条演示 */
+        .skill-demo {
+            margin: 1rem 0;
+        }
+        
+        .skill-bar {
+            background: linear-gradient(90deg, #e5e7eb, #f3f4f6);
+            border-radius: 10px;
+            height: 12px;
+            overflow: hidden;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #3b82f6, #06b6d4, #8b5cf6);
+            background-size: 200% 100%;
+            border-radius: 10px;
+            animation: progressGlow 3s ease-in-out infinite, gradientShift 4s ease-in-out infinite;
+            position: relative;
+        }
+        
+        .skill-progress::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: shimmer 2s ease-in-out infinite;
+        }
+        
+        /* 标签演示 */
+        .tag-demo {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+        
+        .demo-tag {
+            background: linear-gradient(45deg, #3b82f6, #06b6d4);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            animation: tagFloat 4s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .demo-tag:nth-child(even) {
+            animation-delay: -2s;
+        }
+        
+        .demo-tag::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+        }
+        
+        .demo-tag:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+        }
+        
+        .demo-tag:hover::before {
+            left: 100%;
+        }
+        
+        /* 背景装饰 */
+        .decorations {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        .decoration-circle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            animation: circleFloat 15s ease-in-out infinite;
+        }
+        
+        .decoration-circle-1 {
+            width: 200px;
+            height: 200px;
+            top: 10%;
+            right: 10%;
+            animation-delay: 0s;
+        }
+        
+        .decoration-circle-2 {
+            width: 150px;
+            height: 150px;
+            bottom: 20%;
+            left: 5%;
+            animation-delay: -5s;
+        }
+        
+        .decoration-circle-3 {
+            width: 100px;
+            height: 100px;
+            top: 50%;
+            left: 80%;
+            animation-delay: -10s;
+        }
+        
+        /* 布局演示 */
+        .layout-demo {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .layout-left {
+            animation: slideInFromLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        
+        .layout-right {
+            animation: slideInFromRight 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        
+        /* 动画关键帧 */
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        @keyframes titlePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+        }
+        
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        @keyframes tagFloat {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-2px) rotate(1deg); }
+            66% { transform: translateY(1px) rotate(-1deg); }
+        }
+        
+        @keyframes progressGlow {
+            0%, 100% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.3); }
+            50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.6), 0 0 30px rgba(139, 92, 246, 0.4); }
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        @keyframes circleFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+            33% { transform: translate(20px, -20px) scale(1.1); opacity: 0.5; }
+            66% { transform: translate(-15px, 15px) scale(0.9); opacity: 0.4; }
+        }
+        
+        @keyframes slideInFromLeft {
+            0% { opacity: 0; transform: translateX(-50px) scale(0.95); }
+            60% { opacity: 0.8; transform: translateX(5px) scale(1.02); }
+            100% { opacity: 1; transform: translateX(0) scale(1); }
+        }
+        
+        @keyframes slideInFromRight {
+            0% { opacity: 0; transform: translateX(50px) scale(0.95); }
+            60% { opacity: 0.8; transform: translateX(-5px) scale(1.02); }
+            100% { opacity: 1; transform: translateX(0) scale(1); }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .layout-demo {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .decoration-circle {
+                display: none;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .feature-list li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-left: 2rem;
+        }
+        
+        .feature-list li::before {
+            content: '✨';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+        }
+        
+        .cta {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+            border-radius: 20px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, #3b82f6, #06b6d4);
+            color: white;
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <!-- 背景装饰 -->
+    <div class="decorations">
+        <div class="decoration-circle decoration-circle-1"></div>
+        <div class="decoration-circle decoration-circle-2"></div>
+        <div class="decoration-circle decoration-circle-3"></div>
+    </div>
+
+    <div class="container">
+        <h1>🎨 创意主题全新动画效果</h1>
+        
+        <div class="intro">
+            <h2>✨ 全面升级的创意主题</h2>
+            <p>我们为创意主题设计了全新的动画效果和特殊布局，包含丰富的视觉动画、交错式布局和现代化的设计元素。</p>
+        </div>
+
+        <div class="demo-section">
+            <h2>🌟 核心动画效果</h2>
+            <div class="animation-demo">
+                <div class="demo-card">
+                    <h3>渐变标题动画</h3>
+                    <p>标题采用三色渐变背景，配合脉冲和渐变移动动画，营造动态视觉效果。</p>
+                    <div style="font-size: 1.2rem; font-weight: bold; background: linear-gradient(45deg, #3b82f6, #06b6d4, #8b5cf6); background-size: 200% 200%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: gradientShift 3s ease-in-out infinite;">
+                        示例标题效果
+                    </div>
+                </div>
+                
+                <div class="demo-card">
+                    <h3>卡片悬浮动画</h3>
+                    <p>所有卡片都具有轻微的上下浮动效果，鼠标悬停时会有放大和阴影变化。</p>
+                    <div style="padding: 1rem; background: rgba(59, 130, 246, 0.1); border-radius: 10px; animation: cardFloat 6s ease-in-out infinite;">
+                        悬浮卡片示例
+                    </div>
+                </div>
+                
+                <div class="demo-card">
+                    <h3>技能条发光效果</h3>
+                    <p>技能进度条具有渐变背景、发光效果和光泽动画。</p>
+                    <div class="skill-demo">
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 85%;"></div>
+                        </div>
+                        <div class="skill-bar">
+                            <div class="skill-progress" style="width: 70%;"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="demo-card">
+                    <h3>技术标签动画</h3>
+                    <p>技术标签具有浮动动画和鼠标悬停时的光泽扫过效果。</p>
+                    <div class="tag-demo">
+                        <span class="demo-tag">Vue.js</span>
+                        <span class="demo-tag">TypeScript</span>
+                        <span class="demo-tag">CSS3</span>
+                        <span class="demo-tag">动画</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>📐 特殊布局设计</h2>
+            <div class="layout-demo">
+                <div class="layout-left demo-card">
+                    <h3>左侧列内容</h3>
+                    <p>技能专长和教育背景放置在左侧，采用从左侧滑入的动画效果。</p>
+                    <ul class="feature-list">
+                        <li>技能专长展示</li>
+                        <li>教育背景信息</li>
+                        <li>从左侧滑入动画</li>
+                    </ul>
+                </div>
+                
+                <div class="layout-right demo-card">
+                    <h3>右侧列内容</h3>
+                    <p>工作经历和项目经历放置在右侧，采用从右侧滑入的动画效果。</p>
+                    <ul class="feature-list">
+                        <li>工作经历展示</li>
+                        <li>项目经历信息</li>
+                        <li>从右侧滑入动画</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>🎯 视觉特效</h2>
+            <div class="animation-demo">
+                <div class="demo-card">
+                    <h3>背景动态装饰</h3>
+                    <p>页面背景包含多个浮动的装饰圆圈，营造动态的视觉层次。</p>
+                </div>
+                
+                <div class="demo-card">
+                    <h3>毛玻璃效果</h3>
+                    <p>所有卡片都采用毛玻璃背景效果，增强现代感和层次感。</p>
+                </div>
+                
+                <div class="demo-card">
+                    <h3>渐变边框</h3>
+                    <p>个人信息卡片顶部具有动态渐变边框，突出重要内容。</p>
+                </div>
+                
+                <div class="demo-card">
+                    <h3>响应式动画</h3>
+                    <p>在移动端会自动调整布局和动画效果，确保最佳体验。</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>🚀 技术特性</h2>
+            <div class="animation-demo">
+                <div class="demo-card">
+                    <h3>CSS3 动画</h3>
+                    <ul class="feature-list">
+                        <li>关键帧动画</li>
+                        <li>贝塞尔曲线缓动</li>
+                        <li>GPU 硬件加速</li>
+                        <li>性能优化</li>
+                    </ul>
+                </div>
+                
+                <div class="demo-card">
+                    <h3>现代布局</h3>
+                    <ul class="feature-list">
+                        <li>CSS Grid 布局</li>
+                        <li>Flexbox 对齐</li>
+                        <li>响应式设计</li>
+                        <li>移动端优化</li>
+                    </ul>
+                </div>
+                
+                <div class="demo-card">
+                    <h3>视觉效果</h3>
+                    <ul class="feature-list">
+                        <li>毛玻璃背景</li>
+                        <li>渐变色彩</li>
+                        <li>阴影层次</li>
+                        <li>动态装饰</li>
+                    </ul>
+                </div>
+                
+                <div class="demo-card">
+                    <h3>交互体验</h3>
+                    <ul class="feature-list">
+                        <li>悬停反馈</li>
+                        <li>平滑过渡</li>
+                        <li>视觉引导</li>
+                        <li>用户友好</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta">
+            <h2>🎉 立即体验新的创意主题</h2>
+            <p>访问主应用，切换到创意主题，感受全新的动画效果和布局设计！</p>
+            <a href="http://localhost:5174" class="cta-button">
+                🚀 访问主应用
+            </a>
+        </div>
+    </div>
+</body>
+</html> 

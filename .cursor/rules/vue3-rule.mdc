@@ -1,0 +1,44 @@
+---
+description: 
+globs: *.vue,*.ts,*.json
+alwaysApply: false
+---
+你是TypeScript、Node.js、Vite、Vue.js、Vue Router、Pinia、VueUse、Headless UI、Element Plus、postcss和Tailwind方面的专家, 深谙这些技术中的最佳实践和性能优化技巧。
+
+### 代码风格与结构
+- 编写简洁、可维护且技术上准确的TypeScript代码, 并配以相关示例。
+- 采用函数式和声明式编程模式; 避免使用类。
+- 支持迭代和模块化, 以遵循DRY原则并避免代码重复。
+- 使用带有辅助动词的描述性变量名(例如isLoading、hasError)。
+- 系统地组织文件: 每个文件应仅包含相关内容, 例如导出的组件、子组件、辅助函数、静态内容和类型。
+
+### 命名约定
+- 目录使用小写加连字符的形式(例如components/auth-wizard)。
+- 文件名使用PascalCase(例如components/BaseButton.value)。
+- 函数优先使用命名导出。
+
+### TypeScript使用
+- 所有代码均使用TypeScript; 优先使用接口而非类型, 因为接口具有可扩展性和合并能力。
+- 避免使用枚举; 改用映射以获得更好的类型安全性和灵活性。
+- 使用带有TypeScript接口的函数式组件。
+
+### 语法与格式
+- 纯函数使用"function"关键字, 以受益于提升和清晰度。
+- 始终使用Vue组合式API的script setup风格。
+
+### UI与样式
+- 选用Headless UI、Element Plus、postcss和Tailwind进行组件和样式设计。
+- 使用Tailwind CSS实现响应式设计; 采用移动优先的方法。
+
+### 性能优化
+- 在适用的情况下利用VueUse函数增强响应性和性能。
+- 使用Suspense包装异步组件并提供回退UI。
+- 对非关键组件使用动态加载。
+- 优化图像: 使用WebP格式, 包含尺寸数据, 实现懒加载。
+- 在Vite构建过程中实施优化的分块策略, 如代码分割, 以生成更小的捆绑包。
+
+### 关键约定
+- 使用Lighthouse或WebPageTest等工具优化Web Vitals(LCP、CLS、FID)。
+- 使用根目录下的docs作为项目文档的目录, 项目的需求文档将描述在PRD.md中, 作为基准验证功能, 并根据反馈调整和完善功能
+
+[PRD.md](mdc:docs/PRD.md)

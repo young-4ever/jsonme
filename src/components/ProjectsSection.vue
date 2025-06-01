@@ -1,6 +1,6 @@
 <template>
   <section class="mb-8">
-    <h2 class="section-title">项目经历</h2>
+    <h2 class="section-title">个人项目</h2>
     
     <!-- 科技主题的JSON显示 -->
     <div v-if="isTechTheme" class="space-y-6">
@@ -27,7 +27,7 @@
       <div
         v-for="project in sortedProjects"
         :key="project.id"
-        class="card print-avoid-break hover:shadow-md transition-shadow duration-200"
+        class="card print-avoid-break transition-shadow duration-200"
       >
         <!-- 项目图片 -->
         <div v-if="project.image" class="mb-4">

@@ -55,8 +55,8 @@ const professionalTheme: Theme = {
       primary: '#1f2937',
       secondary: '#6b7280',
       accent: '#059669',
-      background: '#ffffff',
-      surface: '#f9fafb',
+      background: '#e8e6e0',
+      surface: '#ffffff',
       text: '#111827',
       textSecondary: '#6b7280'
     },
@@ -64,8 +64,8 @@ const professionalTheme: Theme = {
       primary: '#f3f4f6',
       secondary: '#9ca3af',
       accent: '#10b981',
-      background: '#111827',
-      surface: '#1f2937',
+      background: '#0f0f0f',
+      surface: '#2a2a2a',
       text: '#f9fafb',
       textSecondary: '#d1d5db'
     }
@@ -166,5 +166,5 @@ export const getThemeByName = (name: string): Theme | undefined => {
 }
 
 export const getDefaultTheme = (): Theme => {
-  return professionalTheme
+  return minimalistTheme
 } 

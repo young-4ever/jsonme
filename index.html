@@ -41,6 +41,39 @@
     }
     </script>
     
+    <!-- 深色模式检测脚本 - 避免白色闪光 -->
+    <script>
+    (function() {
+      // 深色模式优先级：
+      // 1. 用户手动设置 (localStorage)
+      // 2. 系统自动检测
+      function detectAndApplyDarkMode() {
+        const savedDarkMode = localStorage.getItem('jsonme-dark-mode');
+        let isDarkMode = false;
+        
+        if (savedDarkMode !== null) {
+          // 使用用户手动设置
+          isDarkMode = savedDarkMode === 'true';
+        } else {
+          // 自动检测系统深色模式偏好
+          if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            isDarkMode = true;
+          }
+        }
+        
+        // 立即应用深色模式class
+        if (isDarkMode) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      }
+      
+      // 立即执行检测
+      detectAndApplyDarkMode();
+    })();
+    </script>
+    
     <title>JsonMe - 基于JSON的个人简历</title>
   </head>
   <body>

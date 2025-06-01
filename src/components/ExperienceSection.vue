@@ -27,7 +27,7 @@
       <div
         v-for="exp in sortedExperience"
         :key="exp.id"
-        class="card print-avoid-break hover:shadow-md transition-shadow duration-200"
+        class="card print-avoid-break transition-shadow duration-200"
       >
         <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
           <div class="flex-1">
@@ -44,9 +44,23 @@
           </div>
         </div>
         
-        <p class="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
-          {{ exp.description }}
-        </p>
+        <!-- 工作内容 -->
+        <div class="mb-4">
+          <h5 class="font-medium text-gray-900 dark:text-white mb-2">工作内容：</h5>
+          <div class="text-gray-700 dark:text-gray-300 leading-relaxed">
+            <!-- 如果是字符串 -->
+            <p v-if="typeof exp.description === 'string'">
+              {{ exp.description }}
+            </p>
+            
+            <!-- 如果是数组 -->
+            <ul v-else-if="Array.isArray(exp.description)" class="list-disc list-inside space-y-1">
+              <li v-for="(desc, index) in exp.description" :key="index">
+                {{ desc }}
+              </li>
+            </ul>
+          </div>
+        </div>
         
         <!-- 主要成就 -->
         <div v-if="exp.achievements && exp.achievements.length > 0" class="mb-4">

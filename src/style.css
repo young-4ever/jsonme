@@ -61,11 +61,84 @@
   .theme-professional {
     font-size: 0.875rem;
     line-height: 1.25;
+    /* A4纸张背景效果 - 更深的桌面背景 */
+    background: linear-gradient(135deg, #e8e6e0 0%, #d4d1c7 100%);
+    min-height: 100vh;
+    position: relative;
   }
   
+  /* A4纸张容器效果 */
   .theme-professional .container {
     max-width: 56rem;
-    padding: 1rem 1.5rem;
+    padding: 2rem 3rem;
+    margin: 0 auto;
+    background: #ffffff;
+    box-shadow: 
+      0 0 0 1px rgba(0, 0, 0, 0.08),
+      0 4px 6px -1px rgba(0, 0, 0, 0.15),
+      0 10px 15px -3px rgba(0, 0, 0, 0.15),
+      0 20px 25px -5px rgba(0, 0, 0, 0.15);
+    border-radius: 3px;
+    position: relative;
+    /* A4纸张比例 */
+    min-height: calc(100vh - 4rem);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  /* 深色模式下的A4效果 */
+  .theme-professional.dark {
+    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+  }
+  
+  .theme-professional.dark .container {
+    background: #2a2a2a;
+    box-shadow: 
+      0 0 0 1px rgba(255, 255, 255, 0.12),
+      0 4px 6px -1px rgba(0, 0, 0, 0.4),
+      0 10px 15px -3px rgba(0, 0, 0, 0.4),
+      0 20px 25px -5px rgba(0, 0, 0, 0.4);
+  }
+  
+  /* 纸张纹理效果 */
+  .theme-professional .container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(circle at 1px 1px, rgba(0,0,0,0.03) 1px, transparent 0);
+    background-size: 15px 15px;
+    pointer-events: none;
+    border-radius: 3px;
+  }
+  
+  .theme-professional.dark .container::before {
+    background-image: 
+      radial-gradient(circle at 1px 1px, rgba(255,255,255,0.03) 1px, transparent 0);
+  }
+  
+  /* 响应式调整 */
+  @media (max-width: 768px) {
+    .theme-professional .container {
+      margin: 1rem;
+      padding: 1.5rem 2rem;
+      min-height: calc(100vh - 2rem);
+      box-shadow: 
+        0 0 0 1px rgba(0, 0, 0, 0.08),
+        0 2px 4px -1px rgba(0, 0, 0, 0.12),
+        0 4px 6px -1px rgba(0, 0, 0, 0.12);
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .theme-professional .container {
+      margin: 0.5rem;
+      padding: 1rem 1.5rem;
+      border-radius: 2px;
+    }
   }
   
   .theme-professional .section-title {
@@ -100,7 +173,7 @@
     border: none;
     border-radius: 0;
     box-shadow: none;
-    padding: 0.5rem 0;
+    padding: 1rem;
     margin-bottom: 0.5rem;
   }
   
@@ -109,7 +182,7 @@
   }
   
   /* 个人信息卡片特殊样式 */
-  .theme-professional .card:first-child {
+  .theme-professional section-enter:first-child .card {
     border: none;
     padding: 0.75rem 0;
     margin-bottom: 1.5rem;
@@ -1679,9 +1752,7 @@
   .space-y-4 > * + * {
     margin-top: 6pt !important;
   }
-  
-
-  
+   
   .mb-8 {
     margin-bottom: 12pt !important;
   }
@@ -1697,7 +1768,7 @@
   .mb-2 {
     margin-bottom: 4pt !important;
   }
-  
+   
      /* 响应式网格在打印时的处理 */
    .grid-cols-1,
    .lg\\:grid-cols-2 {

@@ -1,58 +1,46 @@
 {
   "personal": {
-    "name": "张三",
+    "name": "Young-4ever",
     "title": "前端开发工程师",
-    "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+    "avatar": "https://avatars.githubusercontent.com/u/49544565?v=4&size=64",
     "contact": {
-      "email": "zhangsan@example.com",
-      "phone": "+86 138-0013-8000",
-      "location": "北京市朝阳区",
-      "website": "https://zhangsan.dev",
-      "github": "https://github.com/zhangsan",
-      "linkedin": "https://linkedin.com/in/zhangsan"
+      "email": "oliverstack@qq.com",
+      "phone": "***",
+      "location": "深圳福田区",
+      "website": "https://young-4ever.github.io/jsonme/",
+      "github": "https://github.com/young-4ever"
     },
-    "summary": "拥有5年前端开发经验的工程师，专注于Vue.js生态系统和现代Web技术。热衷于创建用户友好的界面和优化用户体验，具备扎实的JavaScript基础和丰富的项目实战经验。"
+    "summary": "3年前端开发经验的工程师，专注于Vue.js生态系统和现代Web技术。熟悉营销活动、组件中台的前端建设，致力于创建用户友好的界面和优化用户体验，具备扎实的JavaScript基础和丰富的项目实战经验。"
   },
-  "experience": [
-    {
-      "id": "exp1",
-      "company": "字节跳动",
-      "position": "高级前端开发工程师",
-      "startDate": "2021-03",
-      "current": true,
-      "description": "负责公司核心产品的前端开发工作，参与架构设计和技术选型。",
-      "achievements": [
-        "主导重构了用户管理系统，性能提升40%",
-        "建立了前端代码规范和CI/CD流程",
-        "指导3名初级开发者，提升团队整体技术水平"
-      ],
-      "technologies": ["Vue 3", "TypeScript", "Vite", "Element Plus", "Pinia"]
-    },
-    {
-      "id": "exp2",
-      "company": "腾讯",
-      "position": "前端开发工程师",
-      "startDate": "2019-06",
-      "endDate": "2021-02",
-      "description": "参与微信小程序和H5项目的开发，负责用户界面实现和性能优化。",
-      "achievements": [
-        "开发了多个高访问量的H5活动页面",
-        "优化小程序首屏加载时间，提升50%",
-        "参与组件库的设计和开发"
-      ],
-      "technologies": ["Vue 2", "JavaScript", "微信小程序", "Sass", "Webpack"]
-    }
-  ],
   "education": [
     {
       "id": "edu1",
-      "school": "北京理工大学",
+      "school": "华南农业大学",
       "degree": "学士",
-      "major": "计算机科学与技术",
-      "startDate": "2015-09",
-      "endDate": "2019-06",
-      "gpa": "3.8/4.0",
-      "description": "主修计算机科学基础课程，参与多个校内技术项目。"
+      "major": "信息管理与信息系统",
+      "startDate": "2018-09",
+      "endDate": "2022-06",
+      "gpa": "3.5/4.0 | top 30%",
+      "description": "主修管理信息系统，计算机网络，WEB开发技术等，参与多个校内技术项目。"
+    }
+  ],
+  "experience": [
+    {
+      "id": "exp1",
+      "company": "中国平安财产保险股份有限公司",
+      "position": "前端开发工程师",
+      "startDate": "2022-07",
+      "current": true,
+      "description": [
+        "负责好车主活动核心业务——“活动搭建平台”的前端架构设计与开发",
+        "参与好车主APP重大营销活动（518、双十一、车主年报等）的前端开发与上线"
+      ],
+      "achievements": [
+        "作为前端负责人，统筹规划中台系统的前端功能迭代与优化",
+        "参与中台系统MVP版本的前端架构设计与开发，确保系统稳定上线",
+        "设计并实现跨框架组件注册机制，覆盖服务保险、推荐、内容等核心业务线"
+      ],
+      "technologies": ["Vue 3", "Svelte", "TypeScript", "Element Plus"]
     }
   ],
   "skills": [
@@ -126,7 +114,6 @@
     }
   ],
   "theme": {
-    "name": "professional",
-    "isDark": false
+    "name": "professionalTheme"
   }
 } 

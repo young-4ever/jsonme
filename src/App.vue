@@ -1,5 +1,9 @@
 <template>
-  <div class="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+  <div class="min-h-screen transition-colors duration-300" :class="[
+    currentThemeName === 'professional' ? '' : 'bg-gray-50 dark:bg-gray-900',
+    `theme-${currentThemeName}`,
+    { 'dark': isDarkMode }
+  ]">
     <!-- 加载状态 -->
     <div v-if="isLoading" class="flex items-center justify-center min-h-screen">
       <div class="text-center">
@@ -24,7 +28,9 @@
     </div>
 
     <!-- 主要内容 -->
-    <div v-else-if="resumeData" class="container mx-auto px-4 py-8 max-w-4xl page-enter" :class="`theme-${currentThemeName}`">
+    <div v-else-if="resumeData" class="page-enter" :class="[
+      currentThemeName === 'professional' ? '' : 'container mx-auto px-4 py-8 max-w-4xl'
+    ]">
       <!-- 顶部工具栏 -->
       <div class="fixed top-4 right-4 z-50 no-print">
         <div class="flex gap-2">
@@ -84,49 +90,38 @@
         </div>
 
         <!-- 个人信息 - 特殊样式 -->
-        <div class="section-enter creative-hero">
-          <PersonalInfo :personal="resumeData.personal" />
-        </div>
-
-        <!-- 主要内容区域 - 交错布局 -->
-        <div class="creative-content-grid">
-          <!-- 左侧列 -->
-          <div class="creative-left-column">
-            <!-- 技能专长 -->
-            <div class="section-enter creative-section-left">
-              <SkillsSection 
-                v-if="resumeData.skills.length > 0" 
-                :skills="resumeData.skills" 
-              />
-            </div>
-
-            <!-- 教育背景 -->
-            <div class="section-enter creative-section-left">
-              <EducationSection 
-                v-if="resumeData.education.length > 0" 
-                :education="resumeData.education" 
-              />
-            </div>
-          </div>
-
-          <!-- 右侧列 -->
-          <div class="creative-right-column">
-            <!-- 工作经历 -->
-            <div class="section-enter creative-section-right">
-              <ExperienceSection 
-                v-if="resumeData.experience.length > 0" 
-                :experience="resumeData.experience" 
-              />
-            </div>
-          </div>
-        </div>
-
-        <!-- 项目经历 - 独立全宽区域 -->
-        <div class="section-enter creative-projects-full">
-          <ProjectsSection 
-            v-if="resumeData.projects.length > 0" 
-            :projects="resumeData.projects" 
+        <div v-if="creativeOrderedSections.personal" class="section-enter creative-hero">
+          <component
+            :is="componentMap[creativeOrderedSections.personal.component]"
+            v-bind="creativeOrderedSections.personal.props"
           />
+        </div>
+
+        <!-- 主要内容区域 - 动态布局 -->
+        <div class="creative-content-grid">
+          <!-- 动态渲染其他组件 -->
+          <div
+            v-for="(section, index) in creativeOrderedSections.others"
+            :key="section.key"
+            :class="{
+              'creative-left-column': index % 2 === 0,
+              'creative-right-column': index % 2 === 1,
+              'creative-projects-full': section.key === 'projects'
+            }"
+          >
+            <div
+              :class="{
+                'section-enter creative-section-left': index % 2 === 0,
+                'section-enter creative-section-right': index % 2 === 1,
+                'section-enter creative-projects-full': section.key === 'projects'
+              }"
+            >
+              <component
+                :is="componentMap[section.component]"
+                v-bind="section.props"
+              />
+            </div>
+          </div>
         </div>
 
         <!-- 创意主题页脚 -->
@@ -142,47 +137,45 @@
 
       <!-- 其他主题：使用标准布局 -->
       <template v-else>
-        <!-- 个人信息 -->
-        <div class="section-enter">
-          <PersonalInfo :personal="resumeData.personal" />
+        <!-- 专业主题：使用特殊容器 -->
+        <div v-if="currentThemeName === 'professional'" class="container">
+          <!-- 动态渲染各个section -->
+          <div
+            v-for="section in orderedSections"
+            :key="section.key"
+            class="section-enter"
+          >
+            <component
+              :is="componentMap[section.component]"
+              v-bind="section.props"
+            />
+          </div>
+
+          <!-- 页脚 -->
+          <footer class="mt-12 text-center text-gray-500 dark:text-gray-400 text-sm no-print">
+            <p>由 <a href="https://github.com/jsonme" class="text-primary-600 dark:text-primary-400 hover:underline">JsonMe</a> 生成</p>
+          </footer>
         </div>
 
-        <!-- 工作经历 -->
-        <div class="section-enter">
-          <ExperienceSection 
-            v-if="resumeData.experience.length > 0" 
-            :experience="resumeData.experience" 
-          />
-        </div>
+        <!-- 其他主题：标准容器 -->
+        <div v-else class="container mx-auto px-4 py-8 max-w-4xl">
+          <!-- 动态渲染各个section -->
+          <div
+            v-for="section in orderedSections"
+            :key="section.key"
+            class="section-enter"
+          >
+            <component
+              :is="componentMap[section.component]"
+              v-bind="section.props"
+            />
+          </div>
 
-        <!-- 技能专长 -->
-        <div class="section-enter">
-          <SkillsSection 
-            v-if="resumeData.skills.length > 0" 
-            :skills="resumeData.skills" 
-          />
+          <!-- 页脚 -->
+          <footer class="mt-12 text-center text-gray-500 dark:text-gray-400 text-sm no-print">
+            <p>由 <a href="https://github.com/jsonme" class="text-primary-600 dark:text-primary-400 hover:underline">JsonMe</a> 生成</p>
+          </footer>
         </div>
-
-        <!-- 项目经历 -->
-        <div class="section-enter">
-          <ProjectsSection 
-            v-if="resumeData.projects.length > 0" 
-            :projects="resumeData.projects" 
-          />
-        </div>
-
-        <!-- 教育背景 -->
-        <div class="section-enter">
-          <EducationSection 
-            v-if="resumeData.education.length > 0" 
-            :education="resumeData.education" 
-          />
-        </div>
-
-        <!-- 页脚 -->
-        <footer class="mt-12 text-center text-gray-500 dark:text-gray-400 text-sm no-print">
-          <p>由 <a href="https://github.com/jsonme" class="text-primary-600 dark:text-primary-400 hover:underline">JsonMe</a> 生成</p>
-        </footer>
       </template>
     </div>
   </div>
@@ -202,10 +195,139 @@ const resumeData = ref(null)
 const isLoading = ref(false)
 const error = ref(null)
 const isDarkMode = ref(false)
-const currentThemeName = ref('professional')
+const currentThemeName = ref('minimalist')
 
 // 提供主题名称给子组件
 provide('currentThemeName', currentThemeName)
+
+// 动态组件排序逻辑
+const orderedSections = computed(() => {
+  if (!resumeData.value) return []
+  
+  const sections = []
+  const data = resumeData.value
+  
+  // 获取JSON中字段的顺序（除了theme字段）
+  const fieldsOrder = Object.keys(data).filter(key => key !== 'theme')
+  
+  fieldsOrder.forEach(field => {
+    switch (field) {
+      case 'personal':
+        sections.push({
+          key: 'personal',
+          component: 'PersonalInfo',
+          props: { personal: data.personal },
+          condition: true
+        })
+        break
+      case 'experience':
+        sections.push({
+          key: 'experience',
+          component: 'ExperienceSection',
+          props: { experience: data.experience },
+          condition: data.experience && data.experience.length > 0
+        })
+        break
+      case 'skills':
+        sections.push({
+          key: 'skills',
+          component: 'SkillsSection',
+          props: { skills: data.skills },
+          condition: data.skills && data.skills.length > 0
+        })
+        break
+      case 'projects':
+        sections.push({
+          key: 'projects',
+          component: 'ProjectsSection',
+          props: { projects: data.projects },
+          condition: data.projects && data.projects.length > 0
+        })
+        break
+      case 'education':
+        sections.push({
+          key: 'education',
+          component: 'EducationSection',
+          props: { education: data.education },
+          condition: data.education && data.education.length > 0
+        })
+        break
+    }
+  })
+  
+  // 只返回满足条件的sections
+  return sections.filter(section => section.condition)
+})
+
+// 组件映射
+const componentMap = {
+  PersonalInfo,
+  ExperienceSection,
+  SkillsSection,
+  ProjectsSection,
+  EducationSection
+}
+
+// 创意主题的动态排序逻辑
+const creativeOrderedSections = computed(() => {
+  if (!resumeData.value) return { personal: null, others: [] }
+  
+  const data = resumeData.value
+  const fieldsOrder = Object.keys(data).filter(key => key !== 'theme')
+  
+  let personal = null
+  const others = []
+  
+  fieldsOrder.forEach(field => {
+    switch (field) {
+      case 'personal':
+        personal = {
+          key: 'personal',
+          component: 'PersonalInfo',
+          props: { personal: data.personal }
+        }
+        break
+      case 'experience':
+        if (data.experience && data.experience.length > 0) {
+          others.push({
+            key: 'experience',
+            component: 'ExperienceSection',
+            props: { experience: data.experience }
+          })
+        }
+        break
+      case 'skills':
+        if (data.skills && data.skills.length > 0) {
+          others.push({
+            key: 'skills',
+            component: 'SkillsSection',
+            props: { skills: data.skills }
+          })
+        }
+        break
+      case 'projects':
+        if (data.projects && data.projects.length > 0) {
+          others.push({
+            key: 'projects',
+            component: 'ProjectsSection',
+            props: { projects: data.projects }
+          })
+        }
+        break
+      case 'education':
+        if (data.education && data.education.length > 0) {
+          others.push({
+            key: 'education',
+            component: 'EducationSection',
+            props: { education: data.education }
+          })
+        }
+        break
+    }
+  })
+  
+  return { personal, others }
+})
 
 // 源代码主题的JSON处理
 const jsonLines = computed(() => {
@@ -293,12 +415,15 @@ function initializeTheme(themeConfig) {
     currentThemeName.value = themeConfig.name
   }
   
-  // 页面刷新时总是重新自动检测系统主题
-  // 清除之前保存的手动设置
-  localStorage.removeItem('jsonme-dark-mode')
-  
-  // 检查JSON配置中的设置
-  if (themeConfig?.isDark !== undefined) {
+  // 深色模式优先级：
+  // 1. 用户手动设置 (localStorage)
+  // 2. JSON配置文件设置
+  // 3. 系统自动检测
+  const savedDarkMode = localStorage.getItem('jsonme-dark-mode')
+  if (savedDarkMode !== null) {
+    // 使用用户手动设置
+    isDarkMode.value = savedDarkMode === 'true'
+  } else if (themeConfig?.isDark !== undefined) {
     // 使用JSON配置中的设置
     isDarkMode.value = themeConfig.isDark
   } else {
@@ -403,63 +528,22 @@ function handlePrint() {
   window.print()
 }
 
-// 强制滚动到顶部的函数
-function forceScrollToTop() {
-  // 立即滚动到顶部，使用多种方法确保兼容性
-  window.scrollTo(0, 0)
-  document.documentElement.scrollTop = 0
-  document.body.scrollTop = 0
-  
-  // 强制重置滚动位置
-  if (window.pageYOffset !== 0) {
-    window.scrollTo(0, 0)
-  }
-}
-
-// 页面加载时立即执行滚动重置
-if (typeof window !== 'undefined') {
-  // 在脚本执行时立即重置滚动位置
-  window.scrollTo(0, 0)
-  document.documentElement.scrollTop = 0
-  document.body.scrollTop = 0
-}
-
 // 页面可见性变化处理
 function handleVisibilityChange() {
-  if (!document.hidden) {
-    // 页面变为可见时强制滚动到顶部
-    forceScrollToTop()
-  }
-}
-
-// 页面刷新/重新加载处理
-function handleBeforeUnload() {
-  // 页面卸载前重置滚动位置
-  window.scrollTo(0, 0)
+  // 移除自动滚动到顶部，避免干扰用户操作
+  // 特别是打印对话框关闭时的体验
 }
 
 onMounted(async () => {
-  // 页面加载时立即强制滚动到顶部
-  forceScrollToTop()
-  
   // 加载数据
   await loadData()
   
-  // 数据加载完成后再次确保在顶部
-  setTimeout(() => {
-    forceScrollToTop()
-  }, 100)
-  
   // 监听页面可见性变化
   document.addEventListener('visibilitychange', handleVisibilityChange)
-  
-  // 监听页面刷新/重新加载
-  window.addEventListener('beforeunload', handleBeforeUnload)
 })
 
 onUnmounted(() => {
   // 清理事件监听器
   document.removeEventListener('visibilitychange', handleVisibilityChange)
-  window.removeEventListener('beforeunload', handleBeforeUnload)
 })
 </script> 

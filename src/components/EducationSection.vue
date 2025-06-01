@@ -27,7 +27,7 @@
       <div
         v-for="edu in education"
         :key="edu.id"
-        class="card print-avoid-break hover:shadow-md transition-shadow duration-200"
+        class="card print-avoid-break transition-shadow duration-200"
       >
         <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-3">
           <div class="flex-1">

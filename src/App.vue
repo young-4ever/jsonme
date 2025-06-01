@@ -265,7 +265,7 @@ async function loadData() {
   error.value = null
   
   try {
-    const response = await fetch('/resume.json')
+    const response = await fetch(`${import.meta.env.BASE_URL}resume.json`)
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`)
     }
@@ -399,13 +399,9 @@ function applyTheme() {
   root.style.setProperty('--color-text-secondary', colors.textSecondary)
 }
 
-
-
 function handlePrint() {
   window.print()
 }
-
-
 
 // 强制滚动到顶部的函数
 function forceScrollToTop() {

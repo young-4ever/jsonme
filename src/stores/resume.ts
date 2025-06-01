@@ -56,7 +56,7 @@ export const useResumeStore = defineStore('resume', () => {
   })
 
   // 方法
-  async function loadResumeData(url: string = '/resume.json') {
+  async function loadResumeData(url: string = `${import.meta.env.BASE_URL}resume.json`) {
     isLoading.value = true
     error.value = null
     

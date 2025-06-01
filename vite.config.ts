@@ -6,6 +6,8 @@ import { resolve } from 'path'
 export default defineConfig(({ command, mode }) => {
   const isDev = command === 'serve'
   const isProd = command === 'build' && mode === 'production'
+  console.log('🚀 isProd:', isProd);
+  
   return {
     plugins: [vue()],
     base: isProd ? '/jsonme/' : '/',

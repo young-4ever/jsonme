@@ -5,7 +5,7 @@ import { resolve } from 'path'
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
   const isDev = command === 'serve'
-  const isProd = mode === 'production'
+  const isProd = command === 'build' && mode === 'production'
   
   return {
     plugins: [vue()],
@@ -23,6 +23,7 @@ export default defineConfig(({ command, mode }) => {
       outDir: 'dist',
       assetsDir: 'assets',
       sourcemap: false,
+      minify: true,
       rollupOptions: {
         output: {
           manualChunks: {

@@ -148,8 +148,8 @@
             <component
               :is="componentMap[section.component]"
               v-bind="section.props"
-            />
-          </div>
+          />
+        </div>
 
           <!-- 页脚 -->
           <footer class="mt-12 text-center text-gray-500 dark:text-gray-400 text-sm no-print">
@@ -168,13 +168,13 @@
             <component
               :is="componentMap[section.component]"
               v-bind="section.props"
-            />
-          </div>
+          />
+        </div>
 
-          <!-- 页脚 -->
-          <footer class="mt-12 text-center text-gray-500 dark:text-gray-400 text-sm no-print">
-            <p>由 <a href="https://github.com/jsonme" class="text-primary-600 dark:text-primary-400 hover:underline">JsonMe</a> 生成</p>
-          </footer>
+        <!-- 页脚 -->
+        <footer class="mt-12 text-center text-gray-500 dark:text-gray-400 text-sm no-print">
+          <p>由 <a href="https://github.com/jsonme" class="text-primary-600 dark:text-primary-400 hover:underline">JsonMe</a> 生成</p>
+        </footer>
         </div>
       </template>
     </div>
@@ -419,7 +419,7 @@ function initializeTheme(themeConfig) {
   // 1. 用户手动设置 (localStorage)
   // 2. JSON配置文件设置
   // 3. 系统自动检测
-  const savedDarkMode = localStorage.getItem('jsonme-dark-mode')
+  const savedDarkMode = sessionStorage.getItem('jsonme-dark-mode')
   if (savedDarkMode !== null) {
     // 使用用户手动设置
     isDarkMode.value = savedDarkMode === 'true'
@@ -452,7 +452,7 @@ function setupSystemThemeListener() {
     // 监听系统主题变化
     const handleSystemThemeChange = (e) => {
       // 检查是否有手动设置的主题
-      const savedTheme = localStorage.getItem('jsonme-dark-mode')
+      const savedTheme = sessionStorage.getItem('jsonme-dark-mode')
       if (savedTheme === null) {
         // 没有手动设置时，自动跟随系统
         isDarkMode.value = e.matches
@@ -486,7 +486,7 @@ function toggleDarkMode() {
   isDarkMode.value = !isDarkMode.value
   
   // 保存当前手动设置（页面刷新后会被清除）
-  localStorage.setItem('jsonme-dark-mode', isDarkMode.value.toString())
+  sessionStorage.setItem('jsonme-dark-mode', isDarkMode.value.toString())
   
   applyTheme()
 }

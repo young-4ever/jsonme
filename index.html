@@ -48,7 +48,7 @@
       // 1. 用户手动设置 (localStorage)
       // 2. 系统自动检测
       function detectAndApplyDarkMode() {
-        const savedDarkMode = localStorage.getItem('jsonme-dark-mode');
+        const savedDarkMode = sessionStorage.getItem('jsonme-dark-mode');
         let isDarkMode = false;
         
         if (savedDarkMode !== null) {

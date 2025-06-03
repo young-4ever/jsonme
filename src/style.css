@@ -3,6 +3,13 @@
 @tailwind utilities;
 
 @layer base {
+  html, body {
+    @apply h-full min-h-full bg-gray-50;
+  }
+  html.dark, body.dark {
+    @apply bg-gray-900;
+  }
+  
   html {
     scroll-behavior: smooth;
     /* 防止浏览器记住滚动位置，每次刷新都从顶部开始 */
@@ -88,7 +95,7 @@
   
   /* 深色模式下的A4效果 */
   .theme-professional.dark {
-    background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+    @apply bg-gray-900;
   }
   
   .theme-professional.dark .container {
@@ -136,12 +143,13 @@
   @media (max-width: 480px) {
     .theme-professional .container {
       margin: 0.5rem;
-      padding: 1rem 1.5rem;
+    padding: 1rem 1.5rem;
       border-radius: 2px;
     }
   }
   
   .theme-professional .section-title {
+    width: 100%;
     font-size: 16px;
     line-height: 1.2;
     font-weight: 700;
@@ -152,8 +160,25 @@
     padding: 0;
     text-transform: uppercase;
     letter-spacing: 0.025em;
-    border-bottom: 2px solid var(--color-primary);
+    border-bottom: 1px dashed var(--color-primary);
     padding-bottom: 0.25rem;
+    /* 横线宽度100%，左右留边距 */
+    display: block;
+    position: relative;
+  }
+  
+  .theme-professional .section-title::after {
+    display: block;
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    width: calc(100% - 2rem);
+    margin: 0 auto;
+    background: var(--color-primary);
+    border-radius: 1px;
   }
   
   .theme-professional .section-title:first-child {
@@ -326,7 +351,7 @@
   }
   
   .theme-professional .skills-list {
-    gap: 0.75rem;
+    gap: 1rem 2rem;
   }
   
   .theme-professional .skill-category {
@@ -334,7 +359,6 @@
     border: none;
     border-radius: 0;
     padding: 0.5rem 0;
-    margin-bottom: 0.75rem;
   }
   
   .theme-professional.dark .skill-category {
@@ -1752,7 +1776,7 @@
   .space-y-4 > * + * {
     margin-top: 6pt !important;
   }
-   
+  
   .mb-8 {
     margin-bottom: 12pt !important;
   }
@@ -1768,7 +1792,7 @@
   .mb-2 {
     margin-bottom: 4pt !important;
   }
-   
+  
      /* 响应式网格在打印时的处理 */
    .grid-cols-1,
    .lg\\:grid-cols-2 {

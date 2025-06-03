@@ -156,13 +156,13 @@ function toggleDarkMode() {
 }
 
 function getThemeStatusText() {
-  const savedTheme = localStorage.getItem('jsonme-dark-mode')
+  const savedTheme = sessionStorage.getItem('jsonme-dark-mode')
   const isSystemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
   
   if (savedTheme === null) {
     return `自动检测 (${isSystemDark ? '深色' : '浅色'})`
   } else {
-    return `手动模式 (刷新页面恢复自动检测)`
+    return `手动模式 (关闭标签页重置)`
   }
 }
 

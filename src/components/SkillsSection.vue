@@ -17,7 +17,7 @@
       <div
         v-for="(skills, category) in skillsByCategory"
         :key="category"
-        class="skill-category mb-6"
+        class="skill-category"
       >
         <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
           {{ category }}

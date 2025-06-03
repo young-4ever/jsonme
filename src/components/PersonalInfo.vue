@@ -23,7 +23,7 @@
       </div>
       
       <!-- 基本信息 -->
-      <div class="flex-1 text-center md:text-left">
+      <div class="flex-1 text-center md:text-left mr-16">
         <h1 class="text-4xl font-bold text-gray-900 dark:text-white mb-2">
           {{ personal.name }}
         </h1>
@@ -90,7 +90,7 @@
         </div>
         
         <!-- 个人简介 -->
-        <p class="text-gray-700 dark:text-gray-300 leading-relaxed text-balance">
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed text-left whitespace-pre-wrap">
           {{ personal.summary }}
         </p>
       </div>

@@ -76,6 +76,7 @@
   
   /* A4纸张容器效果 */
   .theme-professional .container {
+    width: auto;
     max-width: 56rem;
     padding: 2rem 3rem;
     margin: 0 auto;
@@ -2315,3 +2316,69 @@
      font-size: 7pt !important;
    }
 } 
+
+/* 移动端优化样式 - 修复边距和居中问题 */
+@media (max-width: 768px) {
+  /* 修复容器左右边距不一致问题 */
+  .min-h-screen .page-enter {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  /* 确保创意主题容器在移动端有相等的左右边距 */
+  .theme-creative .container {
+    margin-left: 1rem !important;
+    margin-right: 1rem !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  /* 个人信息卡片移动端居中优化 */
+  .card .contact-grid {
+    justify-items: center !important;
+  }
+  
+  /* 联系方式在移动端完全居中 */
+  .contact-grid .contact-link {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+  
+  /* 确保md:text-left在移动端被覆盖为居中 */
+  .card .md\:text-left {
+    text-align: center !important;
+  }
+  
+  /* 确保个人简介在移动端居中 */
+  .card p {
+    text-align: center !important;
+  }
+  
+  /* 确保标题在移动端居中 */
+  .card h1,
+  .card h2 {
+    text-align: center !important;
+  }
+  
+  /* 头像在移动端居中 */
+  .card .flex-shrink-0 {
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* 小屏设备进一步优化边距 */
+  .min-h-screen .page-enter {
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+  
+  .theme-creative .container {
+    margin-left: 0.5rem !important;
+    margin-right: 0.5rem !important;
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+}

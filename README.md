@@ -6,7 +6,69 @@ JsonMe是一个基于Vue 3 + TypeScript的现代化个人简历网站生成器�
 
 ## 🌟 核心特性展示
 
-### 1. JSON驱动的内容管理
+### 1. JSON文件上传功能 ✨
+```
+🔹 拖拽或点击上传JSON简历文件
+🔹 智能选择最佳上传方式
+🔹 Base64 URL编码（小文件，推荐）
+🔹 免费GitHub Gist服务（内置Token）
+🔹 自定义GitHub Token支持
+🔹 生成专属的JsonMe链接
+🔹 支持二维码分享
+🔹 永久保存，随时访问
+```
+
+**上传方式说明：**
+
+#### 🚀 URL编码方式（推荐）
+- **适用**: 文件小于8KB的JSON
+- **优点**: 即时生成，无需外部服务，永不失效
+- **原理**: 将JSON数据Base64编码后放入URL参数
+- **链接格式**: `https://domain.com/jsonme/?data=base64encodeddata`
+
+#### 🆓 免费Gist服务（新功能）
+- **适用**: 任何大小的JSON文件
+- **优点**: 无需GitHub账号，免费使用
+- **限制**: 每小时10次上传（可配置）
+- **原理**: 使用内置GitHub Token上传到公开Gist
+- **链接格式**: `https://domain.com/jsonme/?gist=gist_raw_url`
+
+#### 🎫 一次性分享链接（新功能）
+- **适用**: 需要分享上传权限给他人
+- **优点**: 安全可控，一次性使用
+- **特点**: 24小时有效期，使用后立即失效
+- **生成**: 在上传页面点击"生成分享链接"
+- **链接格式**: `https://domain.com/jsonme/?upload&upload_token=ott_xxx`
+
+#### 🔑 自定义GitHub Token
+- **适用**: 需要频繁上传或大量使用
+- **优点**: 无使用限制，完全控制
+- **要求**: 需要GitHub账号和Token
+- **权限**: 只需`gist`权限
+- **链接格式**: `https://domain.com/jsonme/?gist=gist_raw_url`
+
+**使用方法：**
+1. 访问网站首页，点击"上传JSON文件"
+2. 拖拽或选择你的JSON简历文件  
+3. 系统自动选择最佳上传方式
+4. 对于Gist方式，可选择提供GitHub Token
+5. 预览数据无误后点击"生成链接"
+6. 获得专属链接，可分享给他人查看
+
+**生成分享链接：**
+1. 在上传页面点击"生成分享链接"
+2. 复制生成的一次性上传链接
+3. 分享给需要上传JSON的人员
+4. 对方通过链接可免费上传一次
+5. 链接使用后自动失效（24小时内有效）
+
+**GitHub Token获取方法：**
+1. 访问 [GitHub Token设置](https://github.com/settings/tokens)
+2. 点击"Generate new token (classic)"
+3. 只需勾选 `gist` 权限
+4. 复制生成的token到上传页面
+
+### 2. JSON驱动的内容管理
 ```json
 {
   "personal": {
@@ -17,17 +79,17 @@ JsonMe是一个基于Vue 3 + TypeScript的现代化个人简历网站生成器�
 }
 ```
 
-### 2. 响应式设计
+### 3. 响应式设计
 - 📱 移动端优化
 - 💻 桌面端完整体验
 - 📱 平板适配
 
-### 3. 深色模式支持
+### 4. 深色模式支持
 - 🌙 一键切换深色/浅色主题
 - 🎨 自动适配系统主题
 - 💾 记住用户偏好
 
-### 4. 打印优化
+### 5. 打印优化
 - 🖨️ A4纸张格式优化
 - 📄 专业的打印样式
 - 🔍 自动调整布局
@@ -41,15 +103,172 @@ JsonMe
 ├── Vite (快速构建)
 ├── Tailwind CSS (样式框架)
 ├── Pinia (状态管理)
+├── GitHub Gist API (文件存储)
 └── GitHub Pages (部署)
 ```
 
+## 🚀 快速开始
+
+### 方式一：上传JSON文件（推荐）
+1. 访问 [JsonMe在线版](https://young-4ever.github.io/jsonme/)
+2. 点击"上传JSON文件"
+3. 选择你的JSON简历文件
+4. 选择上传方式：
+   - **免费服务**: 无需账号，每小时10次
+   - **自定义Token**: 无限制使用
+   - **URL编码**: 小文件即时生成
+5. 获得专属分享链接
+
+### 方式二：本地开发
+```bash
+# 克隆项目
+git clone https://github.com/young-4ever/jsonme.git
+cd jsonme
+
+# 安装依赖
+npm install
+
+# 配置环境变量（可选，启用默认Gist服务）
+cp env.example .env
+# 编辑 .env 文件，添加你的GitHub Token
+
+# 启动开发服务器
+npm run dev
+
+# 访问 http://localhost:5173
+```
+
+### 方式三：Fork部署
+```bash
+# 1. Fork这个仓库到你的GitHub账号
+# 2. 修改 public/resume.json 文件
+# 3. 可选：在GitHub Secrets中配置环境变量
+#    - VITE_DEFAULT_GITHUB_TOKEN: 你的GitHub Token
+#    - VITE_DEFAULT_TOKEN_RATE_LIMIT: 速率限制（默认10）
+# 4. 开启GitHub Pages
+# 5. 访问 https://你的用户名.github.io/jsonme/
+```
+
+## 📝 JSON配置格式
+
+### 完整配置示例
+```json
+{
+  "personal": {
+    "name": "你的姓名",
+    "title": "你的职位",
+    "avatar": "头像URL（可选）",
+    "contact": {
+      "email": "your@email.com",
+      "phone": "138-0000-0000",
+      "location": "所在城市",
+      "website": "个人网站",
+      "github": "GitHub链接",
+      "linkedin": "LinkedIn链接"
+    },
+    "summary": "个人简介"
+  },
+  "experience": [
+    {
+      "id": "exp1",
+      "company": "公司名称",
+      "position": "职位名称",
+      "startDate": "2022-01",
+      "endDate": "2023-12",
+      "current": false,
+      "description": ["工作描述1", "工作描述2"],
+      "achievements": ["主要成就1", "主要成就2"],
+      "technologies": ["技术栈1", "技术栈2"]
+    }
+  ],
+  "education": [
+    {
+      "id": "edu1",
+      "school": "学校名称",
+      "degree": "学位",
+      "major": "专业",
+      "startDate": "2018-09",
+      "endDate": "2022-06",
+      "gpa": "3.8/4.0",
+      "description": "额外描述"
+    }
+  ],
+  "skills": [
+    {
+      "id": "skill1",
+      "name": "技能名称",
+      "level": 90,
+      "category": "技能分类"
+    }
+  ],
+  "projects": [
+    {
+      "id": "proj1",
+      "name": "项目名称",
+      "description": "项目描述",
+      "technologies": ["技术栈"],
+      "startDate": "2023-01",
+      "endDate": "2023-06",
+      "current": false,
+      "url": "项目链接",
+      "github": "GitHub链接",
+      "highlights": ["项目亮点1", "项目亮点2"]
+    }
+  ],
+  "theme": {
+    "name": "主题名称"
+  }
+}
+```
+
+### 支持的主题
+- `professional` - 专业主题
+- `minimalist` - 极简主题
+- `creative` - 创意主题
+- `source` - 源代码主题
+- `tech` - 科技主题
+
 ## 🎨 界面预览
 
-### 主页面布局
+### 欢迎页面
 ```
 ┌─────────────────────────────────┐
-│ 🌙 ☀️ 🖨️                      │ 工具栏
+│           JsonMe Logo           │
+│     JSON驱动的简历生成器         │
+├─────────────────────────────────┤
+│  [📤 上传JSON文件] [👀 查看示例]  │
+├─────────────────────────────────┤
+│         特性展示区域             │
+│    • 多主题支持                 │
+│    • 响应式设计                 │
+│    • 快速部署                   │
+└─────────────────────────────────┘
+```
+
+### 上传页面
+```
+┌─────────────────────────────────┐
+│ [← 返回]  JsonMe 文件上传        │
+├─────────────────────────────────┤
+│  ┌─────────────────────────────┐ │
+│  │     拖拽上传区域             │ │
+│  │   点击或拖拽JSON文件到这里    │ │
+│  └─────────────────────────────┘ │
+├─────────────────────────────────┤
+│         数据预览区域             │
+│     [上传并生成链接]             │
+├─────────────────────────────────┤
+│        生成结果展示              │
+│   • 专属链接                    │
+│   • 二维码                      │
+│   • 操作按钮                    │
+└─────────────────────────────────┘
+```
+
+### 简历展示页面
+```
+┌─────────────────────────────────┐
+│ 🌙 📤 🖨️                       │ 工具栏
 ├─────────────────────────────────┤
 │ 👤 个人信息区域                  │
 │ • 头像、姓名、职位               │
@@ -76,55 +295,21 @@ JsonMe
 └─────────────────────────────────┘
 ```
 
-## 🚀 快速体验
+## 📡 API接口
 
-### 本地运行
-```bash
-# 克隆项目
-git clone https://github.com/your-username/jsonme.git
-cd jsonme
+### 支持的URL参数
 
-# 安装依赖
-npm install
+- `?gist=<gist_raw_url>` - 从GitHub Gist加载简历数据
+- `?upload` - 直接跳转到上传页面
 
-# 启动开发服务器
-npm run dev
-
-# 访问 http://localhost:5173
+**示例：**
 ```
+# 从Gist加载
+https://your-domain.com/jsonme/?gist=https://gist.githubusercontent.com/...
 
-### 在线演示
-- 🌐 [在线预览](https://your-username.github.io/jsonme/)
-- 📱 [移动端预览](https://your-username.github.io/jsonme/)
-
-## 📝 配置示例
-
-### 最小配置
-```json
-{
-  "personal": {
-    "name": "你的姓名",
-    "title": "你的职位",
-    "contact": {
-      "email": "your@email.com"
-    },
-    "summary": "简短的个人介绍"
-  },
-  "experience": [],
-  "education": [],
-  "skills": [],
-  "projects": [],
-  "theme": {
-    "name": "professional",
-    "colors": {
-      "primary": "#3b82f6"
-    }
-  }
-}
+# 跳转上传页面
+https://your-domain.com/jsonme/?upload
 ```
-
-### 完整配置
-参考 `public/resume.json` 文件中的示例配置。
 
 ## 🎯 使用场景
 
@@ -143,12 +328,18 @@ npm run dev
 - ✅ 研究项目展示
 - ✅ 学术成就记录
 
+### 4. 快速分享
+- ✅ 上传JSON生成链接
+- ✅ 二维码扫码访问
+- ✅ 社交媒体分享
+
 ## 🔧 自定义选项
 
 ### 主题颜色
 ```json
 {
   "theme": {
+    "name": "professional",
     "colors": {
       "primary": "#your-color",
       "secondary": "#your-color",
@@ -191,143 +382,43 @@ npm run dev
 - ⚡ 快速加载和渲染
 - 💾 离线缓存支持
 
+## 🔒 隐私和安全
+
+- 🔸 所有上传的JSON文件存储在GitHub Gist（公开）
+- 🔸 不收集任何个人隐私信息
+- 🔸 不使用Cookies或本地存储追踪
+- 🔸 完全开源，代码透明
+
+## 🤝 贡献指南
+
+欢迎提交Issue和Pull Request！
+
+### 开发流程
+```bash
+# 1. Fork项目
+# 2. 创建功能分支
+git checkout -b feature/your-feature
+
+# 3. 提交更改
+git commit -m "Add your feature"
+
+# 4. 推送分支
+git push origin feature/your-feature
+
+# 5. 创建Pull Request
+```
+
+## 📄 许可证
+
+MIT License - 详见 [LICENSE](./LICENSE) 文件
+
 ## 🎓 学习资源
 
-- 📖 [详细使用指南](./USAGE.md)
-- 🎯 [PRD需求文档](./PRD.md)
-- 💻 [源码解析](../src/)
-- 🤝 [贡献指南](../CONTRIBUTING.md)
-
-## 🚀 部署选项
-
-### GitHub Pages
-- ✅ 免费托管
-- ✅ 自动部署
-- ✅ 自定义域名
-
-### 其他平台
-- Netlify
-- Vercel
-- 阿里云OSS
-- 腾讯云COS
-
-## 📞 获取帮助
-
-- 🐛 [提交Bug](https://github.com/your-username/jsonme/issues)
-- 💡 [功能建议](https://github.com/your-username/jsonme/discussions)
-- 📧 [邮件联系](mailto:your@email.com)
-- 💬 [在线讨论](https://github.com/your-username/jsonme/discussions)
+- 📖 [详细使用指南](./docs/USAGE.md)
+- 🎯 [PRD需求文档](./docs/PRD.md)
+- 💻 [源码解析](./src/)
+- 🤝 [贡献指南](./CONTRIBUTING.md)
 
 ---
 
-**开始创建你的专业简历吧！** 🚀 
-
-# 多主题功能演示
-
-## 🎨 主题切换演示
-
-JsonMe 现在支持4种精美的预设主题，每种主题都有独特的设计风格和配色方案。
-
-### 主题预览
-
-#### 1. 简约主题 (Minimalist)
-- **设计理念**: 简洁清爽，注重内容本身
-- **主色调**: 蓝色系 (#2563eb)
-- **适用场景**: 追求简洁美观的用户
-- **特点**: 清晰的层次结构，充足的留白
-
-#### 2. 专业主题 (Professional) - 默认
-- **设计理念**: 商务专业，正式严谨
-- **主色调**: 灰色系 (#1f2937)
-- **适用场景**: 商务场合和正式求职
-- **特点**: 稳重的配色，专业的视觉效果
-
-#### 3. 创意主题 (Creative)
-- **设计理念**: 富有创意，个性鲜明
-- **主色调**: 紫色系 (#7c3aed)
-- **适用场景**: 设计师、创意工作者
-- **特点**: 活泼的配色，创新的视觉体验
-
-#### 4. 科技主题 (Tech)
-- **设计理念**: 现代科技，未来感强
-- **主色调**: 青色系 (#0ea5e9)
-- **适用场景**: 技术从业者
-- **特点**: 科技感的配色，现代化的设计
-
-## 🌙 深色模式支持
-
-每个主题都完美支持深色模式：
-
-- **自动检测**: 跟随系统深色模式设置
-- **手动切换**: 用户可以手动切换深色/浅色模式
-- **偏好记忆**: 自动保存用户的选择偏好
-- **实时切换**: 无需刷新页面即可切换
-
-## 🚀 如何体验
-
-### 在线体验
-1. 访问演示网站：[JsonMe Demo](https://your-username.github.io/jsonme)
-2. 点击右上角的 🎨 主题按钮
-3. 选择不同的主题查看效果
-4. 尝试切换深色/浅色模式
-
-### 本地体验
-```bash
-# 克隆项目
-git clone https://github.com/your-username/jsonme.git
-cd jsonme
-
-# 安装依赖
-npm install
-
-# 启动开发服务器
-npm run dev
-
-# 访问 http://localhost:5173
-```
-
-## 💡 使用技巧
-
-### 1. 选择合适的主题
-- **求职场景**: 推荐使用专业主题
-- **个人展示**: 可以选择简约或创意主题
-- **技术岗位**: 科技主题更符合行业特色
-
-### 2. 深色模式建议
-- **白天使用**: 浅色模式更适合阅读
-- **夜间使用**: 深色模式减少眼部疲劳
-- **打印输出**: 自动使用浅色模式以节省墨水
-
-### 3. 主题一致性
-- 选择一个主题后建议保持使用
-- 确保个人品牌的一致性
-- 考虑目标受众的偏好
-
-## 🔧 技术实现
-
-### 主题系统架构
-- **主题配置**: TypeScript类型安全的主题定义
-- **动态切换**: 实时CSS变量更新
-- **状态管理**: localStorage持久化存储
-- **响应式**: 所有主题都支持响应式设计
-
-### 性能优化
-- **零延迟切换**: 主题切换无需重新加载
-- **内存友好**: 高效的状态管理
-- **打包优化**: 主题配置按需加载
-
-## 📱 兼容性
-
-- ✅ Chrome 90+
-- ✅ Firefox 88+
-- ✅ Safari 14+
-- ✅ Edge 90+
-- ✅ 移动端浏览器
-
-## 🎯 未来规划
-
-- [ ] 更多预设主题
-- [ ] 主题编辑器
-- [ ] 主题分享功能
-- [ ] 自定义字体支持
-- [ ] 动画效果配置 
+**Made with ❤️ by [JsonMe Team](https://github.com/young-4ever)** 

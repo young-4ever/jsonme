@@ -1,0 +1,119 @@
+{
+  "personal": {
+    "name": "yang-4ever",
+    "title": "前端开发工程师",
+    "avatar": "https://young-4ever.github.io/jsonme/avatar.jpg",
+    "contact": {
+      "email": "oliverstack@qq.com",
+      "phone": "***",
+      "location": "深圳福田区",
+      "website": "https://young-4ever.github.io/jsonme/",
+      "github": "https://github.com/young-4ever"
+    },
+    "summary": "3年前端开发经验的工程师，专注于Vue.js生态系统和现代Web技术。熟悉营销活动、组件中台的前端建设，致力于创建用户友好的界面和优化用户体验，具备扎实的JavaScript基础和丰富的项目实战经验。"
+  },
+  "education": [
+    {
+      "id": "edu1",
+      "school": "华南农业大学",
+      "degree": "学士",
+      "major": "信息管理与信息系统",
+      "startDate": "2018-09",
+      "endDate": "2022-06",
+      "gpa": "3.5/4.0 | top 30%",
+      "description": "主修管理信息系统，计算机网络，WEB开发技术等，参与多个校内技术项目。"
+    }
+  ],
+  "experience": [
+    {
+      "id": "exp1",
+      "company": "中国平安财产保险股份有限公司",
+      "position": "前端开发工程师",
+      "startDate": "2022-07",
+      "current": true,
+      "description": [
+        "负责好车主活动核心业务——“活动搭建平台”的前端架构设计与开发",
+        "参与好车主APP重大营销活动（518、双十一、车主年报等）的前端开发与上线"
+      ],
+      "achievements": [
+        "作为前端负责人，统筹规划中台系统的前端功能迭代与优化",
+        "参与中台系统MVP版本的前端架构设计与开发，确保系统稳定上线",
+        "设计并实现跨框架组件注册机制，覆盖服务保险、推荐、内容等核心业务线"
+      ],
+      "technologies": ["Vue 3", "Svelte", "TypeScript", "Element Plus"]
+    }
+  ],
+  "skills": [
+    {
+      "id": "skill1",
+      "name": "Vue.js",
+      "level": 90,
+      "category": "前端框架"
+    },
+    {
+      "id": "skill2",
+      "name": "TypeScript",
+      "level": 85,
+      "category": "编程语言"
+    },
+    {
+      "id": "skill3",
+      "name": "JavaScript",
+      "level": 95,
+      "category": "编程语言"
+    },
+    {
+      "id": "skill4",
+      "name": "React",
+      "level": 75,
+      "category": "前端框架"
+    },
+    {
+      "id": "skill5",
+      "name": "Node.js",
+      "level": 70,
+      "category": "后端技术"
+    },
+    {
+      "id": "skill6",
+      "name": "Tailwind CSS",
+      "level": 80,
+      "category": "样式框架"
+    }
+  ],
+  "projects": [
+    {
+      "id": "proj1",
+      "name": "企业级管理系统",
+      "description": "基于Vue 3和TypeScript开发的企业级后台管理系统，支持权限管理、数据可视化等功能。",
+      "technologies": ["Vue 3", "TypeScript", "Element Plus", "ECharts", "Vite"],
+      "startDate": "2022-01",
+      "endDate": "2022-06",
+      "url": "https://admin.example.com",
+      "github": "https://github.com/zhangsan/admin-system",
+      "highlights": [
+        "实现了完整的RBAC权限系统",
+        "集成了多种图表组件",
+        "支持主题切换和国际化"
+      ]
+    },
+    {
+      "id": "proj2",
+      "name": "个人博客系统",
+      "description": "使用Nuxt.js开发的静态博客系统，支持Markdown写作和SEO优化。",
+      "technologies": ["Nuxt.js", "Vue 3", "Tailwind CSS", "Markdown"],
+      "startDate": "2021-08",
+      "endDate": "2021-12",
+      "url": "https://blog.zhangsan.dev",
+      "github": "https://github.com/zhangsan/blog",
+      "highlights": [
+        "支持静态生成和服务端渲染",
+        "实现了全文搜索功能",
+        "优化了SEO和性能指标"
+      ]
+    }
+  ],
+  "theme": {
+    "name": "professionalTheme"
+  }
+} 

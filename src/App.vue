@@ -4,179 +4,213 @@
     `theme-${currentThemeName}`,
     { 'dark': isDarkMode }
   ]">
-    <!-- 加载状态 -->
-    <div v-if="isLoading" class="flex items-center justify-center min-h-screen">
-      <div class="text-center">
-        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
-        <p class="text-gray-600 dark:text-gray-400">加载简历数据中...</p>
-      </div>
+    <!-- 欢迎页面 -->
+    <div v-if="showWelcome">
+      <WelcomePage 
+        @upload="handleUploadFromWelcome"
+        @view-demo="handleViewDemo"
+      />
     </div>
 
-    <!-- 错误状态 -->
-    <div v-else-if="error" class="flex items-center justify-center min-h-screen">
-      <div class="text-center">
-        <div class="text-red-500 text-6xl mb-4">⚠️</div>
-        <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">加载失败</h2>
-        <p class="text-gray-600 dark:text-gray-400 mb-4">{{ error }}</p>
-        <button
-          @click="loadData"
-          class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200"
-        >
-          重新加载
-        </button>
-      </div>
+    <!-- 上传页面 -->
+    <div v-else-if="showUploader">
+      <JsonUploader @back="showUploader = false" />
     </div>
 
-    <!-- 主要内容 -->
-    <div v-else-if="resumeData" class="page-enter" :class="[
-      currentThemeName === 'professional' ? '' : 'container mx-auto px-4 py-8 max-w-4xl'
-    ]">
-      <!-- 顶部工具栏 -->
-      <div class="fixed top-4 right-4 z-50 no-print">
-        <div class="flex gap-2">
-          <ThemeSelector
-            :current-theme-name="currentThemeName"
-            :is-dark-mode="isDarkMode"
-            @theme-change="handleThemeChange"
-            @dark-mode-toggle="toggleDarkMode"
-          />
-          
-          <button
-            @click="handlePrint"
-            class="p-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 border border-gray-200 dark:border-gray-700"
-            title="打印简历"
-          >
-            🖨️
-          </button>
+    <!-- 简历展示页面 -->
+    <div v-else>
+      <!-- 加载状态 -->
+      <div v-if="isLoading" class="flex items-center justify-center min-h-screen">
+        <div class="text-center">
+          <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600 mx-auto mb-4"></div>
+          <p class="text-gray-600 dark:text-gray-400">加载简历数据中...</p>
         </div>
       </div>
 
-      <!-- 源代码主题：VSCode风格编辑器 -->
-      <div v-if="currentThemeName === 'source'" class="vscode-editor">
-        <!-- VSCode标题栏 -->
-        <div class="vscode-titlebar">
-          <div class="vscode-traffic-lights">
-            <div class="vscode-light red"></div>
-            <div class="vscode-light yellow"></div>
-            <div class="vscode-light green"></div>
-          </div>
-          <div class="vscode-title">resume.json</div>
-        </div>
-        
-        <!-- VSCode编辑器内容 -->
-        <div class="vscode-editor-content">
-          <div class="vscode-line-numbers">
-            <div 
-              v-for="(line, index) in jsonLines" 
-              :key="index" 
-              class="vscode-line-number"
+      <!-- 错误状态 -->
+      <div v-else-if="error" class="flex items-center justify-center min-h-screen">
+        <div class="text-center">
+          <div class="text-red-500 text-6xl mb-4">⚠️</div>
+          <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">加载失败</h2>
+          <p class="text-gray-600 dark:text-gray-400 mb-4">{{ error }}</p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <button
+              @click="loadData"
+              class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200"
             >
-              {{ index + 1 }}
+              重新加载
+            </button>
+            <button
+              @click="showUploader = true"
+              class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors duration-200"
+            >
+              上传JSON文件
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 主要内容 -->
+      <div v-else-if="resumeData" class="page-enter" :class="[
+        currentThemeName === 'professional' ? '' : 'container mx-auto px-4 py-8 max-w-4xl'
+      ]">
+        <!-- 顶部工具栏 -->
+        <div class="fixed top-4 right-4 z-50 no-print">
+          <div class="flex gap-2">
+            <ThemeSelector
+              :current-theme-name="currentThemeName"
+              :is-dark-mode="isDarkMode"
+              @theme-change="handleThemeChange"
+              @dark-mode-toggle="toggleDarkMode"
+            />
+            
+            <button
+              @click="showUploader = true"
+              class="p-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 border border-gray-200 dark:border-gray-700"
+              title="上传JSON文件"
+            >
+              📤
+            </button>
+            
+            <button
+              @click="handlePrint"
+              class="p-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 border border-gray-200 dark:border-gray-700"
+              title="打印简历"
+            >
+              🖨️
+            </button>
+          </div>
+        </div>
+
+        <!-- 源代码主题：VSCode风格编辑器 -->
+        <div v-if="currentThemeName === 'source'" class="vscode-editor mx-4 md:mx-auto max-w-4xl">
+          <!-- VSCode标题栏 -->
+          <div class="vscode-titlebar">
+            <div class="vscode-traffic-lights">
+              <div class="vscode-light red"></div>
+              <div class="vscode-light yellow"></div>
+              <div class="vscode-light green"></div>
+            </div>
+            <div class="vscode-title">resume.json</div>
+          </div>
+          
+          <!-- VSCode编辑器内容 -->
+          <div class="vscode-editor-content">
+            <div class="vscode-line-numbers">
+              <div 
+                v-for="(line, index) in jsonLines" 
+                :key="index" 
+                class="vscode-line-number"
+              >
+                {{ index + 1 }}
+              </div>
+            </div>
+            <div class="vscode-code-content">
+              <pre class="vscode-code"><code v-html="highlightedJsonWithLines"></code></pre>
             </div>
           </div>
-          <div class="vscode-code-content">
-            <pre class="vscode-code"><code v-html="highlightedJsonWithLines"></code></pre>
+        </div>
+
+        <!-- 创意主题：特殊布局 -->
+        <template v-else-if="currentThemeName === 'creative'">
+          <!-- 创意主题背景装饰 -->
+          <div class="creative-decorations">
+            <div class="creative-circle creative-circle-1"></div>
+            <div class="creative-circle creative-circle-2"></div>
+            <div class="creative-circle creative-circle-3"></div>
           </div>
-        </div>
-      </div>
 
-      <!-- 创意主题：特殊布局 -->
-      <template v-else-if="currentThemeName === 'creative'">
-        <!-- 创意主题背景装饰 -->
-        <div class="creative-decorations">
-          <div class="creative-circle creative-circle-1"></div>
-          <div class="creative-circle creative-circle-2"></div>
-          <div class="creative-circle creative-circle-3"></div>
-        </div>
+          <div class="container mx-auto px-4 py-8 max-w-4xl">
+            <!-- 个人信息 - 特殊样式 -->
+            <div v-if="creativeOrderedSections.personal" class="section-enter creative-hero">
+              <component
+                :is="componentMap[creativeOrderedSections.personal.component]"
+                v-bind="creativeOrderedSections.personal.props"
+              />
+            </div>
 
-        <!-- 个人信息 - 特殊样式 -->
-        <div v-if="creativeOrderedSections.personal" class="section-enter creative-hero">
-          <component
-            :is="componentMap[creativeOrderedSections.personal.component]"
-            v-bind="creativeOrderedSections.personal.props"
-          />
-        </div>
+            <!-- 主要内容区域 - 动态布局 -->
+            <div class="creative-content-grid">
+              <!-- 动态渲染其他组件 -->
+              <div
+                v-for="(section, index) in creativeOrderedSections.others"
+                :key="section.key"
+                :class="{
+                  'creative-left-column': index % 2 === 0,
+                  'creative-right-column': index % 2 === 1,
+                  'creative-projects-full': section.key === 'projects'
+                }"
+              >
+                <div
+                  :class="{
+                    'section-enter creative-section-left': index % 2 === 0,
+                    'section-enter creative-section-right': index % 2 === 1,
+                    'section-enter creative-projects-full': section.key === 'projects'
+                  }"
+                >
+                  <component
+                    :is="componentMap[section.component]"
+                    v-bind="section.props"
+                  />
+                </div>
+              </div>
+            </div>
 
-        <!-- 主要内容区域 - 动态布局 -->
-        <div class="creative-content-grid">
-          <!-- 动态渲染其他组件 -->
-          <div
-            v-for="(section, index) in creativeOrderedSections.others"
-            :key="section.key"
-            :class="{
-              'creative-left-column': index % 2 === 0,
-              'creative-right-column': index % 2 === 1,
-              'creative-projects-full': section.key === 'projects'
-            }"
-          >
+            <!-- 创意主题页脚 -->
+            <footer class="mt-16 text-center no-print creative-footer">
+              <div class="creative-footer-content">
+                <p class="text-lg font-medium bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                  由 <a href="https://github.com/jsonme" class="hover:underline">JsonMe</a> 创意呈现
+                </p>
+                <div class="creative-footer-decoration"></div>
+              </div>
+            </footer>
+          </div>
+        </template>
+
+        <!-- 其他主题：使用标准布局 -->
+        <template v-else>
+          <!-- 专业主题：使用特殊容器 -->
+          <div v-if="currentThemeName === 'professional'" class="container">
+            <!-- 动态渲染各个section -->
             <div
-              :class="{
-                'section-enter creative-section-left': index % 2 === 0,
-                'section-enter creative-section-right': index % 2 === 1,
-                'section-enter creative-projects-full': section.key === 'projects'
-              }"
+              v-for="section in orderedSections"
+              :key="section.key"
+              class="section-enter"
             >
               <component
                 :is="componentMap[section.component]"
                 v-bind="section.props"
-              />
-            </div>
+            />
           </div>
-        </div>
 
-        <!-- 创意主题页脚 -->
-        <footer class="mt-16 text-center no-print creative-footer">
-          <div class="creative-footer-content">
-            <p class="text-lg font-medium bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              由 <a href="https://github.com/jsonme" class="hover:underline">JsonMe</a> 创意呈现
-            </p>
-            <div class="creative-footer-decoration"></div>
+            <!-- 页脚 -->
+            <footer class="mt-12 text-center text-gray-500 dark:text-gray-400 text-sm no-print">
+              <p>由 <a href="https://github.com/jsonme" class="text-primary-600 dark:text-primary-400 hover:underline">JsonMe</a> 生成</p>
+            </footer>
           </div>
-        </footer>
-      </template>
 
-      <!-- 其他主题：使用标准布局 -->
-      <template v-else>
-        <!-- 专业主题：使用特殊容器 -->
-        <div v-if="currentThemeName === 'professional'" class="container">
-          <!-- 动态渲染各个section -->
-          <div
-            v-for="section in orderedSections"
-            :key="section.key"
-            class="section-enter"
-          >
-            <component
-              :is="componentMap[section.component]"
-              v-bind="section.props"
-          />
-        </div>
+          <!-- 其他主题：标准容器 -->
+          <div v-else class="container mx-auto px-4 py-8 max-w-4xl">
+            <!-- 动态渲染各个section -->
+            <div
+              v-for="section in orderedSections"
+              :key="section.key"
+              class="section-enter"
+            >
+              <component
+                :is="componentMap[section.component]"
+                v-bind="section.props"
+            />
+          </div>
 
           <!-- 页脚 -->
           <footer class="mt-12 text-center text-gray-500 dark:text-gray-400 text-sm no-print">
             <p>由 <a href="https://github.com/jsonme" class="text-primary-600 dark:text-primary-400 hover:underline">JsonMe</a> 生成</p>
           </footer>
-        </div>
-
-        <!-- 其他主题：标准容器 -->
-        <div v-else class="container mx-auto px-4 py-8 max-w-4xl">
-          <!-- 动态渲染各个section -->
-          <div
-            v-for="section in orderedSections"
-            :key="section.key"
-            class="section-enter"
-          >
-            <component
-              :is="componentMap[section.component]"
-              v-bind="section.props"
-          />
-        </div>
-
-        <!-- 页脚 -->
-        <footer class="mt-12 text-center text-gray-500 dark:text-gray-400 text-sm no-print">
-          <p>由 <a href="https://github.com/jsonme" class="text-primary-600 dark:text-primary-400 hover:underline">JsonMe</a> 生成</p>
-        </footer>
-        </div>
-      </template>
+          </div>
+        </template>
+      </div>
     </div>
   </div>
 </template>
@@ -189,6 +223,8 @@ import SkillsSection from '@/components/SkillsSection.vue'
 import ProjectsSection from '@/components/ProjectsSection.vue'
 import EducationSection from '@/components/EducationSection.vue'
 import ThemeSelector from '@/components/ThemeSelector.vue'
+import JsonUploader from '@/components/JsonUploader.vue'
+import WelcomePage from '@/components/WelcomePage.vue'
 import { getThemeByName, getDefaultTheme } from '@/themes'
 
 const resumeData = ref(null)
@@ -196,6 +232,8 @@ const isLoading = ref(false)
 const error = ref(null)
 const isDarkMode = ref(false)
 const currentThemeName = ref('minimalist')
+const showUploader = ref(false)
+const showWelcome = ref(false)
 
 // 提供主题名称给子组件
 provide('currentThemeName', currentThemeName)
@@ -387,12 +425,69 @@ async function loadData() {
   error.value = null
   
   try {
-    const response = await fetch(`${import.meta.env.BASE_URL}resume.json`)
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`)
+    const urlParams = new URLSearchParams(window.location.search)
+    let data
+    
+    // 检查是否有上传参数，如果有则显示上传页面
+    if (urlParams.has('upload')) {
+      showUploader.value = true
+      isLoading.value = false
+      return
     }
     
-    const data = await response.json()
+    if (urlParams.has('data')) {
+      // 从Base64编码的URL参数加载数据
+      const base64Data = urlParams.get('data')
+      console.log('Loading from Base64 data')
+      
+      try {
+        // 标准Base64解码流程
+        const encodedString = atob(base64Data)
+        const jsonString = decodeURIComponent(encodedString)
+        data = JSON.parse(jsonString)
+      } catch (err) {
+        console.error('Base64 decode error:', err)
+        throw new Error('Base64数据解码失败，链接可能已损坏')
+      }
+    } else if (urlParams.has('gist')) {
+      // 从Gist URL加载数据
+      const gistUrl = decodeURIComponent(urlParams.get('gist'))
+      console.log('Loading from Gist:', gistUrl)
+      
+      const response = await fetch(gistUrl)
+      if (!response.ok) {
+        throw new Error(`Gist加载失败: ${response.status} ${response.statusText}`)
+      }
+      
+      data = await response.json()
+    } else if (urlParams.has('url')) {
+      // 从外部URL加载数据（用于其他服务）
+      const externalUrl = decodeURIComponent(urlParams.get('url'))
+      console.log('Loading from external URL:', externalUrl)
+      
+      const response = await fetch(externalUrl)
+      if (!response.ok) {
+        throw new Error(`外部数据加载失败: ${response.status} ${response.statusText}`)
+      }
+      
+      data = await response.json()
+    } else {
+      // 尝试加载本地resume.json，如果失败则显示欢迎页面
+      try {
+        const response = await fetch(`${import.meta.env.BASE_URL}resume.json`)
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+        
+        data = await response.json()
+      } catch (err) {
+        // 如果没有本地数据，显示欢迎页面而不是错误
+        showWelcome.value = true
+        isLoading.value = false
+        return
+      }
+    }
+    
     resumeData.value = data
     
     // 初始化主题模式
@@ -532,6 +627,18 @@ function handlePrint() {
 function handleVisibilityChange() {
   // 移除自动滚动到顶部，避免干扰用户操作
   // 特别是打印对话框关闭时的体验
+}
+
+// 添加处理欢迎页面事件的方法
+function handleUploadFromWelcome() {
+  showWelcome.value = false
+  showUploader.value = true
+}
+
+function handleViewDemo() {
+  showWelcome.value = false
+  // 加载默认数据
+  loadData()
 }
 
 onMounted(async () => {

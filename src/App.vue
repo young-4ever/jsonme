@@ -6,10 +6,7 @@
   ]">
     <!-- 欢迎页面 -->
     <div v-if="showWelcome">
-      <WelcomePage 
-        @upload="handleUploadFromWelcome"
-        @view-demo="handleViewDemo"
-      />
+      <WelcomePage @upload="handleUploadFromWelcome" @view-demo="handleViewDemo" />
     </div>
 
     <!-- 上传页面 -->
@@ -34,16 +31,12 @@
           <h2 class="text-xl font-semibold text-gray-900 dark:text-white mb-2">加载失败</h2>
           <p class="text-gray-600 dark:text-gray-400 mb-4">{{ error }}</p>
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
-              @click="loadData"
-              class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200"
-            >
+            <button @click="loadData"
+              class="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors duration-200">
               重新加载
             </button>
-            <button
-              @click="showUploader = true"
-              class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors duration-200"
-            >
+            <button @click="showUploader = true"
+              class="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors duration-200">
               上传JSON文件
             </button>
           </div>
@@ -51,32 +44,24 @@
       </div>
 
       <!-- 主要内容 -->
-      <div v-else-if="resumeData" class="page-enter" :class="[
+      <div v-else-if="resumeData" style="padding-bottom: 12px;" :class="['page-enter',
         currentThemeName === 'professional' ? '' : 'container mx-auto px-4 py-8 max-w-4xl'
       ]">
         <!-- 顶部工具栏 -->
         <div class="fixed top-4 right-4 z-50 no-print">
           <div class="flex gap-2">
-            <ThemeSelector
-              :current-theme-name="currentThemeName"
-              :is-dark-mode="isDarkMode"
-              @theme-change="handleThemeChange"
-              @dark-mode-toggle="toggleDarkMode"
-            />
-            
-            <button
-              @click="showUploader = true"
+            <ThemeSelector :current-theme-name="currentThemeName" :is-dark-mode="isDarkMode"
+              @theme-change="handleThemeChange" @dark-mode-toggle="toggleDarkMode" />
+
+            <button @click="showUploader = true"
               class="p-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 border border-gray-200 dark:border-gray-700"
-              title="上传JSON文件"
-            >
+              title="上传JSON文件">
               📤
             </button>
-            
-            <button
-              @click="handlePrint"
+
+            <button @click="handlePrint"
               class="p-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 border border-gray-200 dark:border-gray-700"
-              title="打印简历"
-            >
+              title="打印简历">
               🖨️
             </button>
           </div>
@@ -93,15 +78,11 @@
             </div>
             <div class="vscode-title">resume.json</div>
           </div>
-          
+
           <!-- VSCode编辑器内容 -->
           <div class="vscode-editor-content">
             <div class="vscode-line-numbers">
-              <div 
-                v-for="(line, index) in jsonLines" 
-                :key="index" 
-                class="vscode-line-number"
-              >
+              <div v-for="(line, index) in jsonLines" :key="index" class="vscode-line-number">
                 {{ index + 1 }}
               </div>
             </div>
@@ -123,35 +104,24 @@
           <div class="container mx-auto px-4 py-8 max-w-4xl">
             <!-- 个人信息 - 特殊样式 -->
             <div v-if="creativeOrderedSections.personal" class="section-enter creative-hero">
-              <component
-                :is="componentMap[creativeOrderedSections.personal.component]"
-                v-bind="creativeOrderedSections.personal.props"
-              />
+              <component :is="componentMap[creativeOrderedSections.personal.component]"
+                v-bind="creativeOrderedSections.personal.props" />
             </div>
 
             <!-- 主要内容区域 - 动态布局 -->
             <div class="creative-content-grid">
               <!-- 动态渲染其他组件 -->
-              <div
-                v-for="(section, index) in creativeOrderedSections.others"
-                :key="section.key"
-                :class="{
-                  'creative-left-column': index % 2 === 0,
-                  'creative-right-column': index % 2 === 1,
-                  'creative-projects-full': section.key === 'projects'
-                }"
-              >
-                <div
-                  :class="{
-                    'section-enter creative-section-left': index % 2 === 0,
-                    'section-enter creative-section-right': index % 2 === 1,
-                    'section-enter creative-projects-full': section.key === 'projects'
-                  }"
-                >
-                  <component
-                    :is="componentMap[section.component]"
-                    v-bind="section.props"
-                  />
+              <div v-for="(section, index) in creativeOrderedSections.others" :key="section.key" :class="{
+                'creative-left-column': index % 2 === 0,
+                'creative-right-column': index % 2 === 1,
+                'creative-projects-full': section.key === 'projects'
+              }">
+                <div :class="{
+                  'section-enter creative-section-left': index % 2 === 0,
+                  'section-enter creative-section-right': index % 2 === 1,
+                  'section-enter creative-projects-full': section.key === 'projects'
+                }">
+                  <component :is="componentMap[section.component]" v-bind="section.props" />
                 </div>
               </div>
             </div>
@@ -159,7 +129,8 @@
             <!-- 创意主题页脚 -->
             <footer class="mt-16 text-center no-print creative-footer">
               <div class="creative-footer-content">
-                <p class="text-lg font-medium bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                <p
+                  class="text-lg font-medium bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                   由 <a href="https://github.com/jsonme" class="hover:underline">JsonMe</a> 创意呈现
                 </p>
                 <div class="creative-footer-decoration"></div>
@@ -173,41 +144,29 @@
           <!-- 专业主题：使用特殊容器 -->
           <div v-if="currentThemeName === 'professional'" class="container">
             <!-- 动态渲染各个section -->
-            <div
-              v-for="section in orderedSections"
-              :key="section.key"
-              class="section-enter"
-            >
-              <component
-                :is="componentMap[section.component]"
-                v-bind="section.props"
-            />
-          </div>
+            <div v-for="section in orderedSections" :key="section.key" class="section-enter">
+              <component :is="componentMap[section.component]" v-bind="section.props" />
+            </div>
 
             <!-- 页脚 -->
             <footer class="mt-12 text-center text-gray-500 dark:text-gray-400 text-sm no-print">
-              <p>由 <a href="https://github.com/jsonme" class="text-primary-600 dark:text-primary-400 hover:underline">JsonMe</a> 生成</p>
+              <p>由 <a href="https://github.com/jsonme"
+                  class="text-primary-600 dark:text-primary-400 hover:underline">JsonMe</a> 生成</p>
             </footer>
           </div>
 
           <!-- 其他主题：标准容器 -->
           <div v-else class="container mx-auto px-4 py-8 max-w-4xl">
             <!-- 动态渲染各个section -->
-            <div
-              v-for="section in orderedSections"
-              :key="section.key"
-              class="section-enter"
-            >
-              <component
-                :is="componentMap[section.component]"
-                v-bind="section.props"
-            />
-          </div>
+            <div v-for="section in orderedSections" :key="section.key" class="section-enter">
+              <component :is="componentMap[section.component]" v-bind="section.props" />
+            </div>
 
-          <!-- 页脚 -->
-          <footer class="mt-12 text-center text-gray-500 dark:text-gray-400 text-sm no-print">
-            <p>由 <a href="https://github.com/jsonme" class="text-primary-600 dark:text-primary-400 hover:underline">JsonMe</a> 生成</p>
-          </footer>
+            <!-- 页脚 -->
+            <footer class="mt-12 text-center text-gray-500 dark:text-gray-400 text-sm no-print">
+              <p>由 <a href="https://github.com/jsonme"
+                  class="text-primary-600 dark:text-primary-400 hover:underline">JsonMe</a> 生成</p>
+            </footer>
           </div>
         </template>
       </div>
@@ -241,13 +200,13 @@ provide('currentThemeName', currentThemeName)
 // 动态组件排序逻辑
 const orderedSections = computed(() => {
   if (!resumeData.value) return []
-  
+
   const sections = []
   const data = resumeData.value
-  
+
   // 获取JSON中字段的顺序（除了theme字段）
   const fieldsOrder = Object.keys(data).filter(key => key !== 'theme')
-  
+
   fieldsOrder.forEach(field => {
     switch (field) {
       case 'personal':
@@ -292,7 +251,7 @@ const orderedSections = computed(() => {
         break
     }
   })
-  
+
   // 只返回满足条件的sections
   return sections.filter(section => section.condition)
 })
@@ -309,13 +268,13 @@ const componentMap = {
 // 创意主题的动态排序逻辑
 const creativeOrderedSections = computed(() => {
   if (!resumeData.value) return { personal: null, others: [] }
-  
+
   const data = resumeData.value
   const fieldsOrder = Object.keys(data).filter(key => key !== 'theme')
-  
+
   let personal = null
   const others = []
-  
+
   fieldsOrder.forEach(field => {
     switch (field) {
       case 'personal':
@@ -363,7 +322,7 @@ const creativeOrderedSections = computed(() => {
         break
     }
   })
-  
+
   return { personal, others }
 })
 
@@ -376,9 +335,9 @@ const jsonLines = computed(() => {
 
 const highlightedJsonText = computed(() => {
   if (!resumeData.value) return ''
-  
+
   const jsonString = JSON.stringify(resumeData.value, null, 2)
-  
+
   return jsonString
     // 高亮键名
     .replace(/(".*?")(\s*:\s*)/g, '<span class="json-key">$1</span><span class="json-punctuation">$2</span>')
@@ -396,10 +355,10 @@ const highlightedJsonText = computed(() => {
 
 const highlightedJsonWithLines = computed(() => {
   if (!resumeData.value) return ''
-  
+
   const jsonString = JSON.stringify(resumeData.value, null, 2)
   const lines = jsonString.split('\n')
-  
+
   const highlightedLines = lines.map(line => {
     return line
       // 高亮键名
@@ -415,7 +374,7 @@ const highlightedJsonWithLines = computed(() => {
       // 高亮标点符号
       .replace(/([{}[\],])/g, '<span class="json-punctuation">$1</span>')
   })
-  
+
   return highlightedLines.join('\n')
 })
 
@@ -423,23 +382,23 @@ const highlightedJsonWithLines = computed(() => {
 async function loadData() {
   isLoading.value = true
   error.value = null
-  
+
   try {
     const urlParams = new URLSearchParams(window.location.search)
     let data
-    
+
     // 检查是否有上传参数，如果有则显示上传页面
     if (urlParams.has('upload')) {
       showUploader.value = true
       isLoading.value = false
       return
     }
-    
+
     if (urlParams.has('data')) {
       // 从Base64编码的URL参数加载数据
       const base64Data = urlParams.get('data')
       console.log('Loading from Base64 data')
-      
+
       try {
         // 标准Base64解码流程
         const encodedString = atob(base64Data)
@@ -453,23 +412,23 @@ async function loadData() {
       // 从Gist URL加载数据
       const gistUrl = decodeURIComponent(urlParams.get('gist'))
       console.log('Loading from Gist:', gistUrl)
-      
+
       const response = await fetch(gistUrl)
       if (!response.ok) {
         throw new Error(`Gist加载失败: ${response.status} ${response.statusText}`)
       }
-      
+
       data = await response.json()
     } else if (urlParams.has('url')) {
       // 从外部URL加载数据（用于其他服务）
       const externalUrl = decodeURIComponent(urlParams.get('url'))
       console.log('Loading from external URL:', externalUrl)
-      
+
       const response = await fetch(externalUrl)
       if (!response.ok) {
         throw new Error(`外部数据加载失败: ${response.status} ${response.statusText}`)
       }
-      
+
       data = await response.json()
     } else {
       // 尝试加载本地resume.json，如果失败则显示欢迎页面
@@ -478,7 +437,7 @@ async function loadData() {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`)
         }
-        
+
         data = await response.json()
       } catch (err) {
         // 如果没有本地数据，显示欢迎页面而不是错误
@@ -487,12 +446,12 @@ async function loadData() {
         return
       }
     }
-    
+
     resumeData.value = data
-    
+
     // 初始化主题模式
     initializeTheme(data.theme)
-    
+
   } catch (err) {
     error.value = err instanceof Error ? err.message : '加载简历数据失败'
     console.error('Failed to load resume data:', err)
@@ -509,7 +468,7 @@ function initializeTheme(themeConfig) {
   } else if (themeConfig?.name) {
     currentThemeName.value = themeConfig.name
   }
-  
+
   // 深色模式优先级：
   // 1. 用户手动设置 (localStorage)
   // 2. JSON配置文件设置
@@ -525,10 +484,10 @@ function initializeTheme(themeConfig) {
     // 自动检测系统深色模式偏好
     isDarkMode.value = detectSystemDarkMode()
   }
-  
+
   // 应用主题到DOM
   applyTheme()
-  
+
   // 监听系统主题变化
   setupSystemThemeListener()
 }
@@ -543,7 +502,7 @@ function detectSystemDarkMode() {
 function setupSystemThemeListener() {
   if (typeof window !== 'undefined' && window.matchMedia) {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    
+
     // 监听系统主题变化
     const handleSystemThemeChange = (e) => {
       // 检查是否有手动设置的主题
@@ -555,7 +514,7 @@ function setupSystemThemeListener() {
       }
       // 如果有手动设置，则不自动跟随系统变化
     }
-    
+
     // 添加监听器
     if (mediaQuery.addEventListener) {
       mediaQuery.addEventListener('change', handleSystemThemeChange)
@@ -563,7 +522,7 @@ function setupSystemThemeListener() {
       // 兼容旧版浏览器
       mediaQuery.addListener(handleSystemThemeChange)
     }
-    
+
     // 在组件卸载时清理监听器
     onUnmounted(() => {
       if (mediaQuery.removeEventListener) {
@@ -579,35 +538,35 @@ function toggleDarkMode() {
   // 简化逻辑：直接切换模式并保存到localStorage
   // 页面刷新后会自动重置为自动检测
   isDarkMode.value = !isDarkMode.value
-  
+
   // 保存当前手动设置（页面刷新后会被清除）
   sessionStorage.setItem('jsonme-dark-mode', isDarkMode.value.toString())
-  
+
   applyTheme()
 }
 
 function handleThemeChange(themeName) {
   currentThemeName.value = themeName
-  
+
   // 保存主题偏好到localStorage
   localStorage.setItem('jsonme-theme-name', themeName)
-  
+
   applyTheme()
 }
 
 function applyTheme() {
   const html = document.documentElement
-  
+
   if (isDarkMode.value) {
     html.classList.add('dark')
   } else {
     html.classList.remove('dark')
   }
-  
+
   // 获取当前主题
   const currentTheme = getThemeByName(currentThemeName.value) || getDefaultTheme()
   const colors = isDarkMode.value ? currentTheme.colors.dark : currentTheme.colors.light
-  
+
   // 应用主题颜色变量
   const root = document.documentElement
   root.style.setProperty('--color-primary', colors.primary)
@@ -644,7 +603,7 @@ function handleViewDemo() {
 onMounted(async () => {
   // 加载数据
   await loadData()
-  
+
   // 监听页面可见性变化
   document.addEventListener('visibilitychange', handleVisibilityChange)
 })
@@ -653,4 +612,4 @@ onUnmounted(() => {
   // 清理事件监听器
   document.removeEventListener('visibilitychange', handleVisibilityChange)
 })
-</script> 
+</script>

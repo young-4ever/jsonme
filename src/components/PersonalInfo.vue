@@ -31,12 +31,12 @@
           {{ personal.title }}
         </h2>
         
-        <!-- 联系方式 -->
+        <!-- 联系方式1 -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6 contact-grid">
           <a
             v-if="personal.contact.email"
             :href="`mailto:${personal.contact.email}`"
-            class="contact-link justify-center sm:justify-start"
+            class="contact-link justify-start"
             @click="copyToClipboard(personal.contact.email)"
           >
             📧 {{ personal.contact.email }}
@@ -45,7 +45,7 @@
           <a
             v-if="personal.contact.phone"
             :href="`tel:${personal.contact.phone}`"
-            class="contact-link justify-center sm:justify-start"
+            class="contact-link justify-start"
             @click="copyToClipboard(personal.contact.phone)"
           >
             📱 {{ personal.contact.phone }}
@@ -53,7 +53,7 @@
           
           <span
             v-if="personal.contact.location"
-            class="contact-link justify-center sm:justify-start"
+            class="contact-link justify-start"
           >
             📍 {{ personal.contact.location }}
           </span>
@@ -63,7 +63,7 @@
             :href="personal.contact.website"
             target="_blank"
             rel="noopener noreferrer"
-            class="contact-link justify-center sm:justify-start"
+            class="contact-link justify-start"
           >
             🌐 个人网站
           </a>
@@ -73,7 +73,7 @@
             :href="personal.contact.github"
             target="_blank"
             rel="noopener noreferrer"
-            class="contact-link justify-center sm:justify-start"
+            class="contact-link justify-start"
           >
             🔗 GitHub
           </a>
@@ -83,14 +83,14 @@
             :href="personal.contact.linkedin"
             target="_blank"
             rel="noopener noreferrer"
-            class="contact-link justify-center sm:justify-start"
+            class="contact-link justify-start"
           >
             💼 LinkedIn
           </a>
         </div>
         
         <!-- 个人简介 -->
-        <p class="text-gray-700 dark:text-gray-300 leading-relaxed text-center md:text-left whitespace-pre-wrap">
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed text-left whitespace-pre-wrap">
           {{ personal.summary }}
         </p>
       </div>

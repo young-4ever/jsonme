@@ -44,9 +44,6 @@
           <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-1">
             {{ project.name }}
           </h3>
-          <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
-            📅 <span class="ml-1">{{ getDateRange(project.startDate, project.endDate, project.current) }}</span>
-          </div>
         </div>
         
         <!-- 项目描述 -->
@@ -128,16 +125,7 @@ const isSourceTheme = computed(() => {
   return currentThemeName === 'source'
 })
 
-const sortedProjects = computed(() => {
-  return [...props.projects].sort((a, b) => {
-    // 当前项目排在前面
-    if (a.current && !b.current) return -1
-    if (!a.current && b.current) return 1
-    
-    // 按开始日期降序排列
-    return new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
-  })
-})
+const sortedProjects = computed(() => props.projects)
 
 function formatDate(dateString: string) {
   const date = new Date(dateString)

@@ -2340,20 +2340,16 @@
   
   /* 联系方式在移动端完全居中 */
   .contact-grid .contact-link {
+    display: block;
     width: 100% !important;
+    height: 21px;
     justify-content: center !important;
     text-align: center !important;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
   }
-  
-  /* 确保md:text-left在移动端被覆盖为居中 */
-  .card .md\:text-left {
-    text-align: center !important;
-  }
-  
-  /* 确保个人简介在移动端居中 */
-  .card p {
-    text-align: center !important;
-  }
+
   
   /* 确保标题在移动端居中 */
   .card h1,
@@ -2365,6 +2361,11 @@
   .card .flex-shrink-0 {
     margin-left: auto !important;
     margin-right: auto !important;
+  }
+
+  /* 在移动端将专业主题联系方式展示为一列 */
+  .theme-professional .contact-grid {
+    grid-template-columns: 1fr !important;
   }
 }
 

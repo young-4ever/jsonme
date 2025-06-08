@@ -37,7 +37,7 @@
             <h4 class="text-lg text-primary-600 dark:text-primary-400 mb-1">
               {{ edu.degree }} · {{ edu.major }}
             </h4>
-            <p v-if="edu.gpa" class="text-sm text-gray-600 dark:text-gray-400">
+            <p v-if="edu.gpa" class="text-sm text-gray-600 dark:text-gray-400 w-fit">
               GPA: {{ edu.gpa }}
             </p>
           </div>

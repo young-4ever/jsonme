@@ -38,7 +38,8 @@
       "achievements": [
         "作为前端负责人，统筹规划中台系统的前端功能迭代与优化",
         "参与中台系统MVP版本的前端架构设计与开发，确保系统稳定上线",
-        "设计并实现跨框架组件注册机制，覆盖服务保险、推荐、内容等核心业务线"
+        "设计并实现跨框架组件注册机制，覆盖服务保险、推荐、内容等核心业务线",
+        "基于umd实现动态配置组件，产出职务发明专利1项（专利号：ZL...）"
       ],
       "technologies": ["Vue 3", "Svelte", "TypeScript", "Element Plus"]
     }
@@ -84,32 +85,30 @@
   "projects": [
     {
       "id": "proj1",
-      "name": "企业级管理系统",
-      "description": "基于Vue 3和TypeScript开发的企业级后台管理系统，支持权限管理、数据可视化等功能。",
-      "technologies": ["Vue 3", "TypeScript", "Element Plus", "ECharts", "Vite"],
-      "startDate": "2022-01",
-      "endDate": "2022-06",
+      "name": "micro editor",
+      "description": "基于Vue 3、TypeScript开发的H5页面编辑器",
+      "technologies": ["Vue 3", "TypeScript", "Vite"],
       "url": "https://admin.example.com",
       "github": "https://github.com/zhangsan/admin-system",
       "highlights": [
-        "实现了完整的RBAC权限系统",
-        "集成了多种图表组件",
-        "支持主题切换和国际化"
+        "H5页面编辑功能的最小化实现",
+        "支持拖拽式组件配置，实现可视化页面搭建",
+        "支持解耦式加载组件",
+        "提供实时预览功能，所见即所得"
       ]
     },
     {
-      "id": "proj2",
-      "name": "个人博客系统",
-      "description": "使用Nuxt.js开发的静态博客系统，支持Markdown写作和SEO优化。",
-      "technologies": ["Nuxt.js", "Vue 3", "Tailwind CSS", "Markdown"],
-      "startDate": "2021-08",
-      "endDate": "2021-12",
-      "url": "https://blog.zhangsan.dev",
-      "github": "https://github.com/zhangsan/blog",
+      "id": "proj",
+      "name": "jsonme",
+      "description": "基于JSON配置的简历网站生成器",
+      "technologies": ["Vue 3", "TypeScript", "Tailwind CSS", "Vite"],
+      "url": "https://young-4ever.github.io/jsonme/",
+      "github": "https://github.com/young-4ever/jsonme",
       "highlights": [
-        "支持静态生成和服务端渲染",
-        "实现了全文搜索功能",
-        "优化了SEO和性能指标"
+        "支持通过JSON配置生成个性化简历网站",
+        "支持通过gist、fork等方式独立部署、配置简历",
+        "提供多种专业主题模板",
+        "支持实时预览和导出功能"
       ]
     }
   ],

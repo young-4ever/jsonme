@@ -1,0 +1,348 @@
+/* 专业主题样式 - A4优化版本 */
+.theme-professional {
+  font-size: 0.875rem;
+  line-height: 1.25;
+  /* A4纸张背景效果 - 更深的桌面背景 */
+  min-height: 100vh;
+  position: relative;
+
+  /* A4纸张容器效果 */
+  .container {
+    width: auto;
+    max-width: 56rem;
+    padding: 2rem 3rem;
+    margin: 0 auto;
+    background: #ffffff;
+    box-shadow: 
+      0 0 0 1px rgba(0, 0, 0, 0.08),
+      0 4px 6px -1px rgba(0, 0, 0, 0.15),
+      0 10px 15px -3px rgba(0, 0, 0, 0.15),
+      0 20px 25px -5px rgba(0, 0, 0, 0.15);
+    border-radius: 3px;
+    position: relative;
+    /* A4纸张比例 */
+    min-height: calc(100vh - 4rem);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+
+    /* 纸张纹理效果 */
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        radial-gradient(circle at 1px 1px, rgba(0,0,0,0.03) 1px, transparent 0);
+      background-size: 15px 15px;
+      pointer-events: none;
+      border-radius: 3px;
+    }
+
+    /* 响应式调整 */
+    @media (max-width: 768px) {
+      margin: 1rem;
+      padding: 1.5rem 2rem;
+      min-height: calc(100vh - 2rem);
+      box-shadow: 
+        0 0 0 1px rgba(0, 0, 0, 0.08),
+        0 2px 4px -1px rgba(0, 0, 0, 0.12),
+        0 4px 6px -1px rgba(0, 0, 0, 0.12);
+    }
+
+    @media (max-width: 480px) {
+      margin: 0.5rem;
+      padding: 1rem 1.5rem;
+      border-radius: 2px;
+    }
+  }
+
+  /* 深色模式样式 */
+  &.dark {
+    @apply bg-gray-900;
+
+    .container {
+      background: #2a2a2a;
+      box-shadow: 
+        0 0 0 1px rgba(255, 255, 255, 0.12),
+        0 4px 6px -1px rgba(0, 0, 0, 0.4),
+        0 10px 15px -3px rgba(0, 0, 0, 0.4),
+        0 20px 25px -5px rgba(0, 0, 0, 0.4);
+
+      &::before {
+        background-image: 
+          radial-gradient(circle at 1px 1px, rgba(255,255,255,0.03) 1px, transparent 0);
+      }
+    }
+
+    .section-title {
+      color: rgb(229 231 235);
+    }
+
+    .card {
+      background-color: transparent;
+    }
+
+    .tech-tag {
+      background-color: rgb(55 65 81);
+      color: rgb(209 213 219);
+      border-color: rgb(75 85 99);
+    }
+
+    .contact-link {
+      color: rgb(209 213 219);
+
+      &:hover {
+        color: var(--color-primary);
+      }
+    }
+
+    h1 {
+      color: rgb(229 231 235);
+    }
+
+    h2 {
+      color: rgb(156 163 175);
+    }
+
+    h3 {
+      color: rgb(229 231 235);
+    }
+
+    h4 {
+      color: rgb(156 163 175);
+    }
+
+    h5 {
+      color: rgb(107 114 128);
+    }
+
+    p {
+      color: rgb(209 213 219);
+    }
+
+    ul {
+      color: rgb(209 213 219);
+    }
+
+    .skill-category {
+      background-color: transparent;
+    }
+
+    .flex .flex {
+      color: rgb(156 163 175);
+    }
+  }
+
+  /* 章节标题样式 */
+  .section-title {
+    width: 100%;
+    line-height: 1.2;
+    font-weight: 700;
+    color: rgb(31 41 55);
+    margin-bottom: 0.5rem;
+    margin-top: 1.5rem;
+    border: none;
+    padding: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+    border-bottom: 1px dashed var(--color-primary);
+    padding-bottom: 0.25rem;
+    display: block;
+    position: relative;
+
+    &::after {
+      display: none;
+    }
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  /* 卡片样式 */
+  .card {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+
+    &:first-child {
+      .flex {
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+
+      img {
+        width: 4rem;
+        height: 4rem;
+      }
+    }
+  }
+
+  /* 个人信息卡片特殊样式 */
+  section-enter:first-child .card {
+    border: none;
+    padding: 0.75rem 0;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+  }
+
+  /* 技术标签样式 */
+  .tech-tag {
+    background-color: rgb(243 244 246);
+    color: rgb(55 65 81);
+    border-radius: 2px;
+    padding: 0.125rem 0.375rem;
+    font-size: 10px;
+    margin-right: 0.25rem;
+    margin-bottom: 0.125rem;
+    display: inline-block;
+    border: 1px solid rgb(229 231 235);
+  }
+
+  /* 技能条样式 */
+  .skill-bar {
+    border-radius: 1px;
+    height: 0.1875rem;
+    margin-bottom: 0.25rem;
+    background-color: rgb(243 244 246);
+  }
+
+  .skill-progress {
+    border-radius: 1px;
+    background-color: var(--color-primary);
+  }
+
+  /* 联系方式链接 */
+  .contact-link {
+    color: rgb(55 65 81);
+    font-weight: 500;
+    font-size: 0.875rem;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: var(--color-primary);
+    }
+  }
+
+  /* 标题样式 */
+  h1 {
+    font-weight: 700;
+    font-size: 1.375rem;
+    margin-bottom: 0.125rem;
+    line-height: 1.1;
+    color: rgb(31 41 55);
+  }
+
+  h2 {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 0.125rem;
+    line-height: 1.2;
+    color: rgb(75 85 99);
+  }
+
+  h3 {
+    font-weight: 600;
+    font-size: 0.8rem;
+    margin-bottom: 0.125rem;
+    line-height: 1.2;
+    color: rgb(31 41 55);
+  }
+
+  h4 {
+    font-weight: 500;
+    font-size: 0.75rem;
+    color: rgb(75 85 99);
+    margin-bottom: 0.125rem;
+    line-height: 1.2;
+  }
+
+  h5 {
+    font-weight: 500;
+    font-size: 0.7rem;
+    color: rgb(107 114 128);
+    margin-bottom: 0.125rem;
+    line-height: 1.2;
+  }
+
+  /* 段落和列表样式 */
+  p {
+    font-size: 0.8rem;
+    color: rgb(55 65 81);
+    margin-bottom: 0.375rem;
+    line-height: 1.4;
+  }
+
+  ul {
+    font-size: 0.8rem;
+    color: rgb(55 65 81);
+    margin-bottom: 0.375rem;
+  }
+
+  li {
+    margin-bottom: 0.125rem;
+    line-height: 1.4;
+  }
+
+  /* 技能相关样式 */
+  .skills-list {
+    gap: 1rem 2rem;
+  }
+
+  .skill-category {
+    background-color: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0.5rem 0;
+  }
+
+  .skill-item {
+    margin-bottom: 0.25rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  /* 联系方式网格优化 */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 0.75rem;
+    row-gap: 0.125rem;
+    margin-top: 0.375rem;
+  }
+
+  /* 间距优化 */
+  .space-y-6 > * + * {
+    margin-top: 0.5rem;
+  }
+
+  .space-y-4 > * + * {
+    margin-top: 0.375rem;
+  }
+
+  .space-y-3 > * + * {
+    margin-top: 0.375rem;
+  }
+
+  /* 项目和工作经历时间显示 */
+  .flex .flex {
+    font-size: 0.7rem;
+    color: rgb(107 114 128);
+  }
+
+  /* 章节间距 */
+  section {
+    margin-bottom: 0.75rem;
+
+    &:last-child {
+      margin-bottom: 0.375rem;
+    }
+  }
+}

@@ -1,0 +1,450 @@
+/* 创意主题样式 - 全新设计 */
+.theme-creative {
+  position: relative;
+  overflow-x: hidden;
+
+  /* 创意主题背景动画 */
+  &::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+      radial-gradient(circle at 20% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(16, 185, 129, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 40% 60%, rgba(139, 92, 246, 0.08) 0%, transparent 50%);
+    animation: backgroundFloat 20s ease-in-out infinite;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* 创意主题标题样式 */
+  .section-title {
+    @apply text-3xl font-bold mb-8 relative w-fit;
+    background: linear-gradient(45deg, var(--color-primary), var(--color-accent), #8b5cf6);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 4s ease-in-out infinite;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      background: linear-gradient(45deg, var(--color-primary), var(--color-accent), #8b5cf6);
+      background-size: 200% 200%;
+      border-radius: 15px;
+      opacity: 0.1;
+      animation: gradientShift 3s ease-in-out infinite;
+      z-index: -1;
+    }
+
+    &::after {
+      content: '';
+      @apply absolute bottom-0 left-0 w-full h-1;
+      background: linear-gradient(90deg, var(--color-primary), var(--color-accent), #8b5cf6);
+      background-size: 200% 200%;
+      border-radius: 2px;
+      animation: gradientShift 4s ease-in-out infinite;
+    }
+  }
+
+  /* 创意主题卡片样式 */
+  .card {
+    @apply rounded-2xl shadow-lg border-0 p-8 relative overflow-hidden;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(239, 246, 255, 0.8));
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    will-change: transform;
+
+    &:nth-child(even) {
+      animation-delay: -3s;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.05), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 30px rgba(59, 130, 246, 0.12);
+
+      &::before {
+        opacity: 1;
+      }
+    }
+
+    /* 个人信息特殊布局 */
+    &:first-child {
+      background: linear-gradient(135deg, 
+        rgba(255, 255, 255, 0.95), 
+        rgba(239, 246, 255, 0.9), 
+        rgba(219, 234, 254, 0.8)
+      );
+      border: 2px solid rgba(59, 130, 246, 0.2);
+      position: relative;
+
+      &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--color-primary), var(--color-accent), #8b5cf6);
+        background-size: 200% 100%;
+        animation: gradientShift 3s ease-in-out infinite;
+      }
+    }
+  }
+
+  /* 深色模式样式 */
+  &.dark {
+    .card {
+      background: linear-gradient(135deg, rgba(31, 41, 55, 0.9), rgba(30, 58, 138, 0.6));
+      border: 1px solid rgba(59, 130, 246, 0.2);
+
+      &::before {
+        background: linear-gradient(45deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+      }
+
+      &:first-child {
+        background: linear-gradient(135deg, 
+          rgba(31, 41, 55, 0.95), 
+          rgba(30, 58, 138, 0.8), 
+          rgba(30, 64, 175, 0.6)
+        );
+        border: 2px solid rgba(59, 130, 246, 0.3);
+      }
+    }
+
+    .skill-category {
+      background: linear-gradient(135deg, rgba(31, 41, 55, 0.8), rgba(30, 58, 138, 0.5));
+      border: 1px solid rgba(59, 130, 246, 0.2);
+    }
+  }
+
+  /* 创意主题技术标签 */
+  .tech-tag {
+    @apply text-white rounded-full px-4 py-2 shadow-lg relative overflow-hidden;
+    background: linear-gradient(45deg, var(--color-primary), var(--color-accent));
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    will-change: transform;
+
+    &:nth-child(even) {
+      /* 移除动画延迟以减少卡顿 */
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s ease;
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 15px rgba(59, 130, 246, 0.25);
+
+      &::before {
+        left: 100%;
+      }
+    }
+  }
+
+  /* 创意主题技能条 */
+  .skill-bar {
+    @apply rounded-full h-3 shadow-inner relative overflow-hidden;
+    background: linear-gradient(90deg, #e5e7eb, #f3f4f6);
+  }
+
+  .skill-progress {
+    @apply rounded-full shadow-lg relative;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent), #8b5cf6);
+    background-size: 200% 100%;
+    animation: gradientShift 5s ease-in-out infinite;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      animation: shimmer 2s ease-in-out infinite;
+    }
+  }
+
+  /* 创意主题技能分类 */
+  .skills-list {
+    @apply grid grid-cols-1 lg:grid-cols-2 gap-8;
+  }
+
+  .skill-category {
+    @apply rounded-2xl p-8 border-0 shadow-lg relative overflow-hidden;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(239, 246, 255, 0.6));
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    will-change: transform;
+
+    &:nth-child(even) {
+      /* 移除动画延迟以减少卡顿 */
+    }
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(59, 130, 246, 0.1);
+    }
+  }
+
+  /* 创意主题联系方式链接 */
+  .contact-link {
+    @apply inline-flex items-center transition-all duration-300 relative;
+    color: var(--color-primary);
+    text-decoration: none;
+
+    &::before {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+      transition: width 0.3s ease;
+    }
+
+    &:hover {
+      transform: translateY(-1px);
+      color: var(--color-accent);
+
+      &::before {
+        width: 100%;
+      }
+    }
+  }
+
+  /* 创意主题特殊布局样式 */
+  .creative-decorations {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -2;
+  }
+
+  .creative-circle {
+    position: absolute;
+    border-radius: 50%;
+    background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+    animation: circleFloat 15s ease-in-out infinite;
+
+    &.creative-circle-1 {
+      width: 200px;
+      height: 200px;
+      top: 10%;
+      right: 10%;
+      animation-delay: 0s;
+    }
+
+    &.creative-circle-2 {
+      width: 150px;
+      height: 150px;
+      bottom: 20%;
+      left: 5%;
+      animation-delay: -5s;
+    }
+
+    &.creative-circle-3 {
+      width: 100px;
+      height: 100px;
+      top: 50%;
+      left: 80%;
+      animation-delay: -10s;
+    }
+  }
+
+  /* 创意主题英雄区域 */
+  .creative-hero {
+    margin-bottom: 3rem;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: -20px;
+      right: -20px;
+      bottom: -20px;
+      background: linear-gradient(45deg, rgba(59, 130, 246, 0.05), rgba(139, 92, 246, 0.05));
+      border-radius: 30px;
+      z-index: -1;
+      animation: heroGlow 4s ease-in-out infinite;
+    }
+  }
+
+  /* 创意主题网格布局 */
+  .creative-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .creative-left-column,
+  .creative-right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  /* 创意主题项目经历全宽布局 */
+  .creative-projects-full {
+    margin-top: 2rem;
+    width: 100%;
+    animation: creativeSlideIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    animation-delay: 0.6s;
+    opacity: 0;
+  }
+
+  /* 创意主题左右列动画 */
+  .creative-section-left {
+    animation: slideInFromLeft 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  .creative-section-right {
+    animation: slideInFromRight 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  /* 创意主题页脚 */
+  .creative-footer {
+    position: relative;
+    padding: 2rem 0;
+  }
+
+  .creative-footer-content {
+    position: relative;
+    z-index: 1;
+  }
+
+  .creative-footer-decoration {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent), #8b5cf6);
+    border-radius: 2px;
+    animation: gradientShift 3s ease-in-out infinite;
+  }
+
+  /* 创意主题响应式布局 */
+  @media (max-width: 1024px) {
+    .creative-content-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+    }
+    
+    .creative-section-left,
+    .creative-section-right {
+      animation: creativeSlideIn 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .creative-circle {
+      display: none;
+    }
+    
+    .creative-hero::before {
+      display: none;
+    }
+    
+    .creative-content-grid {
+      gap: 1rem;
+    }
+  }
+}
+
+/* 动画关键帧 */
+@keyframes circleFloat {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  33% {
+    transform: translate(20px, -20px) scale(1.1);
+    opacity: 0.5;
+  }
+  66% {
+    transform: translate(-15px, 15px) scale(0.9);
+    opacity: 0.4;
+  }
+}
+
+@keyframes slideInFromLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-50px) scale(0.95);
+  }
+  60% {
+    opacity: 0.8;
+    transform: translateX(5px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes slideInFromRight {
+  0% {
+    opacity: 0;
+    transform: translateX(50px) scale(0.95);
+  }
+  60% {
+    opacity: 0.8;
+    transform: translateX(-5px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes heroGlow {
+  0%, 100% {
+    opacity: 0.5;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.02);
+  }
+}

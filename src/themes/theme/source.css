@@ -1,0 +1,441 @@
+/* 源代码主题样式 */
+.theme-source {
+  font-family: "Monaco", "Menlo", "Ubuntu Mono", "Courier New", monospace;
+  background: #ffffff !important;
+  color: #24292f;
+  padding: 20px;
+  line-height: 1.6;
+  min-height: 100vh;
+
+  /* 深色模式 */
+  html.dark & {
+    background: #1e1e1e !important;
+    color: #d4d4d4;
+  }
+
+  /* 源代码主题页面背景 */
+  .min-h-screen {
+    background: #ffffff !important;
+
+    html.dark & {
+      background: #1e1e1e !important;
+    }
+  }
+
+  /* VSCode编辑器样式 */
+  .vscode-editor {
+    background: #ffffff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    margin: 20px 0;
+    max-width: 100%;
+    border: 1px solid #e1e4e8;
+
+    html.dark & {
+      background: #1e1e1e;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      border: 1px solid #3e3e42;
+    }
+  }
+
+  /* VSCode标题栏 */
+  .vscode-titlebar {
+    background: #f6f8fa;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    padding: 0 16px;
+    border-bottom: 1px solid #e1e4e8;
+
+    html.dark & {
+      background: #2d2d30;
+      border-bottom: 1px solid #3e3e42;
+    }
+  }
+
+  .vscode-traffic-lights {
+    display: flex;
+    gap: 8px;
+    margin-right: 16px;
+  }
+
+  .vscode-light {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+
+    &.red {
+      background: #ff5f57;
+    }
+
+    &.yellow {
+      background: #ffbd2e;
+    }
+
+    &.green {
+      background: #28ca42;
+    }
+  }
+
+  .vscode-title {
+    color: #586069;
+    font-size: 13px;
+    font-weight: 400;
+
+    html.dark & {
+      color: #cccccc;
+    }
+  }
+
+  /* VSCode编辑器内容区域 */
+  .vscode-editor-content {
+    display: flex;
+    background: #ffffff;
+    min-height: 500px;
+
+    html.dark & {
+      background: #1e1e1e;
+    }
+  }
+
+  /* VSCode行号区域 */
+  .vscode-line-numbers {
+    background: #ffffff;
+    color: #6a737d;
+    padding: 16px 8px 16px 16px;
+    font-size: 14px;
+    line-height: 1.6;
+    text-align: right;
+    user-select: none;
+    border-right: 1px solid #e1e4e8;
+    min-width: 50px;
+
+    html.dark & {
+      background: #1e1e1e;
+      color: #858585;
+      border-right: 1px solid #3e3e42;
+    }
+  }
+
+  .vscode-line-number {
+    height: 22.4px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  /* VSCode代码内容区域 */
+  .vscode-code-content {
+    flex: 1;
+    overflow-x: auto;
+  }
+
+  .vscode-code {
+    margin: 0;
+    padding: 16px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #24292f;
+    background: transparent;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    overflow-x: auto;
+
+    html.dark & {
+      color: #d4d4d4;
+    }
+
+    code {
+      font-family: inherit;
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      border-radius: 0;
+    }
+  }
+
+  /* VSCode编辑器响应式样式 */
+  @media (max-width: 768px) {
+    .vscode-editor {
+      margin: 10px 0;
+      border-radius: 4px;
+    }
+    
+    .vscode-titlebar {
+      height: 30px;
+      padding: 0 12px;
+    }
+    
+    .vscode-traffic-lights {
+      gap: 6px;
+      margin-right: 12px;
+    }
+    
+    .vscode-light {
+      width: 10px;
+      height: 10px;
+    }
+    
+    .vscode-title {
+      font-size: 12px;
+    }
+    
+    .vscode-line-numbers {
+      padding: 12px 6px 12px 12px;
+      font-size: 12px;
+      min-width: 40px;
+    }
+    
+    .vscode-line-number {
+      height: 20px;
+    }
+    
+    .vscode-code {
+      padding: 12px;
+      font-size: 12px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .vscode-editor {
+      margin: 5px 0;
+    }
+    
+    .vscode-titlebar {
+      height: 28px;
+      padding: 0 8px;
+    }
+    
+    .vscode-traffic-lights {
+      gap: 4px;
+      margin-right: 8px;
+    }
+    
+    .vscode-light {
+      width: 8px;
+      height: 8px;
+    }
+    
+    .vscode-title {
+      font-size: 11px;
+    }
+    
+    .vscode-line-numbers {
+      padding: 8px 4px 8px 8px;
+      font-size: 11px;
+      min-width: 35px;
+    }
+    
+    .vscode-line-number {
+      height: 18px;
+    }
+    
+    .vscode-code {
+      padding: 8px;
+      font-size: 11px;
+      line-height: 1.4;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+    }
+  }
+
+  /* 章节标题样式 */
+  .section-title {
+    @apply text-lg font-bold mb-4 font-mono;
+    color: #0366d6; /* 浅色模式蓝色 */
+    border: none;
+    padding: 0;
+
+    html.dark & {
+      color: #569cd6; /* 深色模式蓝色 */
+    }
+
+    &::after {
+      display: none;
+    }
+  }
+
+  /* 卡片样式 */
+  .card {
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .source-code-display {
+    margin-bottom: 2rem;
+  }
+
+  .source-code-content {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #24292f;
+
+    html.dark & {
+      color: #d4d4d4;
+    }
+  }
+
+  /* JSON语法高亮样式 - 浅色模式 */
+  .json-key {
+    color: #005cc5; /* 浅色模式蓝色 */
+    font-weight: normal;
+
+    html.dark & {
+      color: #9cdcfe; /* 深色模式蓝色 */
+    }
+  }
+
+  .json-string {
+    color: #032f62; /* 浅色模式深绿色 */
+
+    html.dark & {
+      color: #ce9178; /* 深色模式橙色 */
+    }
+  }
+
+  .json-number {
+    color: #005cc5; /* 浅色模式蓝色 */
+
+    html.dark & {
+      color: #b5cea8; /* 深色模式绿色 */
+    }
+  }
+
+  .json-boolean {
+    color: #d73a49; /* 浅色模式红色 */
+
+    html.dark & {
+      color: #569cd6; /* 深色模式蓝色 */
+    }
+  }
+
+  .json-null {
+    color: #6f42c1; /* 浅色模式紫色 */
+
+    html.dark & {
+      color: #569cd6; /* 深色模式蓝色 */
+    }
+  }
+
+  .json-punctuation {
+    color: #24292f; /* 浅色模式深灰色 */
+
+    html.dark & {
+      color: #d4d4d4; /* 深色模式浅灰色 */
+    }
+  }
+
+  /* VSCode风格JSON语法高亮 */
+  .vscode-code {
+    .json-key {
+      color: #005cc5 !important; /* 浅色模式 */
+
+      html.dark & {
+        color: #9cdcfe !important; /* 深色模式 */
+      }
+    }
+
+    .json-string {
+      color: #032f62 !important; /* 浅色模式 */
+
+      html.dark & {
+        color: #ce9178 !important; /* 深色模式 */
+      }
+    }
+
+    .json-number {
+      color: #005cc5 !important; /* 浅色模式 */
+
+      html.dark & {
+        color: #b5cea8 !important; /* 深色模式 */
+      }
+    }
+
+    .json-boolean {
+      color: #d73a49 !important; /* 浅色模式 */
+
+      html.dark & {
+        color: #569cd6 !important; /* 深色模式 */
+      }
+    }
+
+    .json-null {
+      color: #6f42c1 !important; /* 浅色模式 */
+
+      html.dark & {
+        color: #569cd6 !important; /* 深色模式 */
+      }
+    }
+
+    .json-punctuation {
+      color: #24292f !important; /* 浅色模式 */
+
+      html.dark & {
+        color: #d4d4d4 !important; /* 深色模式 */
+      }
+    }
+  }
+
+  /* 兼容旧的样式选择器 */
+  .source-code-content {
+    .json-key {
+      color: #005cc5 !important; /* 浅色模式 */
+
+      html.dark & {
+        color: #9cdcfe !important; /* 深色模式 */
+      }
+    }
+
+    .json-string {
+      color: #032f62 !important; /* 浅色模式 */
+
+      html.dark & {
+        color: #ce9178 !important; /* 深色模式 */
+      }
+    }
+
+    .json-number {
+      color: #005cc5 !important; /* 浅色模式 */
+
+      html.dark & {
+        color: #b5cea8 !important; /* 深色模式 */
+      }
+    }
+
+    .json-boolean {
+      color: #d73a49 !important; /* 浅色模式 */
+
+      html.dark & {
+        color: #569cd6 !important; /* 深色模式 */
+      }
+    }
+
+    .json-null {
+      color: #6f42c1 !important; /* 浅色模式 */
+
+      html.dark & {
+        color: #569cd6 !important; /* 深色模式 */
+      }
+    }
+
+    .json-punctuation {
+      color: #24292f !important; /* 浅色模式 */
+
+      html.dark & {
+        color: #d4d4d4 !important; /* 深色模式 */
+      }
+    }
+  }
+
+  /* 深色模式样式已经通过 html.dark & 处理，这里保留作为备用 */
+}

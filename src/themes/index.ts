@@ -73,31 +73,31 @@ const professionalTheme: Theme = {
 }
 
 // 创意主题
-const creativeTheme: Theme = {
-  name: 'creative',
-  displayName: '创意',
-  description: '富有创意的蓝色系设计风格',
-  colors: {
-    light: {
-      primary: '#2563eb',
-      secondary: '#3b82f6',
-      accent: '#06b6d4',
-      background: '#ffffff',
-      surface: '#eff6ff',
-      text: '#1f2937',
-      textSecondary: '#6b7280'
-    },
-    dark: {
-      primary: '#3b82f6',
-      secondary: '#60a5fa',
-      accent: '#22d3ee',
-      background: '#0f172a',
-      surface: '#1e3a8a',
-      text: '#f3f4f6',
-      textSecondary: '#d1d5db'
-    }
-  }
-}
+// const creativeTheme: Theme = {
+//   name: 'creative',
+//   displayName: '创意',
+//   description: '富有创意的蓝色系设计风格',
+//   colors: {
+//     light: {
+//       primary: '#2563eb',
+//       secondary: '#3b82f6',
+//       accent: '#06b6d4',
+//       background: '#ffffff',
+//       surface: '#eff6ff',
+//       text: '#1f2937',
+//       textSecondary: '#6b7280'
+//     },
+//     dark: {
+//       primary: '#3b82f6',
+//       secondary: '#60a5fa',
+//       accent: '#22d3ee',
+//       background: '#0f172a',
+//       surface: '#1e3a8a',
+//       text: '#f3f4f6',
+//       textSecondary: '#d1d5db'
+//     }
+//   }
+// }
 
 // 科技主题
 const techTheme: Theme = {
@@ -156,7 +156,7 @@ const sourceCodeTheme: Theme = {
 export const themes: Theme[] = [
   minimalistTheme,
   professionalTheme,
-  creativeTheme,
+  // creativeTheme,
   techTheme,
   sourceCodeTheme
 ]

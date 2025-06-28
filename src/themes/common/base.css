@@ -1,0 +1,24 @@
+@layer base {
+  html,
+  body {
+    @apply h-full min-h-full bg-gray-50;
+  }
+  html.dark,
+  body.dark {
+    @apply bg-gray-900;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    /* 防止浏览器记住滚动位置，每次刷新都从顶部开始 */
+    scroll-restoration: manual;
+  }
+
+  body {
+    @apply font-sans antialiased;
+  }
+
+  * {
+    @apply box-border;
+  }
+}

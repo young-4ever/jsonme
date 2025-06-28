@@ -1,0 +1,148 @@
+/* 科技主题样式 */
+.theme-tech {
+  position: relative;
+  background: #111827;
+  color: white;
+
+  /* 科技主题背景效果 */
+  &::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        circle at 20% 80%,
+        rgba(59, 130, 246, 0.1) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 80% 20%,
+        rgba(16, 185, 129, 0.1) 0%,
+        transparent 50%
+      );
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* 章节标题样式 */
+  .section-title {
+    @apply text-xl font-mono font-bold text-primary-400 mb-6 relative;
+    font-family: "Courier New", monospace;
+
+    &::before {
+      content: "> ";
+      color: var(--color-accent);
+    }
+
+    &::after {
+      content: "";
+      @apply absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-primary-500 to-transparent;
+    }
+  }
+
+  /* 卡片样式 */
+  .card {
+    @apply border border-primary-500/30 rounded-lg shadow-lg p-6 font-mono relative overflow-hidden;
+    background-color: rgb(17 24 39); /* bg-gray-900 */
+
+    html.dark & {
+      background-color: black;
+    }
+    background-image: linear-gradient(
+        90deg,
+        rgba(59, 130, 246, 0.1) 1px,
+        transparent 1px
+      ),
+      linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+
+    &::before {
+      content: "";
+      @apply absolute top-0 left-0 w-full h-1;
+      background: linear-gradient(
+        to right,
+        var(--color-primary),
+        var(--color-accent)
+      );
+    }
+
+    /* 科技主题卡片内字体颜色 */
+    &,
+    * {
+      color: white !important;
+    }
+
+    .text-gray-600,
+    .text-gray-700,
+    .text-gray-800,
+    .text-gray-900 {
+      color: #d1d5db !important;
+    }
+
+    .text-gray-300,
+    .text-gray-400 {
+      color: #e5e7eb !important;
+    }
+  }
+
+  /* 技术标签样式 */
+  .tech-tag {
+    @apply bg-primary-900/50 border border-primary-500/50 text-primary-300 rounded px-2 py-1 font-mono text-xs;
+  }
+
+  /* 技能条样式 */
+  .skill-bar {
+    @apply border border-primary-500/30 rounded h-2;
+    background-color: rgb(31 41 55); /* bg-gray-800 */
+
+    html.dark & {
+      background-color: rgb(17 24 39); /* 更深的灰色 */
+    }
+  }
+
+  .skill-progress {
+    @apply rounded;
+    background: linear-gradient(
+      to right,
+      var(--color-primary),
+      var(--color-accent)
+    );
+  }
+
+  /* 技能分类样式 */
+  .skill-category {
+    @apply rounded-lg p-6 border font-mono;
+    background-color: rgba(17, 24, 39, 0.8);
+    border-color: rgba(59, 130, 246, 0.3);
+
+    html.dark & {
+      background-color: rgba(0, 0, 0, 0.8);
+      border-color: rgba(59, 130, 246, 0.4);
+    }
+
+    h3 {
+      @apply text-primary-400 font-mono font-bold;
+      border-bottom: 1px solid rgba(59, 130, 246, 0.3);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  /* 标题样式 */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    @apply text-primary-300 font-mono;
+  }
+
+  /* 段落和列表样式 */
+  p,
+  li {
+    @apply font-mono text-sm leading-relaxed;
+    color: #d1d5db;
+  }
+}

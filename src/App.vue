@@ -45,7 +45,7 @@
 
       <!-- 主要内容 -->
       <div v-else-if="resumeData" style="padding-bottom: 12px;" :class="['page-enter',
-        currentThemeName === 'professional' ? '' : 'container mx-auto px-4 py-8 max-w-4xl'
+        currentThemeName === 'professional' ? 'px-4 py-8' : 'container mx-auto px-4 py-8 max-w-4xl'
       ]">
         <!-- 顶部工具栏 -->
         <div class="fixed top-4 right-4 z-50 no-print">
@@ -54,13 +54,13 @@
               @theme-change="handleThemeChange" @dark-mode-toggle="toggleDarkMode" />
 
             <button @click="showUploader = true"
-              class="p-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 border border-gray-200 dark:border-gray-700"
+              class="p-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 border border-gray-200 dark:border-gray-700 text-sm"
               title="上传JSON文件">
               📤
             </button>
 
             <button @click="handlePrint"
-              class="p-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 border border-gray-200 dark:border-gray-700"
+              class="p-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 border border-gray-200 dark:border-gray-700 text-sm"
               title="打印简历">
               🖨️
             </button>
@@ -150,7 +150,7 @@
 
             <!-- 页脚 -->
             <footer class="mt-12 text-center text-gray-500 dark:text-gray-400 text-sm no-print">
-              <p>由 <a href="https://github.com/jsonme"
+              <p>由 <a href="https://github.com/young-4ever/jsonme"
                   class="text-primary-600 dark:text-primary-400 hover:underline">JsonMe</a> 生成</p>
             </footer>
           </div>
@@ -164,7 +164,7 @@
 
             <!-- 页脚 -->
             <footer class="mt-12 text-center text-gray-500 dark:text-gray-400 text-sm no-print">
-              <p>由 <a href="https://github.com/jsonme"
+              <p>由 <a href="https://github.com/young-4ever/jsonme"
                   class="text-primary-600 dark:text-primary-400 hover:underline">JsonMe</a> 生成</p>
             </footer>
           </div>

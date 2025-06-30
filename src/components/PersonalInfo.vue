@@ -39,7 +39,7 @@
             class="contact-link justify-start"
             @click="copyToClipboard(personal.contact.email)"
           >
-            📧 {{ personal.contact.email }}
+            📧 邮件: {{ personal.contact.email }}
           </a>
           
           <a
@@ -48,14 +48,14 @@
             class="contact-link justify-start"
             @click="copyToClipboard(personal.contact.phone)"
           >
-            📱 {{ personal.contact.phone }}
+            📱 电话: {{ personal.contact.phone }}
           </a>
           
           <span
             v-if="personal.contact.location"
             class="contact-link justify-start"
           >
-            📍 {{ personal.contact.location }}
+            📍 地址: {{ personal.contact.location }}
           </span>
           
           <a
@@ -90,7 +90,7 @@
         </div>
         
         <!-- 个人简介 -->
-        <p class="text-gray-700 dark:text-gray-300 leading-relaxed text-left whitespace-pre-wrap">
+        <p class="personal-summary text-gray-700 dark:text-gray-300 leading-relaxed text-left whitespace-pre-wrap">
           {{ personal.summary }}
         </p>
       </div>

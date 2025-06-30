@@ -1,6 +1,6 @@
 <template>
   <section class="mb-8">
-    <h2 class="section-title">个人项目</h2>
+    <h2 class="section-title">项目经历</h2>
     
     <!-- 科技主题的JSON显示 -->
     <div v-if="isTechTheme" class="space-y-6">
@@ -40,7 +40,7 @@
         </div>
         
         <!-- 项目标题和时间 -->
-        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-3">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-1">
           <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-1">
             {{ project.name }}
           </h3>

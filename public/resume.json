@@ -1,16 +1,16 @@
 {
   "personal": {
-    "name": "Young-4ever",
+    "name": "杨不困",
     "title": "前端开发工程师",
     "avatar": "https://young-4ever.github.io/jsonme/avatar.jpg",
     "contact": {
       "email": "oliverstack@qq.com",
-      "phone": "***",
+      "phone": "156****3129",
       "location": "深圳福田区",
       "website": "https://young-4ever.github.io/jsonme/",
       "github": "https://github.com/young-4ever"
     },
-    "summary": "3年前端开发经验的工程师，专注于Vue.js生态系统和现代Web技术。熟悉营销活动、组件中台的前端建设，致力于创建用户友好的界面和优化用户体验，具备扎实的JavaScript基础和丰富的项目实战经验。"
+    "summary": "你好👋，我是一位热爱前端的开发者，熟悉APP营销活动页、组件中台的前端建设，致力于创建友好的用户交互和高效的前端工程，具备扎实的JavaScript基础和丰富的项目实战经验。"
   },
   "education": [
     {
@@ -22,26 +22,6 @@
       "endDate": "2022-06",
       "gpa": "3.5/4.0 | top 30%",
       "description": "主修管理信息系统，计算机网络，WEB开发技术等，参与多个校内技术项目。"
-    }
-  ],
-  "experience": [
-    {
-      "id": "exp1",
-      "company": "中国平安财产保险股份有限公司",
-      "position": "前端开发工程师",
-      "startDate": "2022-07",
-      "current": true,
-      "description": [
-        "负责好车主活动核心业务——“活动搭建平台”的前端架构设计与开发",
-        "参与好车主APP重大营销活动（518、双十一、车主年报等）的前端开发与上线"
-      ],
-      "achievements": [
-        "作为前端负责人，统筹规划中台系统的前端功能迭代与优化",
-        "参与中台系统MVP版本的前端架构设计与开发，确保系统稳定上线",
-        "设计并实现跨框架组件注册机制，覆盖服务保险、推荐、内容等核心业务线",
-        "基于umd实现动态配置组件，产出职务发明专利1项（专利号：ZL...）"
-      ],
-      "technologies": ["Vue 3", "Svelte", "TypeScript", "Element Plus"]
     }
   ],
   "skills": [
@@ -82,24 +62,40 @@
       "category": "样式框架"
     }
   ],
+  "experience": [
+    {
+      "id": "exp1",
+      "company": "中国平安财产保险股份有限公司",
+      "position": "前端开发工程师",
+      "startDate": "2022-07",
+      "current": true,
+      "description": [
+        "负责好车主活动核心业务——“活动**中台”的前端架构设计与开发",
+        "参与好车主APP重大营销活动（518、双十一、车主年报等）的前端开发与上线"
+      ],
+      "achievements": [
+        "作为前端负责人，统筹规划中台系统的前端功能迭代与优化",
+        "参与中台系统MVP版本的前端架构设计与开发，确保系统稳定上线",
+        "设计并实现跨框架组件注册机制，覆盖服务保险、推荐、内容等核心业务线",
+        "基于umd实现动态配置组件，产出职务发明专利1项（专利号：ZL...）"
+      ],
+      "technologies": ["Vue 3", "Svelte", "TypeScript", "Element Plus"]
+    }
+  ],
   "projects": [
     {
       "id": "proj1",
-      "name": "micro editor",
-      "description": "基于Vue 3、TypeScript开发的H5页面编辑器",
-      "technologies": ["Vue 3", "TypeScript", "Vite"],
-      "url": "https://admin.example.com",
-      "github": "https://github.com/zhangsan/admin-system",
+      "name": "好车主 活动组件中台-前端",
+      "description": "负责前端编辑器的开发、组件开发脚手架搭建，实现快速拖拉拽生成H5活动落地页，解耦式开发组件和设置项",
+      "technologies": ["Vue 3", "Svelte", "TypeScript", "vite"],
       "highlights": [
-        "H5页面编辑功能的最小化实现",
-        "支持拖拽式组件配置，实现可视化页面搭建",
-        "支持解耦式加载组件",
-        "提供实时预览功能，所见即所得"
+        "实现拖拽式组件页面搭建，打包预览上线等一站式服务，每年上线总分机构页面超2000+",
+        "实现umd格式动态加载、输出组件，解耦基座和组件开发共建组件市场，覆盖团队内多个业务线"
       ]
     },
     {
-      "id": "proj",
-      "name": "jsonme",
+      "id": "proj2",
+      "name": "JSONME简历",
       "description": "基于JSON配置的简历网站生成器",
       "technologies": ["Vue 3", "TypeScript", "Tailwind CSS", "Vite"],
       "url": "https://young-4ever.github.io/jsonme/",
@@ -115,4 +111,4 @@
   "theme": {
     "name": "professionalTheme"
   }
-} 
+}

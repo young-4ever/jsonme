@@ -29,21 +29,21 @@
         :key="edu.id"
         class="card print-avoid-break transition-shadow duration-200"
       >
-        <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-3">
+        <div class="flex flex-row items-start justify-between">
           <div class="flex-1">
             <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-1">
               {{ edu.school }}
             </h3>
-            <h4 class="text-lg text-primary-600 dark:text-primary-400 mb-1">
+            <h4 class="text-sm text-primary-600 dark:text-primary-400 mb-1">
               {{ edu.degree }} · {{ edu.major }}
             </h4>
-            <p v-if="edu.gpa" class="text-sm text-gray-600 dark:text-gray-400 w-fit">
+            <p v-if="edu.gpa" class="text-sm text-primary-600 dark:text-primary-400 w-fit">
               GPA: {{ edu.gpa }}
             </p>
           </div>
           
-          <div class="flex items-center text-sm text-gray-600 dark:text-gray-400 mt-2 md:mt-0">
-            📅 <span class="ml-1">{{ getDateRange(edu.startDate, edu.endDate) }}</span>
+          <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
+            <span class="ml-1">{{ getDateRange(edu.startDate, edu.endDate) }}</span>
           </div>
         </div>
         

@@ -29,7 +29,7 @@
         :key="exp.id"
         class="card print-avoid-break transition-shadow duration-200"
       >
-        <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+        <div class="flex flex-row items-start justify-between mb-4">
           <div class="flex-1">
             <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-1">
               {{ exp.position }}
@@ -40,7 +40,7 @@
           </div>
           
           <div class="flex items-center text-sm text-gray-600 dark:text-gray-400">
-            📅 <span class="ml-1">{{ getDateRange(exp.startDate, exp.endDate, exp.current) }}</span>
+            <span class="ml-1">{{ getDateRange(exp.startDate, exp.endDate, exp.current) }}</span>
           </div>
         </div>
         

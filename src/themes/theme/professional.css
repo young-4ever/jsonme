@@ -173,7 +173,6 @@
     &:first-child {
       .flex {
         align-items: flex-start;
-        gap: 0.75rem;
       }
 
       img {

@@ -60,9 +60,11 @@
             </button>
 
             <button @click="handlePrint"
-              class="p-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 border border-gray-200 dark:border-gray-700 text-sm"
-              title="打印简历">
-              🖨️
+              :disabled="isPrintLoading"
+              class="p-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 border border-gray-200 dark:border-gray-700 text-sm disabled:opacity-50 disabled:cursor-not-allowed"
+              :title="isPrintLoading ? '正在准备打印...' : '打印简历'">
+              <span v-if="isPrintLoading" class="animate-spin">⏳</span>
+              <span v-else>🖨️</span>
             </button>
           </div>
         </div>
@@ -193,6 +195,7 @@ const isDarkMode = ref(false)
 const currentThemeName = ref('minimalist')
 const showUploader = ref(false)
 const showWelcome = ref(false)
+const isPrintLoading = ref(false)
 
 // 提供主题名称给子组件
 provide('currentThemeName', currentThemeName)
@@ -449,6 +452,9 @@ async function loadData() {
 
     resumeData.value = data
 
+    // 预加载头像图片
+    preloadAvatarImage()
+
     // 初始化主题模式
     initializeTheme(data.theme)
 
@@ -578,8 +584,104 @@ function applyTheme() {
   root.style.setProperty('--color-text-secondary', colors.textSecondary)
 }
 
-function handlePrint() {
-  window.print()
+async function handlePrint() {
+  isPrintLoading.value = true
+  
+  try {
+    // 检查并等待所有图片加载完成
+    await waitForImagesToLoad()
+    
+    // 短暂延迟确保渲染完成
+    await new Promise(resolve => setTimeout(resolve, 100))
+    
+    // 执行打印
+    window.print()
+  } catch (error) {
+    console.error('打印准备失败:', error)
+    // 即使图片加载失败，也继续执行打印
+    window.print()
+  } finally {
+    isPrintLoading.value = false
+  }
+}
+
+// 等待所有图片加载完成
+async function waitForImagesToLoad() {
+  return new Promise((resolve, reject) => {
+    const images = document.querySelectorAll('img')
+    
+    if (images.length === 0) {
+      resolve()
+      return
+    }
+    
+    let loadedCount = 0
+    let hasError = false
+    const totalImages = images.length
+    
+    // 设置超时时间（5秒）
+    const timeout = setTimeout(() => {
+      console.warn('图片加载超时，继续执行打印')
+      resolve()
+    }, 5000)
+    
+    const checkComplete = () => {
+      loadedCount++
+      if (loadedCount === totalImages) {
+        clearTimeout(timeout)
+        resolve()
+      }
+    }
+    
+    const handleError = (img) => {
+      console.warn('图片加载失败:', img.src)
+      hasError = true
+      checkComplete()
+    }
+    
+    images.forEach((img) => {
+      // 如果图片已经加载完成
+      if (img.complete) {
+        if (img.naturalWidth === 0) {
+          // 图片加载失败
+          handleError(img)
+        } else {
+          // 图片加载成功
+          checkComplete()
+        }
+      } else {
+        // 图片还在加载中，添加事件监听器
+        const onLoad = () => {
+          img.removeEventListener('load', onLoad)
+          img.removeEventListener('error', onError)
+          checkComplete()
+        }
+        
+        const onError = () => {
+          img.removeEventListener('load', onLoad)
+          img.removeEventListener('error', onError)
+          handleError(img)
+        }
+        
+        img.addEventListener('load', onLoad)
+        img.addEventListener('error', onError)
+      }
+    })
+  })
+}
+
+// 预加载头像图片
+function preloadAvatarImage() {
+  if (resumeData.value?.personal?.avatar) {
+    const img = new Image()
+    img.src = resumeData.value.personal.avatar
+    img.onload = () => {
+      console.log('头像预加载成功')
+    }
+    img.onerror = () => {
+      console.warn('头像预加载失败:', img.src)
+    }
+  }
 }
 
 // 页面可见性变化处理

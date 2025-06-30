@@ -28,38 +28,44 @@
     {
       "id": "skill1",
       "name": "Vue.js",
-      "level": 90,
-      "category": "前端框架"
+      "level": 80,
+      "category": "前端框架",
+      "description": "深度掌握Vue 3组合式API、响应式系统、自定义指令等核心特性，具备大型项目架构设计经验"
     },
     {
       "id": "skill2",
       "name": "TypeScript",
       "level": 85,
-      "category": "编程语言"
+      "category": "编程语言",
+      "description": "熟练使用类型系统、泛型、装饰器等高级特性，能够构建类型安全的大型应用"
     },
     {
       "id": "skill3",
       "name": "JavaScript",
-      "level": 95,
-      "category": "编程语言"
+      "level": 85,
+      "category": "编程语言",
+      "description": "精通ES6+语法、异步编程、闭包、原型链等核心概念，具备深厚的语言基础"
     },
     {
       "id": "skill4",
-      "name": "React",
-      "level": 75,
-      "category": "前端框架"
+      "name": "Svelte.js",
+      "level": 60,
+      "category": "前端框架",
+      "description": "掌握Svelte 5的响应式语法、组件生命周期、状态管理等核心特性，具备组件库开发和中台系统集成经验"
     },
     {
       "id": "skill5",
       "name": "Node.js",
-      "level": 70,
-      "category": "后端技术"
+      "level": 50,
+      "category": "后端技术",
+      "description": "掌握Express、Koa等框架，能够进行API开发、中间件编写和服务端渲染"
     },
     {
       "id": "skill6",
       "name": "Tailwind CSS",
       "level": 80,
-      "category": "样式框架"
+      "category": "样式框架",
+      "description": "熟练使用原子化CSS理念，能够快速构建响应式界面和自定义主题"
     }
   ],
   "experience": [

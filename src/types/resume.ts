@@ -43,6 +43,7 @@ export interface Skill {
   name: string
   level: number // 1-100
   category: string
+  description?: string // 技能描述
 }
 
 export interface Project {

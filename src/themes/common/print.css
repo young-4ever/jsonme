@@ -4,14 +4,13 @@
   /* 页面设置 */
   @page {
     size: A4;
-    /* margin: 1cm 0.5cm; */
-    padding: 0.4cm;
+    margin: 1.2cm 0.8cm;
   }
 
   /* 全局重置 */
   * {
     -webkit-print-color-adjust: exact !important;
-    color-adjust: exact !important;
+    print-color-adjust: exact !important;
     box-shadow: none !important;
     text-shadow: none !important;
   }
@@ -49,11 +48,11 @@
     font-size: 14pt !important;
     font-weight: bold !important;
     color: #0030a6 !important;
-    margin-bottom: 8pt !important;
+    margin-bottom: 6pt !important;
     text-transform: uppercase !important;
     letter-spacing: 0.5pt !important;
     border-bottom: 1pt solid #0030a6 !important;
-    padding-top: 10pt !important;
+    padding-top: 6pt !important;
     padding-bottom: 2pt !important;
     page-break-after: avoid !important;
 
@@ -63,6 +62,7 @@
 
     &:first-child {
       margin-top: 0 !important;
+      padding-top: 0 !important;
     }
   }
 
@@ -77,8 +77,8 @@
     border-radius: 0 !important;
     box-shadow: none !important;
     padding: 0 !important;
-    margin-bottom: 8pt !important;
-    page-break-inside: avoid !important;
+    margin-bottom: 6pt !important;
+    page-break-inside: auto !important;
   }
 
   /* 标题样式 */
@@ -168,8 +168,19 @@
 
   /* 技能条 - 打印时显示为文字 */
   .skill-item {
+    display: flex !important;
+    justify-content: flex-start !important;
+    align-items: flex-start;
     color: #484848 !important; /* 文字颜色淡一点 */
     font-weight: normal !important;
+  }
+  .skill-item-name::before {
+    content: "•";
+    font-weight: bold !important;
+    margin-right: 4pt !important;
+  }
+  .skill-item-level {
+    display: none !important;
   }
   .skill-bar {
     display: none !important;
@@ -195,8 +206,23 @@
     background: transparent !important;
     border: none !important;
     padding: 0 !important;
-    margin-bottom: 6pt !important;
+    margin-bottom: 4pt !important;
+    page-break-inside: auto !important;
   }
+  .skill-category-title {
+    display: none !important;
+  }
+  
+  /* 技能列表优化 */
+  .skills-list {
+    margin-bottom: 4pt !important;
+  }
+  
+  /* 技能项目间距优化 */
+  .skill-item {
+    margin-bottom: 1pt !important;
+  }
+  
 
   /* 图片处理 */
   img {
@@ -207,6 +233,18 @@
     height: 2.54cm !important;
     border: none !important;
     page-break-inside: avoid !important;
+    
+    /* 确保图片加载失败时有合适的占位 */
+    background-color: #f3f4f6 !important;
+    
+    /* 确保图片在打印时正确显示 */
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  /* 头像容器在打印时的处理 */
+  .flex-shrink-0 {
+    flex-shrink: 0 !important;
   }
 
   /* 间距调整 */
@@ -268,7 +306,7 @@
     font-size: 10pt !important;
     color: #666 !important;
     line-height: 1.3 !important;
-    margin: 4pt 0 12pt 0 !important;
+    margin: 4pt 0 8pt 0 !important;
   }
 
   /* 技能列表在打印时简化 */

@@ -19,7 +19,7 @@
         :key="category"
         class="skill-category"
       >
-        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4 skill-category-title">
           {{ category }}
         </h3>
         
@@ -30,19 +30,26 @@
             class="skill-item"
           >
             <div class="flex justify-between items-center mb-2">
-              <span class="font-medium text-gray-800 dark:text-gray-200">
+              <span class="text-gray-700 dark:text-gray-300 skill-item-name">
                 {{ skill.name }}
               </span>
-              <span class="text-sm text-gray-600 dark:text-gray-400">
+              <span class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed skill-item-level">
                 {{ getSkillDescription(skill.level) }}
               </span>
             </div>
             
-            <div class="skill-bar">
+            <div class="skill-bar mb-3">
               <div
                 class="skill-progress"
                 :style="{ width: skill.level + '%' }"
               ></div>
+            </div>
+            
+            <!-- 技能描述 -->
+            <div v-if="skill.description">
+              <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                {{ skill.description }}
+              </p>
             </div>
           </div>
         </div>

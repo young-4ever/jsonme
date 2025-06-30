@@ -18,7 +18,9 @@
           :src="personal.avatar"
           :alt="`${personal.name}的头像`"
           class="w-32 h-32 rounded-full object-cover border-4 border-primary-200 dark:border-primary-800 shadow-lg"
-          loading="lazy"
+          loading="eager"
+          @error="handleImageError"
+          @load="handleImageLoad"
         />
       </div>
       
@@ -130,5 +132,15 @@ function copyToClipboard(text: string): void {
       console.error('复制失败:', err)
     })
   }
+}
+
+function handleImageLoad(event: Event): void {
+  const img = event.target as HTMLImageElement
+  console.log('头像加载成功:', img.src)
+}
+
+function handleImageError(event: Event): void {
+  const img = event.target as HTMLImageElement
+  console.warn('头像加载失败:', img.src)
 }
 </script> 

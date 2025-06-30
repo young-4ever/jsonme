@@ -16,6 +16,9 @@ dist-ssr
 .vscode/*
 .cursor/*
 !.vscode/extensions.json
+
+# Documentation and project files
+docs/
 .idea
 .DS_Store
 *.suo

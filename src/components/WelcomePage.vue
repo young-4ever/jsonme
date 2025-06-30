@@ -116,11 +116,28 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue'
+
+// 立即阻止浏览器自动恢复滚动位置
+if (typeof window !== 'undefined') {
+  if ('scrollRestoration' in window.history) {
+    window.history.scrollRestoration = 'manual'
+  }
+  window.scrollTo(0, 0)
+}
+
 // 定义emit事件
 const emit = defineEmits<{
   upload: []
   viewDemo: []
 }>()
+
+// 组件挂载时确保滚动到顶部
+onMounted(() => {
+  window.scrollTo(0, 0)
+  document.documentElement.scrollTop = 0
+  document.body.scrollTop = 0
+})
 </script>
 
 <style scoped>

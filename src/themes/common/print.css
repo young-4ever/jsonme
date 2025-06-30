@@ -30,8 +30,9 @@
   .container {
     width: 100% !important;
     max-width: none !important;
-    margin: 0 !important;
-    padding: 0 !important;
+    margin: 0pt !important;
+    padding: 0pt 14pt !important;
+    box-sizing: border-box !important;
     background: transparent !important;
     box-shadow: none !important;
     border: none !important;
@@ -77,7 +78,7 @@
     border-radius: 0 !important;
     box-shadow: none !important;
     padding: 0 !important;
-    margin-bottom: 6pt !important;
+    margin-bottom: 16pt !important;
     page-break-inside: auto !important;
   }
 
@@ -262,7 +263,7 @@
 
   /* 章节间距 */
   section {
-    margin-bottom: 12pt !important;
+    margin-bottom: 20pt !important;
     page-break-inside: avoid !important;
 
     &:last-child {

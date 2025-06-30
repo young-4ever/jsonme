@@ -4,6 +4,17 @@
     `theme-${currentThemeName}`,
     { 'dark': isDarkMode }
   ]">
+    <!-- Fork me on GitHub 带状链接 -->
+    <div class="github-ribbon no-print">
+      <a href="https://github.com/young-4ever/jsonme" 
+         target="_blank" 
+         rel="noopener noreferrer"
+         class="github-ribbon-link"
+         title="Fork me on GitHub">
+        <span class="github-ribbon-text">Fork me on GitHub</span>
+      </a>
+    </div>
+
     <!-- 欢迎页面 -->
     <div v-if="showWelcome">
       <WelcomePage @upload="handleUploadFromWelcome" @view-demo="handleViewDemo" />
@@ -178,6 +189,17 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, provide, computed } from 'vue'
+
+// 立即阻止浏览器自动恢复滚动位置（在页面加载早期执行）
+if (typeof window !== 'undefined') {
+  // 阻止浏览器自动恢复滚动位置
+  if ('scrollRestoration' in window.history) {
+    window.history.scrollRestoration = 'manual'
+  }
+  
+  // 立即滚动到顶部
+  window.scrollTo(0, 0)
+}
 import PersonalInfo from '@/components/PersonalInfo.vue'
 import ExperienceSection from '@/components/ExperienceSection.vue'
 import SkillsSection from '@/components/SkillsSection.vue'
@@ -381,6 +403,53 @@ const highlightedJsonWithLines = computed(() => {
   return highlightedLines.join('\n')
 })
 
+// 解密Gist URL
+function decryptGistUrl(encrypted) {
+  try {
+    // 如果是旧格式的URL编码，直接解码
+    if (encrypted.includes('http')) {
+      return decodeURIComponent(encrypted)
+    }
+    
+    // 1. 移除前缀和后缀（各4位）
+    if (encrypted.length <= 8) {
+      throw new Error('加密字符串太短')
+    }
+    const withoutPrefixSuffix = encrypted.slice(4, -4)
+    
+    // 2. 反转字符串
+    const unreversed = withoutPrefixSuffix.split('').reverse().join('')
+    
+    // 3. 恢复字符替换 (使用循环映射的逆操作)
+    const unsubstituted = unreversed
+      .replace(/_/g, '/')
+      .replace(/-/g, '+')
+      .replace(/[A-Z]/g, (char) => {
+        const code = char.charCodeAt(0) - 65 // A=0, B=1, ..., Z=25
+        const shifted = (code - 1 + 26) % 26 // 循环反向映射
+        return String.fromCharCode(shifted + 65)
+      })
+      .replace(/[a-z]/g, (char) => {
+        const code = char.charCodeAt(0) - 97 // a=0, b=1, ..., z=25
+        const shifted = (code - 1 + 26) % 26 // 循环反向映射
+        return String.fromCharCode(shifted + 97)
+      })
+    
+    // 4. Base64解码
+    const decoded = atob(unsubstituted)
+    
+    return decoded
+  } catch (err) {
+    console.error('URL解密失败:', err)
+    // 降级方案：尝试直接URL解码
+    try {
+      return decodeURIComponent(encrypted)
+    } catch {
+      throw new Error('链接解析失败，可能链接已损坏')
+    }
+  }
+}
+
 // 方法
 async function loadData() {
   isLoading.value = true
@@ -398,18 +467,32 @@ async function loadData() {
     }
 
     if (urlParams.has('data')) {
-      // 从Base64编码的URL参数加载数据
-      const base64Data = urlParams.get('data')
-      console.log('Loading from Base64 data')
+      // 从加密的URL参数加载数据
+      const encryptedData = urlParams.get('data')
+      console.log('Loading from encrypted data')
 
       try {
-        // 标准Base64解码流程
-        const encodedString = atob(base64Data)
-        const jsonString = decodeURIComponent(encodedString)
-        data = JSON.parse(jsonString)
+        // 首先尝试解密为Gist URL
+        const gistUrl = decryptGistUrl(encryptedData)
+        
+        // 检查是否是有效的Gist URL
+        if (gistUrl.includes('gist.githubusercontent.com')) {
+          console.log('Loading from decrypted Gist:', gistUrl)
+          const response = await fetch(gistUrl)
+          if (!response.ok) {
+            throw new Error(`Gist加载失败: ${response.status} ${response.statusText}`)
+          }
+          data = await response.json()
+        } else {
+          // 降级：按原来的Base64 JSON处理
+          console.log('Fallback to Base64 JSON data')
+          const encodedString = atob(encryptedData)
+          const jsonString = decodeURIComponent(encodedString)
+          data = JSON.parse(jsonString)
+        }
       } catch (err) {
-        console.error('Base64 decode error:', err)
-        throw new Error('Base64数据解码失败，链接可能已损坏')
+        console.error('Data decode error:', err)
+        throw new Error('数据解码失败，链接可能已损坏')
       }
     } else if (urlParams.has('gist')) {
       // 从Gist URL加载数据
@@ -703,6 +786,16 @@ function handleViewDemo() {
 }
 
 onMounted(async () => {
+  // 阻止浏览器自动恢复滚动位置
+  if ('scrollRestoration' in window.history) {
+    window.history.scrollRestoration = 'manual'
+  }
+  
+  // 强制页面滚动到顶部
+  window.scrollTo(0, 0)
+  document.documentElement.scrollTop = 0
+  document.body.scrollTop = 0
+
   // 加载数据
   await loadData()
 
@@ -715,3 +808,6 @@ onUnmounted(() => {
   document.removeEventListener('visibilitychange', handleVisibilityChange)
 })
 </script>
+
+<style>
+</style>

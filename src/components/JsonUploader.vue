@@ -1,6 +1,10 @@
 <template>
   <div class="min-h-screen bg-gray-50 dark:bg-gray-900 py-8 px-4">
-    <div class="max-w-4xl mx-auto">
+    <div class="max-w-5xl mx-auto">
+      <!-- 主体网格布局 -->
+      <div class="grid grid-cols-1 xl:grid-cols-4 gap-8">
+        <!-- 主要内容区域 -->
+        <div class="xl:col-span-3 space-y-8">
       <!-- 标题区域 -->
       <div class="text-center mb-8">
         <!-- 返回按钮 -->
@@ -70,6 +74,21 @@
               </svg>
               <span class="hidden sm:inline">在线编辑</span>
               <span class="sm:hidden">编辑</span>
+            </button>
+            
+            <button
+              @click="inputMethod = 'share'"
+              class="flex items-center gap-2 px-6 py-3 text-sm font-medium rounded-lg transition-all duration-200"
+              :class="{
+                'bg-white dark:bg-gray-600 text-primary-600 dark:text-primary-400 shadow-sm transform scale-105': inputMethod === 'share',
+                'text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-600': inputMethod !== 'share'
+              }"
+            >
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
+              </svg>
+              <span class="hidden sm:inline">分享链接</span>
+              <span class="sm:hidden">分享</span>
             </button>
           </div>
         </div>
@@ -172,6 +191,111 @@
           </div>
         </div>
 
+        <!-- 分享链接区域 -->
+        <div v-if="inputMethod === 'share'" class="space-y-6 animate-fadeIn">
+          <div class="text-center mb-8">
+            <div class="w-16 h-16 bg-blue-100 dark:bg-blue-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
+              </svg>
+            </div>
+            <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-2">🔗 生成分享上传链接</h2>
+            <p class="text-gray-600 dark:text-gray-400">
+              使用你的GitHub Token生成一次性上传链接，分享给他人上传JSON文件。每个链接只能使用一次，24小时内有效。
+            </p>
+          </div>
+          
+          <div v-if="!shareableLink" class="space-y-6">
+            <!-- GitHub Token输入 -->
+            <div class="space-y-2">
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                你的GitHub Token <span class="text-red-500">*</span>
+              </label>
+              <input
+                v-model="shareGithubToken"
+                type="password"
+                placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+                required
+                class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
+                :class="{ 'border-red-300 dark:border-red-600': !shareGithubToken.trim() }"
+              />
+              <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded p-3 text-sm">
+                <p class="text-blue-800 dark:text-blue-200 font-medium mb-2">📝 如何获取GitHub Token：</p>
+                <ol class="text-blue-700 dark:text-blue-300 space-y-1 ml-4">
+                  <li>1. 访问 <a href="https://github.com/settings/tokens" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline">GitHub Token设置</a></li>
+                  <li>2. 点击 "Generate new token (classic)"</li>
+                  <li>3. 只需勾选 <code class="bg-blue-100 dark:bg-blue-800 px-1 rounded">gist</code> 权限</li>
+                  <li>4. 复制生成的Token到此处</li>
+                </ol>
+                <p class="text-blue-600 dark:text-blue-400 text-xs mt-2">
+                  ⚠️ Token将被编码到分享链接中，仅用于授权他人上传
+                </p>
+              </div>
+            </div>
+            
+            <div class="flex justify-center">
+              <button
+                @click="generateShareableLink"
+                :disabled="isGeneratingShareLink || !shareGithubToken.trim()"
+                class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 font-semibold"
+              >
+                {{ isGeneratingShareLink ? '生成中...' : '🎫 生成分享链接' }}
+              </button>
+            </div>
+          </div>
+          
+          <div v-else class="space-y-4">
+            <div>
+              <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                分享链接（一次性使用，24小时有效）：
+              </label>
+              <div class="flex items-center space-x-2">
+                <input
+                  :value="shareableLink"
+                  readonly
+                  class="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
+                />
+                <button
+                  @click="copyShareableLink"
+                  class="px-4 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors duration-200"
+                  title="复制链接"
+                >
+                  📋
+                </button>
+              </div>
+            </div>
+            
+            <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
+              <div class="flex items-start">
+                <svg class="w-5 h-5 text-yellow-600 dark:text-yellow-400 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 15.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                </svg>
+                <div class="text-yellow-800 dark:text-yellow-200">
+                  <p class="font-medium">⚠️ 重要提醒：</p>
+                  <ul class="text-sm mt-1 space-y-1">
+                    <li>• 此链接只能使用一次，使用后立即失效</li>
+                    <li>• 链接24小时后自动过期</li>
+                    <li>• 链接中包含你的GitHub Token授权信息</li>
+                    <li>• 请确保分享给可信任的人员</li>
+                    <li>• 上传的文件将创建为公开的GitHub Gist</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            <div class="flex justify-center">
+              <button
+                @click="resetShareableLink"
+                class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors duration-200"
+              >
+                重新生成
+              </button>
+            </div>
+          </div>
+
+
+        </div>
+
         <!-- 上传进度 -->
         <div v-if="isUploading" class="mt-6">
           <div class="flex items-center justify-center">
@@ -206,41 +330,16 @@
           <h3 class="font-semibold text-blue-900 dark:text-blue-100 mb-2">文件信息</h3>
           <p class="text-blue-800 dark:text-blue-200 text-sm">
             大小: {{ (jsonSize / 1024).toFixed(1) }}KB
-            <span v-if="canUseBase64" class="text-green-600 dark:text-green-400 ml-2">✓ 适合URL编码</span>
-            <span v-else class="text-orange-600 dark:text-orange-400 ml-2">⚠ 建议使用外部存储</span>
+            <span class="text-green-600 dark:text-green-400 ml-2">✓ 将上传到GitHub Gist</span>
           </p>
         </div>
 
         <!-- 上传方式选择 -->
         <div class="mb-6">
-          <h3 class="font-semibold text-gray-900 dark:text-white mb-4">选择上传方式</h3>
+          <h3 class="font-semibold text-gray-900 dark:text-white mb-4">上传方式</h3>
           <div class="space-y-3">
-            <!-- Base64编码 -->
-            <label class="flex items-start space-x-3 p-4 border rounded-lg cursor-pointer transition-colors"
-              :class="{
-                'border-primary-500 bg-primary-50 dark:bg-primary-900/20': uploadMethod === 'base64',
-                'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500': uploadMethod !== 'base64'
-              }">
-              <input type="radio" v-model="uploadMethod" value="base64" class="mt-1" />
-              <div class="flex-1">
-                <div class="font-medium text-gray-900 dark:text-white">
-                  URL编码 (推荐)
-                  <span v-if="canUseBase64" class="text-green-600 dark:text-green-400 text-sm ml-2">✓ 最佳选择</span>
-                  <span v-else class="text-red-600 dark:text-red-400 text-sm ml-2">✗ 文件过大</span>
-                </div>
-                <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                  将数据编码到URL中，无需外部服务，即时生成链接
-                </div>
-              </div>
-            </label>
-
             <!-- GitHub Gist -->
-            <label class="flex items-start space-x-3 p-4 border rounded-lg cursor-pointer transition-colors"
-              :class="{
-                'border-primary-500 bg-primary-50 dark:bg-primary-900/20': uploadMethod === 'gist',
-                'border-gray-200 dark:border-gray-600 hover:border-gray-300 dark:hover:border-gray-500': uploadMethod !== 'gist'
-              }">
-              <input type="radio" v-model="uploadMethod" value="gist" class="mt-1" />
+            <div class="flex items-start space-x-3 p-4 border rounded-lg border-primary-500 bg-primary-50 dark:bg-primary-900/20">
               <div class="flex-1">
                 <div class="font-medium text-gray-900 dark:text-white">
                   GitHub Gist
@@ -338,7 +437,7 @@
                   </div>
                 </div>
               </div>
-            </label>
+            </div>
           </div>
         </div>
 
@@ -352,7 +451,7 @@
         <div class="flex justify-center">
           <button
             @click="uploadToService"
-            :disabled="isUploading || (uploadMethod === 'base64' && !canUseBase64) || (uploadMethod === 'gist' && !isGistTokenValid())"
+            :disabled="isUploading || !isGistTokenValid()"
             class="px-8 py-3 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 font-semibold"
           >
             {{ isUploading ? '生成中...' : getUploadButtonText() }}
@@ -360,104 +459,8 @@
         </div>
       </div>
 
-      <!-- 生成分享链接区域 -->
-      <div v-if="!isOneTimeTokenAccess" class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 mb-8">
-        <h2 class="text-2xl font-semibold text-gray-900 dark:text-white mb-4">🔗 生成分享上传链接</h2>
-        <p class="text-gray-600 dark:text-gray-400 mb-6">
-          使用你的GitHub Token生成一次性上传链接，分享给他人上传JSON文件。每个链接只能使用一次，24小时内有效。
-        </p>
-        
-        <div v-if="!shareableLink" class="space-y-6">
-          <!-- GitHub Token输入 -->
-          <div class="space-y-2">
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300">
-              你的GitHub Token <span class="text-red-500">*</span>
-            </label>
-            <input
-              v-model="shareGithubToken"
-              type="password"
-              placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
-              required
-              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded bg-white dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
-              :class="{ 'border-red-300 dark:border-red-600': !shareGithubToken.trim() }"
-            />
-            <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded p-3 text-sm">
-              <p class="text-blue-800 dark:text-blue-200 font-medium mb-2">📝 如何获取GitHub Token：</p>
-              <ol class="text-blue-700 dark:text-blue-300 space-y-1 ml-4">
-                <li>1. 访问 <a href="https://github.com/settings/tokens" target="_blank" class="text-blue-600 dark:text-blue-400 hover:underline">GitHub Token设置</a></li>
-                <li>2. 点击 "Generate new token (classic)"</li>
-                <li>3. 只需勾选 <code class="bg-blue-100 dark:bg-blue-800 px-1 rounded">gist</code> 权限</li>
-                <li>4. 复制生成的Token到此处</li>
-              </ol>
-              <p class="text-blue-600 dark:text-blue-400 text-xs mt-2">
-                ⚠️ Token将被编码到分享链接中，仅用于授权他人上传
-              </p>
-            </div>
-          </div>
-          
-          <div class="flex justify-center">
-            <button
-              @click="generateShareableLink"
-              :disabled="isGeneratingShareLink || !shareGithubToken.trim()"
-              class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200 font-semibold"
-            >
-              {{ isGeneratingShareLink ? '生成中...' : '🎫 生成分享链接' }}
-            </button>
-          </div>
-        </div>
-        
-        <div v-else class="space-y-4">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-              分享链接（一次性使用，24小时有效）：
-            </label>
-            <div class="flex items-center space-x-2">
-              <input
-                :value="shareableLink"
-                readonly
-                class="flex-1 px-4 py-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white text-sm"
-              />
-              <button
-                @click="copyShareableLink"
-                class="px-4 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors duration-200"
-                title="复制链接"
-              >
-                📋
-              </button>
-            </div>
-          </div>
-          
-          <div class="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
-            <div class="flex items-start">
-              <svg class="w-5 h-5 text-yellow-600 dark:text-yellow-400 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 15.5c-.77.833.192 2.5 1.732 2.5z"></path>
-              </svg>
-              <div class="text-yellow-800 dark:text-yellow-200">
-                <p class="font-medium">⚠️ 重要提醒：</p>
-                <ul class="text-sm mt-1 space-y-1">
-                  <li>• 此链接只能使用一次，使用后立即失效</li>
-                  <li>• 链接24小时后自动过期</li>
-                  <li>• 链接中包含你的GitHub Token授权信息</li>
-                  <li>• 请确保分享给可信任的人员</li>
-                  <li>• 上传的文件将创建为公开的GitHub Gist</li>
-                </ul>
-              </div>
-            </div>
-          </div>
-          
-          <div class="flex justify-center">
-            <button
-              @click="resetShareableLink"
-              class="px-4 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors duration-200"
-            >
-              重新生成
-            </button>
-          </div>
-        </div>
-      </div>
-
       <!-- 结果区域 -->
-      <div v-if="generatedLink" class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
+      <div v-if="generatedLink" class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8 mb-8">
         <div class="text-center">
           <div class="mb-6">
             <div class="w-16 h-16 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -522,15 +525,167 @@
         </div>
       </div>
 
-      <!-- 说明文档 -->
-      <div class="mt-12 bg-blue-50 dark:bg-blue-900/20 rounded-lg p-6">
-        <h3 class="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-4">使用说明</h3>
-        <div class="text-blue-800 dark:text-blue-200 space-y-2">
-          <p>• 支持标准的JSON简历格式文件</p>
-          <p>• 文件将上传到GitHub Gist（匿名、公开）</p>
-          <p>• 生成的链接可以永久访问</p>
-          <p>• 建议文件大小不超过5MB</p>
-          <p>• 支持的字段：personal, experience, education, skills, projects, theme</p>
+
+
+        </div>
+        
+        <!-- 右侧使用说明栏 -->
+        <div class="xl:col-span-1">
+          <!-- 在大屏幕上固定在右侧，小屏幕上显示在底部 -->
+          <div class="hidden xl:block sticky top-8">
+            <!-- 大屏幕固定侧边栏内容 -->
+            <!-- 上传文件说明 -->
+            <div v-if="inputMethod === 'upload'" class="bg-blue-50 dark:bg-blue-900/20 rounded-lg p-6 border border-blue-200 dark:border-blue-800">
+              <h3 class="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-4 flex items-center">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                </svg>
+                📁 文件上传
+              </h3>
+              <div class="text-blue-800 dark:text-blue-200 space-y-3 text-sm">
+                <div>
+                  <h4 class="font-medium mb-1">📋 支持格式</h4>
+                  <p class="text-xs">• JSON简历格式文件</p>
+                  <p class="text-xs">• 最大文件大小: 5MB</p>
+                </div>
+                <div>
+                  <h4 class="font-medium mb-1">🔧 必须字段</h4>
+                  <p class="text-xs">• personal.name (姓名)</p>
+                  <p class="text-xs">• personal.title (职位)</p>
+                </div>
+                <div>
+                  <h4 class="font-medium mb-1">📊 可选字段</h4>
+                  <p class="text-xs">• experience (工作经历)</p>
+                  <p class="text-xs">• education (教育背景)</p>
+                  <p class="text-xs">• skills (技能)</p>
+                  <p class="text-xs">• projects (项目经历)</p>
+                </div>
+                <div>
+                  <h4 class="font-medium mb-1">🚀 上传方式</h4>
+                  <p class="text-xs">• 免费服务 (每小时10次)</p>
+                  <p class="text-xs">• 自定义GitHub Token</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 在线编辑说明 -->
+            <div v-if="inputMethod === 'editor'" class="bg-green-50 dark:bg-green-900/20 rounded-lg p-6 border border-green-200 dark:border-green-800">
+              <h3 class="text-lg font-semibold text-green-900 dark:text-green-100 mb-4 flex items-center">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                </svg>
+                ✏️ 在线编辑
+              </h3>
+              <div class="text-green-800 dark:text-green-200 space-y-3 text-sm">
+                <div>
+                  <h4 class="font-medium mb-1">🔄 编辑模式</h4>
+                  <p class="text-xs">• 表单视图 (推荐新手)</p>
+                  <p class="text-xs">• 树形视图 (结构清晰)</p>
+                  <p class="text-xs">• 代码视图 (专业用户)</p>
+                </div>
+                <div>
+                  <h4 class="font-medium mb-1">📄 快速开始</h4>
+                  <p class="text-xs">• 点击"加载模板"获取示例</p>
+                  <p class="text-xs">• 使用"验证数据"检查格式</p>
+                </div>
+                <div>
+                  <h4 class="font-medium mb-1">💡 编辑技巧</h4>
+                  <p class="text-xs">• 表单模式：直接填写字段</p>
+                  <p class="text-xs">• 树形模式：展开节点编辑</p>
+                  <p class="text-xs">• 代码模式：直接编辑JSON</p>
+                </div>
+                <div>
+                  <h4 class="font-medium mb-1">⚠️ 注意事项</h4>
+                  <p class="text-xs">• 保持JSON格式正确</p>
+                  <p class="text-xs">• 必填字段不能为空</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 分享链接说明 -->
+            <div v-if="inputMethod === 'share'" class="bg-purple-50 dark:bg-purple-900/20 rounded-lg p-6 border border-purple-200 dark:border-purple-800">
+              <h3 class="text-lg font-semibold text-purple-900 dark:text-purple-100 mb-4 flex items-center">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
+                </svg>
+                🔗 分享链接
+              </h3>
+              <div class="text-purple-800 dark:text-purple-200 space-y-3 text-sm">
+                <div>
+                  <h4 class="font-medium mb-1">🎯 使用场景</h4>
+                  <p class="text-xs">• 分享给他人上传简历</p>
+                  <p class="text-xs">• 一次性授权上传</p>
+                  <p class="text-xs">• 团队协作收集简历</p>
+                </div>
+                <div>
+                  <h4 class="font-medium mb-1">🔒 安全特性</h4>
+                  <p class="text-xs">• 一次性使用，用后失效</p>
+                  <p class="text-xs">• 24小时自动过期</p>
+                  <p class="text-xs">• Token安全编码</p>
+                </div>
+                <div>
+                  <h4 class="font-medium mb-1">📝 前置要求</h4>
+                  <p class="text-xs">• 需要GitHub账号</p>
+                  <p class="text-xs">• 生成GitHub Token</p>
+                  <p class="text-xs">• Token需要gist权限</p>
+                </div>
+                <div>
+                  <h4 class="font-medium mb-1">⚠️ 重要提醒</h4>
+                  <p class="text-xs">• 仅分享给可信人员</p>
+                  <p class="text-xs">• 文件将公开存储</p>
+                  <p class="text-xs">• 一个链接只能用一次</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- 通用帮助信息 -->
+            <div class="mt-6 bg-gray-50 dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+              <h4 class="font-medium text-gray-900 dark:text-white mb-2 flex items-center text-sm">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                💡 常见问题
+              </h4>
+              <div class="text-gray-600 dark:text-gray-400 text-xs space-y-2">
+                <div>
+                  <strong>Q: 如何获取GitHub Token？</strong>
+                  <p>A: 前往GitHub设置 > 开发者设置 > 个人访问令牌</p>
+                </div>
+                <div>
+                  <strong>Q: 生成的链接永久有效吗？</strong>
+                  <p>A: 是的，简历链接永久有效，可随时访问</p>
+                </div>
+                <div>
+                  <strong>Q: 文件安全吗？</strong>
+                  <p>A: 文件存储在GitHub Gist，公开但安全</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 小屏幕版本：显示在主内容下方 -->
+          <div class="xl:hidden mt-8">
+            <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700">
+              <h4 class="font-medium text-gray-900 dark:text-white mb-3 flex items-center">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                💡 快速帮助
+              </h4>
+              <div class="text-gray-600 dark:text-gray-400 text-sm space-y-2">
+                <div v-if="inputMethod === 'upload'">
+                  <p><strong>文件上传:</strong> 支持JSON格式，最大5MB，需包含personal.name字段</p>
+                </div>
+                <div v-if="inputMethod === 'editor'">
+                  <p><strong>在线编辑:</strong> 可切换表单/树形/代码视图，点击加载模板快速开始</p>
+                </div>
+                <div v-if="inputMethod === 'share'">
+                  <p><strong>分享链接:</strong> 生成一次性上传链接，需GitHub Token，24小时有效</p>
+                </div>
+                <p><strong>存储方式:</strong> 文件上传到GitHub Gist，永久保存，公开访问</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -539,6 +694,14 @@
 
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted, nextTick, watch } from 'vue'
+
+// 立即阻止浏览器自动恢复滚动位置
+if (typeof window !== 'undefined') {
+  if ('scrollRestoration' in window.history) {
+    window.history.scrollRestoration = 'manual'
+  }
+  window.scrollTo(0, 0)
+}
 import JSONEditor from 'jsoneditor'
 import 'jsoneditor/dist/jsoneditor.css'
 
@@ -556,12 +719,12 @@ const error = ref<string>('')
 const generatedLink = ref<string>('')
 const qrCodeDataUrl = ref<string>('')
 const copyText = ref('复制链接')
-const uploadMethod = ref<'base64' | 'gist' | 'pastebin'>('base64')
+const uploadMethod = ref<'gist'>('gist')
 const githubToken = ref<string>('')
 const useDefaultToken = ref<boolean>(true)
 
 // JSON编辑器相关
-const inputMethod = ref<'upload' | 'editor'>('upload')
+const inputMethod = ref<'upload' | 'editor' | 'share'>('upload')
 const jsonEditorContainer = ref<HTMLElement>()
 const editorMode = ref<'tree' | 'form' | 'code'>('form')
 const jsonValidationError = ref<string>('')
@@ -598,10 +761,7 @@ const jsonSize = computed(() => {
   return new Blob([JSON.stringify(uploadedData.value)]).size
 })
 
-const canUseBase64 = computed(() => {
-  // URL长度限制，建议小于8KB的JSON使用Base64
-  return jsonSize.value < 8000
-})
+
 
 // 计算编辑器内容大小
 const editorContentSize = computed(() => {
@@ -698,12 +858,8 @@ function handleFile(file: File) {
       
       uploadedData.value = data
       
-      // 自动选择最佳上传方式
-      if (canUseBase64.value) {
-        uploadMethod.value = 'base64'
-      } else {
-        uploadMethod.value = 'gist'
-      }
+      // 默认使用GitHub Gist方式
+      uploadMethod.value = 'gist'
       
     } catch (err) {
       error.value = '无效的JSON文件格式'
@@ -725,20 +881,8 @@ async function uploadToService() {
   error.value = ''
   
   try {
-    let link = ''
-    
-    switch (uploadMethod.value) {
-      case 'base64':
-        link = await generateBase64Link()
-        break
-      case 'gist':
-        link = await uploadToGist()
-        break
-      case 'pastebin':
-        link = await uploadToPastebin()
-        break
-    }
-    
+    // 只支持GitHub Gist方式
+    const link = await uploadToGist()
     generatedLink.value = link
     
     // 生成二维码
@@ -751,36 +895,7 @@ async function uploadToService() {
   }
 }
 
-// 方案1：Base64编码到URL（适合小文件）
-async function generateBase64Link(): Promise<string> {
-  const jsonString = JSON.stringify(uploadedData.value)
-  
-  // 修复中文字符编码问题
-  try {
-    // 首先尝试标准方法（适用于现代浏览器）
-    const encodedString = encodeURIComponent(jsonString)
-    let base64Data = ''
-    
-    try {
-      // 尝试直接使用btoa
-      base64Data = btoa(encodedString)
-    } catch (btaError) {
-      // 如果btoa失败（可能因为字符串太长），分块处理
-      const chunks = []
-      for (let i = 0; i < encodedString.length; i += 1000) {
-        chunks.push(btoa(encodedString.slice(i, i + 1000)))
-      }
-      base64Data = chunks.join('')
-    }
-    
-    // 生成基础URL
-    let baseUrl = getBaseUrl()
-    return `${baseUrl}?data=${base64Data}`
-  } catch (err) {
-    console.error('Base64 encoding error:', err)
-    throw new Error('数据编码失败，请尝试使用GitHub Gist方式')
-  }
-}
+
 
 // 方案2：GitHub Gist（带可选token）
 async function uploadToGist(): Promise<string> {
@@ -861,7 +976,23 @@ async function uploadToGist(): Promise<string> {
     }
     
     const baseUrl = getBaseUrl()
-    return `${baseUrl}?gist=${encodeURIComponent(rawUrl)}`
+    const encryptedUrl = encryptGistUrl(rawUrl)
+    
+    // 验证加密/解密是否正常工作
+    try {
+      const decryptedTest = decryptGistUrl(encryptedUrl)
+      if (decryptedTest !== rawUrl) {
+        console.error('加密验证失败:', { original: rawUrl, decrypted: decryptedTest })
+        throw new Error('链接加密验证失败')
+      }
+      console.log('✅ 链接加密验证成功')
+    } catch (verifyErr) {
+      console.error('加密验证出错:', verifyErr)
+      // 降级到直接使用gist参数
+      return `${baseUrl}?gist=${encodeURIComponent(rawUrl)}`
+    }
+    
+    return `${baseUrl}?data=${encryptedUrl}`
   } catch (error) {
     // 重新抛出我们自定义的错误消息
     if (error instanceof Error) {
@@ -871,30 +1002,89 @@ async function uploadToGist(): Promise<string> {
   }
 }
 
-// 方案3：Pastebin备用服务
-async function uploadToPastebin(): Promise<string> {
-  const formData = new FormData()
-  formData.append('api_dev_key', 'your_pastebin_api_key') // 需要申请API key
-  formData.append('api_option', 'paste')
-  formData.append('api_paste_code', JSON.stringify(uploadedData.value, null, 2))
-  formData.append('api_paste_format', 'json')
-  formData.append('api_paste_name', `JsonMe Resume - ${uploadedData.value.personal?.name || 'Anonymous'}`)
-  formData.append('api_paste_expire_date', 'N') // 永不过期
-  
-  const response = await fetch('https://pastebin.com/api/api_post.php', {
-    method: 'POST',
-    body: formData
-  })
-  
-  if (!response.ok) {
-    throw new Error('Pastebin上传失败')
+
+
+// 加密Gist URL
+function encryptGistUrl(url: string): string {
+  try {
+    // 1. Base64编码
+    const base64Encoded = btoa(url)
+    
+    // 2. 字符替换混淆 (使用循环映射避免无效字符)
+    const substituted = base64Encoded
+      .replace(/[A-Z]/g, (char) => {
+        const code = char.charCodeAt(0) - 65 // A=0, B=1, ..., Z=25
+        const shifted = (code + 1) % 26 // 循环映射
+        return String.fromCharCode(shifted + 65)
+      })
+      .replace(/[a-z]/g, (char) => {
+        const code = char.charCodeAt(0) - 97 // a=0, b=1, ..., z=25
+        const shifted = (code + 1) % 26 // 循环映射
+        return String.fromCharCode(shifted + 97)
+      })
+      .replace(/\+/g, '-')
+      .replace(/\//g, '_')
+    
+    // 3. 反转字符串
+    const reversed = substituted.split('').reverse().join('')
+    
+    // 4. 添加随机前缀和后缀以增加混淆
+    const timestamp = Date.now().toString(36).slice(-4)
+    const random = Math.random().toString(36).substring(2, 6)
+    
+    return `${timestamp}${reversed}${random}`
+  } catch (err) {
+    console.error('URL加密失败:', err)
+    // 降级方案：只使用URL编码
+    return encodeURIComponent(url)
   }
-  
-  const pastebinUrl = await response.text()
-  const rawUrl = pastebinUrl.replace('pastebin.com/', 'pastebin.com/raw/')
-  
-  const baseUrl = getBaseUrl()
-  return `${baseUrl}?url=${encodeURIComponent(rawUrl)}`
+}
+
+// 解密Gist URL
+function decryptGistUrl(encrypted: string): string {
+  try {
+    // 如果是旧格式的URL编码，直接解码
+    if (encrypted.includes('http')) {
+      return decodeURIComponent(encrypted)
+    }
+    
+    // 1. 移除前缀和后缀（各4位）
+    if (encrypted.length <= 8) {
+      throw new Error('加密字符串太短')
+    }
+    const withoutPrefixSuffix = encrypted.slice(4, -4)
+    
+    // 2. 反转字符串
+    const unreversed = withoutPrefixSuffix.split('').reverse().join('')
+    
+    // 3. 恢复字符替换 (使用循环映射的逆操作)
+    const unsubstituted = unreversed
+      .replace(/_/g, '/')
+      .replace(/-/g, '+')
+      .replace(/[A-Z]/g, (char) => {
+        const code = char.charCodeAt(0) - 65 // A=0, B=1, ..., Z=25
+        const shifted = (code - 1 + 26) % 26 // 循环反向映射
+        return String.fromCharCode(shifted + 65)
+      })
+      .replace(/[a-z]/g, (char) => {
+        const code = char.charCodeAt(0) - 97 // a=0, b=1, ..., z=25
+        const shifted = (code - 1 + 26) % 26 // 循环反向映射
+        return String.fromCharCode(shifted + 97)
+      })
+    
+    // 4. Base64解码
+    const decoded = atob(unsubstituted)
+    
+    return decoded
+  } catch (err) {
+    console.error('URL解密失败:', err)
+    // 降级方案：尝试直接URL解码
+    try {
+      return decodeURIComponent(encrypted)
+    } catch {
+      throw new Error('链接解析失败，可能链接已损坏')
+    }
+  }
 }
 
 // 获取基础URL
@@ -967,7 +1157,7 @@ function reset() {
   qrCodeDataUrl.value = ''
   error.value = ''
   copyText.value = '复制链接'
-  uploadMethod.value = 'base64'
+  uploadMethod.value = 'gist'
   githubToken.value = ''
   
   // 重置编辑器状态
@@ -982,23 +1172,17 @@ function reset() {
 
 // 获取上传按钮文本
 function getUploadButtonText(): string {
-  if (uploadMethod.value === 'base64' && !canUseBase64.value) {
-    return '文件过大，无法使用URL编码'
-  }
-  
-  if (uploadMethod.value === 'gist') {
-    if (!useDefaultToken.value || !defaultGithubToken) {
-      if (!githubToken.value.trim()) {
-        return '请先输入GitHub Token'
-      }
-    }
-    
-    if (useDefaultToken.value && defaultGithubToken && !checkRateLimit()) {
-      return `服务限制已满（${getRemainingTime()}后重试）`
+  if (!useDefaultToken.value || !defaultGithubToken) {
+    if (!githubToken.value.trim()) {
+      return '请先输入GitHub Token'
     }
   }
   
-  return '生成链接'
+  if (useDefaultToken.value && defaultGithubToken && !checkRateLimit()) {
+    return `服务限制已满（${getRemainingTime()}后重试）`
+  }
+  
+  return '📤 上传到GitHub Gist'
 }
 
 // 检查速率限制
@@ -1389,12 +1573,8 @@ function parseJsonFromEditor(): void {
     uploadedData.value = data
     error.value = ''
     
-    // 自动选择最佳上传方式
-    if (canUseBase64.value) {
-      uploadMethod.value = 'base64'
-    } else {
-      uploadMethod.value = 'gist'
-    }
+    // 默认使用GitHub Gist方式
+    uploadMethod.value = 'gist'
     
   } catch (err) {
     error.value = '数据格式无效'
@@ -1418,6 +1598,11 @@ async function handleInputMethodChange(): Promise<void> {
 
 // 组件挂载时初始化
 onMounted(() => {
+  // 确保页面滚动到顶部
+  window.scrollTo(0, 0)
+  document.documentElement.scrollTop = 0
+  document.body.scrollTop = 0
+  
   initializePage()
   
   // 观察输入方式变化

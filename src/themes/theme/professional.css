@@ -3,13 +3,13 @@
   font-size: 0.875rem;
   line-height: 1.25;
   /* A4纸张背景效果 - 更深的桌面背景 */
-  min-height: 100vh;
+  min-height: 100vh;;
   position: relative;
 
   /* A4纸张容器效果 */
   .container {
     width: auto;
-    max-width: 56rem;
+    max-width: 210mm; /* 真实A4纸张宽度 */
     padding: 2rem 3rem;
     margin: 0 auto;
     background: #ffffff;
@@ -20,10 +20,16 @@
       0 20px 25px -5px rgba(0, 0, 0, 0.15);
     border-radius: 3px;
     position: relative;
-    /* A4纸张比例 */
-    min-height: calc(100vh - 4rem);
+    /* A4纸张比例 - 297mm高度 */
+    min-height: 297mm;
     margin-top: 2rem;
     margin-bottom: 2rem;
+    
+    /* 确保A4比例在较小屏幕上的自适应 */
+    @media screen and (max-width: 210mm) {
+      max-width: 95vw;
+      min-height: calc(95vw * 1.414); /* A4宽高比 1:1.414 */
+    }
 
     /* 纸张纹理效果 */
     &::before {
@@ -40,11 +46,12 @@
       border-radius: 3px;
     }
 
-    /* 响应式调整 */
+    /* 响应式调整 - 保持A4比例 */
     @media (max-width: 768px) {
       margin: 1rem;
       padding: 1.5rem 2rem;
-      min-height: calc(100vh - 2rem);
+      max-width: calc(100vw - 2rem);
+      min-height: calc((100vw - 2rem) * 1.414); /* 保持A4比例 */
       box-shadow: 
         0 0 0 1px rgba(0, 0, 0, 0.08),
         0 2px 4px -1px rgba(0, 0, 0, 0.12),
@@ -55,6 +62,8 @@
       margin: 0.5rem;
       padding: 1rem 1.5rem;
       border-radius: 2px;
+      max-width: calc(100vw - 1rem);
+      min-height: calc((100vw - 1rem) * 1.414); /* 保持A4比例 */
     }
   }
 

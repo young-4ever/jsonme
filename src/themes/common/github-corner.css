@@ -1,0 +1,163 @@
+/* GitHub Ribbon 样式 */
+.github-ribbon {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  
+  .github-ribbon-link {
+    position: absolute;
+    top: 32px;
+    left: -48px;
+    width: 200px;
+    height: 40px;
+    background: #333;
+    color: #fff;
+    text-decoration: none;
+    text-align: center;
+    line-height: 40px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    transform: rotate(-48deg);
+    transition: all 0.3s ease;
+    pointer-events: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .github-ribbon-text {
+    display: block;
+    white-space: nowrap;
+  }
+  
+  /* 悬停效果 */
+  .github-ribbon-link:hover {
+    background: #000;
+    color: #fff;
+    transform: rotate(-48deg) scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* 深色模式适配 */
+  .dark .github-ribbon-link {
+    background: #f0f6fc;
+    color: #3b5d7e;
+  }
+  
+  .dark .github-ribbon-link:hover {
+    background: #ffffff;
+    color: #000;
+  }
+  
+  /* 主题色彩适配 */
+  .theme-professional .github-ribbon-link {
+    background: #1e3a8a;
+  }
+  
+  .theme-professional .github-ribbon-link:hover {
+    background: #1e40af;
+  }
+  
+  .theme-creative .github-ribbon-link {
+    background: #7c3aed;
+  }
+  
+  .theme-creative .github-ribbon-link:hover {
+    background: #8b5cf6;
+  }
+  
+  .theme-tech .github-ribbon-link {
+    background: #059669;
+  }
+  
+  .theme-tech .github-ribbon-link:hover {
+    background: #10b981;
+  }
+  
+  .theme-source .github-ribbon-link {
+    background: #e26e6e;
+  }
+  
+  .theme-source .github-ribbon-link:hover {
+    background: #f07777;
+  }
+  
+  /* 响应式设计 */
+  @media (max-width: 768px) {
+    .github-ribbon {
+      width: 120px;
+      height: 120px;
+    }
+    
+    .github-ribbon-link {
+      top: 26px;
+      left: -32px;
+      width: 160px;
+      height: 32px;
+      line-height: 32px;
+      font-size: 12px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .github-ribbon {
+      width: 100px;
+      height: 100px;
+    }
+    
+    .github-ribbon-link {
+      top: 22px;
+      left: -28px;
+      width: 140px;
+      height: 28px;
+      line-height: 28px;
+      font-size: 11px;
+    }
+  }
+  
+  /* 确保在打印时隐藏 */
+  @media print {
+    .github-ribbon {
+      display: none !important;
+    }
+  }
+  
+  /* 可访问性 */
+  .github-ribbon-link:focus {
+    outline: 2px solid #0969da;
+    outline-offset: 2px;
+  }
+  
+  .github-ribbon-link:focus-visible {
+    outline: 2px solid #0969da;
+    outline-offset: 2px;
+  }
+  
+  /* 性能优化 */
+  .github-ribbon-link {
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+  
+  /* 高对比度模式支持 */
+  @media (prefers-contrast: high) {
+    .github-ribbon-link {
+      border: 2px solid;
+    }
+  }
+  
+  /* 减少动画模式支持 */
+  @media (prefers-reduced-motion: reduce) {
+    .github-ribbon-link {
+      transition: none;
+    }
+    
+    .github-ribbon-link:hover {
+      transform: rotate(-48deg);
+    }
+  }

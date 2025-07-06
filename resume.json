@@ -27,45 +27,52 @@
   "skills": [
     {
       "id": "skill1",
-      "name": "Vue.js",
-      "level": 80,
-      "category": "前端框架",
-      "description": "深度掌握Vue 3组合式API、响应式系统、自定义指令等核心特性，具备大型项目架构设计经验"
+      "name": "JS/TS",
+      "level": 85,
+      "category": "编程语言",
+      "description": "熟悉ES6+语法、异步编程、闭包、原型链、类型系统等核心概念，具备扎实的编程基础"
     },
     {
       "id": "skill2",
-      "name": "TypeScript",
-      "level": 85,
-      "category": "编程语言",
-      "description": "熟练使用类型系统、泛型、装饰器等高级特性，能够构建类型安全的大型应用"
+      "name": "Vue",
+      "level": 80,
+      "category": "前端框架",
+      "description": "熟悉Vue3 组合式API、Proxy响应式系统等核心特性，具备vue3 + ts 项目架构设计和开发经验"
     },
     {
       "id": "skill3",
-      "name": "JavaScript",
-      "level": 85,
-      "category": "编程语言",
-      "description": "精通ES6+语法、异步编程、闭包、原型链等核心概念，具备深厚的语言基础"
+      "name": "Svelte",
+      "level": 60,
+      "category": "前端框架",
+      "description": "掌握Svelte的响应式语法、生命周期、状态管理等核心特性，具备Svelte组件封装和跨框架集成经验"
     },
     {
       "id": "skill4",
-      "name": "Svelte.js",
-      "level": 60,
-      "category": "前端框架",
-      "description": "掌握Svelte 5的响应式语法、组件生命周期、状态管理等核心特性，具备组件库开发和中台系统集成经验"
+      "name": "Vite",
+      "level": 70,
+      "category": "工程实践",
+      "description": "对前端工程化有一定了解，熟练使用Vite/Webpack进行项目构建，具备组件库打包、优化等实践经验"
     },
     {
       "id": "skill5",
-      "name": "Node.js",
-      "level": 50,
-      "category": "后端技术",
-      "description": "掌握Express、Koa等框架，能够进行API开发、中间件编写和服务端渲染"
+      "name": "浏览器",
+      "level": 70,
+      "category": "工程实践",
+      "description": "对浏览器渲染、首屏性能优化、懒加载方案有一定研究和项目实践"
     },
     {
       "id": "skill6",
-      "name": "Tailwind CSS",
-      "level": 80,
-      "category": "样式框架",
-      "description": "熟练使用原子化CSS理念，能够快速构建响应式界面和自定义主题"
+      "name": "协作",
+      "level": 85,
+      "category": "团队协作",
+      "description": "拥有良好的问题解决能力和编码习惯，制定过项目开发规范、能够独立完成复杂任务"
+    },
+    {
+      "id": "skill7",
+      "name": "学习",
+      "level": 85,
+      "category": "团队协作",
+      "description": "对技术有热情，进行过组内技术分享、发表团队前端期刊博客和发布公司职务专利，具备快速学习能力"
     }
   ],
   "experience": [

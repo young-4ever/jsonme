@@ -23,7 +23,7 @@
           {{ category }}
         </h3>
         
-        <div class="space-y-3">
+        <div class="space-y-3 skill-item-wrapper">
           <div
             v-for="skill in skills"
             :key="skill.id"
@@ -31,7 +31,7 @@
           >
             <div class="flex justify-between items-center mb-2">
               <span class="text-gray-700 dark:text-gray-300 skill-item-name">
-                {{ skill.name }}
+                <span class="skill-item-name-tag">{{ skill.name }}</span>
               </span>
               <span class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed skill-item-level">
                 {{ getSkillDescription(skill.level) }}
@@ -47,7 +47,7 @@
             
             <!-- 技能描述 -->
             <div v-if="skill.description">
-              <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+              <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed skill-item-description">
                 {{ skill.description }}
               </p>
             </div>

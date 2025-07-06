@@ -23,9 +23,9 @@
     </div>
     
     <!-- 其他主题的常规显示 -->
-    <div v-else class="grid grid-cols-1 lg:grid-cols-2 gap-6 projects-grid">
+    <div v-else class="grid grid-cols-1 lg:grid-cols-2 lg:gap-6 sm:gap-x-6 sm:gap-y-0 projects-grid">
       <div
-        v-for="project in sortedProjects"
+        v-for="(project, index) in sortedProjects"
         :key="project.id"
         class="card print-avoid-break transition-shadow duration-200"
       >
@@ -42,60 +42,62 @@
         <!-- 项目标题和时间 -->
         <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-1">
           <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-1">
-            {{ project.name }}
+            {{ index + 1 + '. ' + project.name }}
           </h3>
         </div>
         
-        <!-- 项目描述 -->
-        <p class="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
-          {{ project.description }}
-        </p>
-        
-        <!-- 项目亮点 -->
-        <div v-if="project.highlights && project.highlights.length > 0" class="mb-4">
-          <h5 class="font-medium text-gray-900 dark:text-white mb-2">项目亮点：</h5>
-          <ul class="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
-            <li v-for="highlight in project.highlights" :key="highlight">
-              {{ highlight }}
-            </li>
-          </ul>
-        </div>
-        
-        <!-- 技术栈 -->
-        <div v-if="project.technologies && project.technologies.length > 0" class="mb-4">
-          <h5 class="font-medium text-gray-900 dark:text-white mb-2">技术栈：</h5>
-          <div class="flex flex-wrap">
-            <span
-              v-for="tech in project.technologies"
-              :key="tech"
-              class="tech-tag"
-            >
-              {{ tech }}
-            </span>
-          </div>
-        </div>
-        
-        <!-- 项目链接 -->
-        <div class="flex flex-wrap gap-3">
-          <a
-            v-if="project.url"
-            :href="project.url"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-200"
-          >
-            🔗 在线预览
-          </a>
+        <div class="px-2">
+          <!-- 项目描述 -->
+          <p class="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+            {{ project.description }}
+          </p>
           
-          <a
-            v-if="project.github"
-            :href="project.github"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-200"
-          >
-            📂 源码
-          </a>
+          <!-- 项目亮点 -->
+          <div v-if="project.highlights && project.highlights.length > 0" class="mb-2">
+            <h5 class="font-medium text-gray-900 dark:text-white mb-2">项目亮点：</h5>
+            <ul class="list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300">
+              <li v-for="highlight in project.highlights" :key="highlight">
+                {{ highlight }}
+              </li>
+            </ul>
+          </div>
+          
+          <!-- 技术栈 -->
+          <div v-if="project.technologies && project.technologies.length > 0" class="mb-2">
+            <h5 class="font-medium text-gray-900 dark:text-white mb-2">技术栈：</h5>
+            <div class="flex flex-wrap">
+              <span
+                v-for="tech in project.technologies"
+                :key="tech"
+                class="tech-tag"
+              >
+                {{ tech }}
+              </span>
+            </div>
+          </div>
+          
+          <!-- 项目链接 -->
+          <div class="flex flex-wrap gap-3">
+            <a
+              v-if="project.url"
+              :href="project.url"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-200"
+            >
+              🔗 在线预览
+            </a>
+            
+            <a
+              v-if="project.github"
+              :href="project.github"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors duration-200"
+            >
+              📂 源码
+            </a>
+          </div>
         </div>
       </div>
     </div>

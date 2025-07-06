@@ -29,7 +29,7 @@
         :key="exp.id"
         class="card print-avoid-break transition-shadow duration-200"
       >
-        <div class="flex flex-row items-start justify-between mb-4">
+        <div class="flex flex-row items-start justify-between mb-1">
           <div class="flex-1">
             <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-1">
               {{ exp.position }}
@@ -45,7 +45,7 @@
         </div>
         
         <!-- 工作内容 -->
-        <div class="mb-4">
+        <div class="mb-2">
           <h5 class="font-medium text-gray-900 dark:text-white mb-2">工作内容：</h5>
           <div class="text-gray-700 dark:text-gray-300 leading-relaxed">
             <!-- 如果是字符串 -->

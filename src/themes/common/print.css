@@ -4,7 +4,7 @@
   /* 页面设置 */
   @page {
     size: A4;
-    margin: 1.2cm 0.8cm;
+    margin: 1cm 0.8cm;
   }
 
   /* 全局重置 */
@@ -18,68 +18,12 @@
   body {
     font-family: "PingFang SC", "PingFang TC", "PingFang HK", "Helvetica Neue",
       "Helvetica", "Arial", sans-serif !important;
-    font-size: 12pt !important;
+    font-size: 10pt !important;
     line-height: 1.4 !important;
     color: #000 !important;
     background: white !important;
     margin: 0 !important;
     padding: 0 !important;
-  }
-
-  /* 容器样式 */
-  .container {
-    width: 100% !important;
-    max-width: none !important;
-    margin: 0pt !important;
-    padding: 0pt 14pt !important;
-    box-sizing: border-box !important;
-    background: transparent !important;
-    box-shadow: none !important;
-    border: none !important;
-    border-radius: 0 !important;
-    min-height: auto !important;
-
-    &::before {
-      display: none !important;
-    }
-  }
-
-  /* 章节标题 */
-  .section-title {
-    font-size: 14pt !important;
-    font-weight: bold !important;
-    color: #0030a6 !important;
-    margin-bottom: 6pt !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.5pt !important;
-    border-bottom: 1pt solid #0030a6 !important;
-    padding-top: 6pt !important;
-    padding-bottom: 2pt !important;
-    page-break-after: avoid !important;
-
-    &::after {
-      display: none !important;
-    }
-
-    &:first-child {
-      margin-top: 0 !important;
-      padding-top: 0 !important;
-    }
-  }
-
-  .projects-grid {
-    gap: 0 !important;
-  }
-
-  /* 卡片样式 */
-  .card {
-    background: transparent !important;
-    border: none !important;
-    border-radius: 0 !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    margin-bottom: 16pt !important;
-    page-break-inside: auto !important;
   }
 
   /* 标题样式 */
@@ -114,7 +58,7 @@
     font-weight: normal !important;
     color: #484848 !important; /* 文字颜色淡一点 */
     margin-bottom: 3pt !important;
-    page-break-after: avoid !important;
+    /* page-break-after: avoid !important; */
   }
 
   h5 {
@@ -122,12 +66,12 @@
     font-weight: bold !important;
     color: #000 !important;
     margin-bottom: 2pt !important;
-    page-break-after: avoid !important;
+    /* page-break-after: avoid !important; */
   }
 
   /* 段落和文本 */
   p {
-    font-size: 11pt !important;
+    font-size: 10pt !important;
     color: #484848 !important; /* 文字颜色淡一点 */
     margin-bottom: 6pt !important;
     line-height: 1.4 !important;
@@ -150,81 +94,6 @@
     color: #484848 !important; /* 文字颜色淡一点 */
   }
 
-  /* 技术标签 */
-  .tech-tag {
-    display: inline !important;
-    background: transparent !important;
-    color: #666666 !important;
-    border: 1pt solid #666666 !important;
-    border-radius: 2pt !important;
-    padding: 1pt 3pt !important;
-    font-size: 8pt !important;
-    margin-right: 4pt !important;
-    margin-bottom: 2pt !important;
-
-    &:first-child {
-      margin-left: 8pt !important;
-    }
-  }
-
-  /* 技能条 - 打印时显示为文字 */
-  .skill-item {
-    display: flex !important;
-    justify-content: flex-start !important;
-    align-items: flex-start;
-    color: #484848 !important; /* 文字颜色淡一点 */
-    font-weight: normal !important;
-  }
-  .skill-item-name::before {
-    content: "•";
-    font-weight: bold !important;
-    margin-right: 4pt !important;
-  }
-  .skill-item-level {
-    display: none !important;
-  }
-  .skill-bar {
-    display: none !important;
-  }
-
-  .skill-progress {
-    display: none !important;
-  }
-
-  /* 联系方式链接 */
-  .contact-link {
-    display: flex !important;
-    align-items: center !important;
-    color: #000 !important;
-    font-weight: normal !important;
-    text-align: left !important;
-    gap: 4pt !important;
-    line-height: 1.4 !important;
-  }
-
-  /* 技能分类 */
-  .skill-category {
-    background: transparent !important;
-    border: none !important;
-    padding: 0 !important;
-    margin-bottom: 4pt !important;
-    page-break-inside: auto !important;
-  }
-  .skill-category-title {
-    display: none !important;
-  }
-  
-  /* 技能列表优化 */
-  .skills-list {
-    margin-bottom: 4pt !important;
-  }
-  
-  /* 技能项目间距优化 */
-  .skill-item {
-    margin-bottom: 1pt !important;
-  }
-  
-
   /* 图片处理 */
   img {
     position: absolute;
@@ -234,15 +103,15 @@
     height: 2.54cm !important;
     border: none !important;
     page-break-inside: avoid !important;
-    
+
     /* 确保图片加载失败时有合适的占位 */
     background-color: #f3f4f6 !important;
-    
+
     /* 确保图片在打印时正确显示 */
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
-  
+
   /* 头像容器在打印时的处理 */
   .flex-shrink-0 {
     flex-shrink: 0 !important;
@@ -263,8 +132,8 @@
 
   /* 章节间距 */
   section {
-    margin-bottom: 20pt !important;
-    page-break-inside: avoid !important;
+    page-break-inside: auto !important;
+    padding-bottom: 6pt !important;
 
     &:last-child {
       margin-bottom: 0 !important;
@@ -296,11 +165,79 @@
     color: #000 !important;
   }
 
+  /* 页面容器样式 */
+  .container {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0pt !important;
+    padding: 0pt 14pt !important;
+    box-sizing: border-box !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    min-height: auto !important;
+
+    &::before {
+      display: none !important;
+    }
+  }
+
+  /* 卡片样式 */
+  .card {
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    page-break-inside: auto !important;
+  }
+
+  /* 章节标题 */
+  .section-title {
+    font-size: 14pt !important;
+    font-weight: bold !important;
+    color: #0030a6 !important;
+    margin-bottom: 6pt !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5pt !important;
+    border-bottom: 1pt solid #0030a6 !important;
+    padding-top: 6pt !important;
+    padding-bottom: 2pt !important;
+    /* page-break-after: avoid !important; */
+
+    &::after {
+      display: none !important;
+    }
+
+    &:first-child {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+  }
+
+  /* 项目经历 */
+  .projects-grid {
+    gap: 0 !important;
+  }
+
   /* 联系方式网格在打印时改为列表 */
   .contact-grid {
     display: block !important;
     padding: 4pt 0;
     margin: 0 !important;
+  }
+
+  /* 联系方式链接 */
+  .contact-link {
+    display: flex !important;
+    align-items: center !important;
+    color: #000 !important;
+    font-weight: normal !important;
+    text-align: left !important;
+    gap: 4pt !important;
+    line-height: 1.4 !important;
   }
 
   .personal-summary {
@@ -322,6 +259,99 @@
   .animation,
   .hover-effect {
     display: none !important;
+  }
+
+  /* 技术标签 */
+  .tech-tag {
+    display: inline !important;
+    background: transparent !important;
+    color: #666666 !important;
+    border: 1pt solid #666666 !important;
+    border-radius: 2pt !important;
+    padding: 1pt 3pt !important;
+    font-size: 8pt !important;
+    margin-right: 4pt !important;
+    margin-bottom: 2pt !important;
+
+    &:first-child {
+      margin-left: 8pt !important;
+    }
+    &::before {
+      content: "•";
+      font-weight: bold !important;
+      margin-right: 4pt !important;
+    }
+  }
+
+  /* 技能条 - 打印时显示为文字 */
+  .skill-item {
+    display: flex !important;
+    height: fit-content !important;
+    justify-content: flex-start !important;
+    align-items: flex-start !important;
+    color: #484848 !important; /* 文字颜色淡一点 */
+    font-weight: normal !important;
+    font-size: 10pt !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    gap: 2pt 4pt !important;
+
+    &-name {
+      display: block !important;
+      background: transparent !important;
+      min-width: 50pt;
+      text-align: right;
+
+      &-tag {
+        color: #666666 !important;
+        border: 1pt solid #666666 !important;
+        border-radius: 2pt !important;
+        padding: 1pt 3pt !important;
+        font-size: 8pt !important;
+        margin-right: 4pt !important;
+        overflow: hidden;
+      }
+
+      &::after {
+        content: "•";
+        font-weight: bold !important;
+      }
+    }
+
+    &-description {
+      margin: 0 !important;
+    }
+
+    &-level {
+      display: none !important;
+    }
+  }
+
+  .skill-bar {
+    display: none !important;
+  }
+
+  .skill-progress {
+    display: none !important;
+  }
+
+  /* 技能分类 */
+  .skill-category {
+    background: transparent !important;
+    border: none !important;
+    padding: 0pt !important;
+    margin: 0pt !important;
+    gap: 0pt !important;
+    page-break-inside: auto !important;
+  }
+
+  .skill-category-title {
+    display: none !important;
+  }
+
+  /* 技能列表优化 */
+  .skills-list {
+    margin-bottom: 4pt !important;
   }
 }
 /* End of Selection */

@@ -547,7 +547,7 @@
                   <h4 class="font-medium mb-1">📋 支持格式</h4>
                   <p class="text-xs">• JSON简历格式文件</p>
                   <p class="text-xs">• 最大文件大小: 5MB</p>
-                </div>
+      </div>
                 <div>
                   <h4 class="font-medium mb-1">🔧 必须字段</h4>
                   <p class="text-xs">• personal.name (姓名)</p>
@@ -859,7 +859,7 @@ function handleFile(file: File) {
       uploadedData.value = data
       
       // 默认使用GitHub Gist方式
-      uploadMethod.value = 'gist'
+        uploadMethod.value = 'gist'
       
     } catch (err) {
       error.value = '无效的JSON文件格式'
@@ -989,7 +989,7 @@ async function uploadToGist(): Promise<string> {
     } catch (verifyErr) {
       console.error('加密验证出错:', verifyErr)
       // 降级到直接使用gist参数
-      return `${baseUrl}?gist=${encodeURIComponent(rawUrl)}`
+    return `${baseUrl}?gist=${encodeURIComponent(rawUrl)}`
     }
     
     return `${baseUrl}?data=${encryptedUrl}`
@@ -1051,7 +1051,7 @@ function decryptGistUrl(encrypted: string): string {
     // 1. 移除前缀和后缀（各4位）
     if (encrypted.length <= 8) {
       throw new Error('加密字符串太短')
-    }
+  }
     const withoutPrefixSuffix = encrypted.slice(4, -4)
     
     // 2. 反转字符串
@@ -1172,14 +1172,14 @@ function reset() {
 
 // 获取上传按钮文本
 function getUploadButtonText(): string {
-  if (!useDefaultToken.value || !defaultGithubToken) {
-    if (!githubToken.value.trim()) {
-      return '请先输入GitHub Token'
+    if (!useDefaultToken.value || !defaultGithubToken) {
+      if (!githubToken.value.trim()) {
+        return '请先输入GitHub Token'
+      }
     }
-  }
-  
-  if (useDefaultToken.value && defaultGithubToken && !checkRateLimit()) {
-    return `服务限制已满（${getRemainingTime()}后重试）`
+    
+    if (useDefaultToken.value && defaultGithubToken && !checkRateLimit()) {
+      return `服务限制已满（${getRemainingTime()}后重试）`
   }
   
   return '📤 上传到GitHub Gist'
@@ -1574,7 +1574,7 @@ function parseJsonFromEditor(): void {
     error.value = ''
     
     // 默认使用GitHub Gist方式
-    uploadMethod.value = 'gist'
+      uploadMethod.value = 'gist'
     
   } catch (err) {
     error.value = '数据格式无效'

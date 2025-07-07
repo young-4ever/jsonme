@@ -34,6 +34,13 @@
     },
     {
       "id": "skill2",
+      "name": "HTML/CSS",
+      "level": 85,
+      "category": "编程语言",
+      "description": "熟悉语义化HTML、Flexbox响应式设计，能够快速高质量还原设计稿并兼顾可访问性与性能优化"
+    },
+    {
+      "id": "skill2",
       "name": "Vue",
       "level": 80,
       "category": "前端框架",
@@ -83,34 +90,44 @@
       "startDate": "2022-07",
       "current": true,
       "description": [
-        "负责好车主活动核心业务——“活动**中台”的前端架构设计与开发",
-        "参与好车主APP重大营销活动（518、双十一、车主年报等）的前端开发与上线"
+        "负责好车主活动核心业务——“活动**中台”的前端方案设计与开发迭代",
+        "参与好车主APP重大营销活动（女神节、双十一、车主年报等）的前端开发与上线"
       ],
       "achievements": [
-        "作为前端负责人，统筹规划中台系统的前端功能迭代与优化",
-        "参与中台系统MVP版本的前端架构设计与开发，确保系统稳定上线",
-        "设计并实现跨框架组件注册机制，覆盖服务保险、推荐、内容等核心业务线",
-        "基于umd实现动态配置组件，产出职务发明专利1项（专利号：ZL...）"
-      ],
-      "technologies": ["Vue 3", "Svelte", "TypeScript", "Element Plus"]
+        "作为前端负责人，与架构师统筹规划活动中台的前端功能迭代与优化",
+        "独立负责S级活动前端开发、组织代码评审、制定开发规范等，协调产品、UI进行沟通协作，保证活动稳定上线",
+        "设计并实现等机制，覆盖运营、服务、保险、推荐、内容等多个核心业务线"
+      ]
     }
   ],
   "projects": [
     {
       "id": "proj1",
-      "name": "好车主 活动组件中台-前端",
+      "name": "好车主 活动组件中台系统",
       "description": "负责前端编辑器的开发、组件开发脚手架搭建，实现快速拖拉拽生成H5活动落地页，解耦式开发组件和设置项",
-      "technologies": ["Vue 3", "Svelte", "TypeScript", "vite"],
+      "technologies": ["Vue 3", "Svelte", "TypeScript", "vite", "pinia", "Element Plus"],
       "highlights": [
-        "实现拖拽式组件页面搭建，打包预览上线等一站式服务，每年上线总分机构页面超2000+",
-        "实现umd格式动态加载、输出组件，解耦基座和组件开发共建组件市场，覆盖团队内多个业务线"
+        "实现拖拽式组件编辑页面，使用【node打包JSON数据+H5模版】的形式5分钟搭建活动落地页，每年上线全国总分机构页面超2000+",
+        "实现umd格式动态加载组件、统一弹窗队列注、埋点代理上报、xhr拦截等多项系统核心机制",
+        "维护远程组件开发模版、CLI注册工具，解耦基座和组件开发，实现共建组件市场，覆盖团队内多个业务线，上线超50+核心组件"
       ]
     },
     {
       "id": "proj2",
+      "name": "好车主 节点营销活动业务",
+      "description": "负责部分S级节点活动前端页面开发",
+      "technologies": ["Vue 3", "TypeScript", "vite", "vue-router"],
+      "highlights": [
+        "利用Intersection Observer实现懒加载容器组件，提升首屏加载速度，减少页面请求数",
+        "基于【队列 + Object.defineproperty劫持】实现PostEventManger，解决了app的window回调被覆盖的问题",
+        "实践【BEM+SCSS】、【CSS Module】等方案，提升项目代码可维护性"
+      ]
+    },
+    {
+      "id": "proj3",
       "name": "JSONME简历",
-      "description": "基于JSON配置的简历网站生成器",
-      "technologies": ["Vue 3", "TypeScript", "Tailwind CSS", "Vite"],
+      "description": "使用cursor辅助编程，实现基于JSON配置的简历网站生成器",
+      "technologies": ["Vibe Code", "Tailwind CSS", "Vite"],
       "url": "https://young-4ever.github.io/jsonme/",
       "github": "https://github.com/young-4ever/jsonme",
       "highlights": [

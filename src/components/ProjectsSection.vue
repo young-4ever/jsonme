@@ -23,7 +23,7 @@
     </div>
     
     <!-- 其他主题的常规显示 -->
-    <div v-else class="grid grid-cols-1 lg:grid-cols-2 lg:gap-6 sm:gap-x-6 sm:gap-y-0 projects-grid">
+    <div v-else class="grid grid-cols-1 lg:gap-6 sm:gap-x-6 sm:gap-y-0 projects-grid">
       <div
         v-for="(project, index) in sortedProjects"
         :key="project.id"

@@ -299,7 +299,7 @@
     &-name {
       display: block !important;
       background: transparent !important;
-      min-width: 50pt;
+      min-width: 58pt;
       text-align: right;
 
       &-tag {
